@@ -1,8 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Ball3D : MonoBehaviour
 {
-    public float launchForce = 0.15f;
+    public float launchForce = 4f;
+    public float magnusConstant = 0.05f;
     
     private Rigidbody rb;
     private Vector3 originalPosition;
@@ -12,14 +14,19 @@ public class Ball3D : MonoBehaviour
         
         originalPosition = transform.position;
         rb = GetComponent<Rigidbody>();
-        rb.maxLinearVelocity = 9;
+        //rb.maxLinearVelocity = 9;
         Launch();
     }
 
     public void Relaunch()
     {
-        this.transform.position = originalPosition;
+        RigidbodyInterpolation pre_interpolation = rb.interpolation;
+        rb.interpolation = RigidbodyInterpolation.None; // disattiva interpolazione per evitare di far impazzire unity
+        rb.position = originalPosition;
+        rb.rotation = Quaternion.identity;
         rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.interpolation = pre_interpolation; // riattiva l'interpolazione al valore precedente
         Launch();
     }
 
@@ -32,6 +39,12 @@ public class Ball3D : MonoBehaviour
         Vector3 launchDirection = new Vector3(0, -0.6f, directionZ).normalized;
         Random.Range(-0.3f, 0.3f);
         // Apply an impulse force to shoot the ball
-        rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
+        rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
+    }
+    
+    void FixedUpdate()
+    {
+        Vector3 magnusForce = Vector3.Cross(rb.angularVelocity, rb.linearVelocity) * magnusConstant;
+        rb.AddForce(magnusForce, ForceMode.Force);
     }
 }

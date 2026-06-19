@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Paddle3DBot : MonoBehaviour
@@ -12,12 +13,12 @@ public class Paddle3DBot : MonoBehaviour
 
     private Rigidbody followRigidBody;
     private Vector3 lastBallPos;
-    private float bounceFactor = 1;
+    private float bounceFactor = 1.4f;
 
     void Start()
     {
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.01f * Time.timeScale;
+        // Time.timeScale = 1f;
+        // Time.fixedDeltaTime = 0.005f * Time.timeScale;
         rb = GetComponent<Rigidbody>();
         followRigidBody = follow.GetComponent<Rigidbody>();
         
@@ -31,6 +32,11 @@ public class Paddle3DBot : MonoBehaviour
             break;
         }
 
+    }
+
+    private void Update()
+    {
+        Debug.DrawLine(this.transform.position + new Vector3(0, 0.13f, 0), this.transform.position + this.transform.forward*0.3f + new Vector3(0, 0.13f, 0), Color.coral);
     }
 
     void FixedUpdate()
@@ -135,4 +141,20 @@ public class Paddle3DBot : MonoBehaviour
         Quaternion nuovaRotazione = Quaternion.FromToRotation(Vector3.forward, targetBounceSurfaceNormal);
         return nuovaRotazione;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PingPongBall"))
+        {
+            Rigidbody brb = collision.gameObject.GetComponent<Rigidbody>();
+            Vector3 currVel = brb.linearVelocity;
+            Vector3 bounceVel = Vector3.Reflect(currVel, transform.forward);//collision.contacts[0].normal);
+            
+            // change bounce speed
+           //bounceVel = bounceVel.normalized * 3.5f; 
+            
+            brb.linearVelocity = bounceVel * bounceFactor;
+        }
+    }
+    
 }
