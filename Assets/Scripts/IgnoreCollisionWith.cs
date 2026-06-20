@@ -8,7 +8,7 @@ public class IgnoreCollisionWith : MonoBehaviour
 
     void Start()
     { 
-        Physics.IgnoreCollision(otherObject.GetComponent<Collider>(), GetComponent<Collider>());
+        //Physics.IgnoreCollision(otherObject.GetComponent<Collider>(), GetComponent<Collider>());
     }
 
 }

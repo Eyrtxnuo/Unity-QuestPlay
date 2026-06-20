@@ -5,6 +5,7 @@ public class Ball3D : MonoBehaviour
 {
     public float launchForce = 4f;
     public float magnusConstant = 0.05f;
+    public float maxSpeed = 20f;
     
     private Rigidbody rb;
     private Vector3 originalPosition;
@@ -46,5 +47,13 @@ public class Ball3D : MonoBehaviour
     {
         Vector3 magnusForce = Vector3.Cross(rb.angularVelocity, rb.linearVelocity) * magnusConstant;
         rb.AddForce(magnusForce, ForceMode.Force);
+        
+        //clamp della velocità per evitare di creare satelliti
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed);
+        }
+        
+        
     }
 }
