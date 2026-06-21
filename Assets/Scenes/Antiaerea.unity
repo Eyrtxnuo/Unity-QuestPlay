@@ -3786,12 +3786,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 708636739}
-  - component: {fileID: 708636738}
-  - component: {fileID: 708636737}
-  - component: {fileID: 708636736}
   - component: {fileID: 708636741}
   - component: {fileID: 708636742}
   - component: {fileID: 708636740}
+  - component: {fileID: 708636743}
   m_Layer: 0
   m_Name: GunBarrel
   m_TagString: Untagged
@@ -3799,83 +3797,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &708636736
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708636735}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &708636737
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708636735}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 0
-  m_RendererPriority: 0
-  m_Materials: []
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &708636738
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708636735}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &708636739
 Transform:
   m_ObjectHideFlags: 0
@@ -4026,13 +3947,118 @@ MonoBehaviour:
   m_GameObject: {fileID: 708636735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7acf346777334e14f908e0208c60257d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e1a2dfc069fa9a4f922e2e4fb75b17e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GunControl
+  m_EditorClassIdentifier: Assembly-CSharp::AssaultRifleGunControl
   maxHitDistance: 50
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 31
+  recoilForce: 5
+  fireDelay: 0.08
+  shotSounds:
+  - {fileID: 8300000, guid: 8d159d8e5b36bd24c89f457214476f22, type: 3}
+  - {fileID: 8300000, guid: e79e0b3ee719c434fba5c8b564f0d714, type: 3}
+  - {fileID: 8300000, guid: 936ea495d0cc90d46a26c027a2763703, type: 3}
+  - {fileID: 8300000, guid: 7a1d499109c0b6546838fb1a608577da, type: 3}
+  volume: 1
+--- !u!82 &708636743
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708636735}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &718815356
 GameObject:
   m_ObjectHideFlags: 0
@@ -10646,7 +10672,7 @@ GameObject:
   - component: {fileID: 2002085020}
   m_Layer: 0
   m_Name: PseudoGun
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11467,13 +11493,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2002085019}
     m_Modifications:
+    - target: {fileID: 249546796450176484, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 615393198781939824, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Magazine
+      objectReference: {fileID: 0}
+    - target: {fileID: 708985499878717189, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Carrier
+      objectReference: {fileID: 0}
     - target: {fileID: 786292695766752204, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
       propertyPath: m_Name
       value: AR_Weapon
       objectReference: {fileID: 0}
-    - target: {fileID: 2734498959261460380, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
+    - target: {fileID: 1658446870069311297, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Stock
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693339137163736819, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Front_Sight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3587070903369503554, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Trigger
       objectReference: {fileID: 0}
     - target: {fileID: 5261424022781329676, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11514,6 +11560,10 @@ PrefabInstance:
     - target: {fileID: 5261424022781329676, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355627457008795956, guid: 95c9e6bdd37d407479ec75861b5dd0b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_Main_Sight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

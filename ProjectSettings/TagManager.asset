@@ -7,6 +7,7 @@ TagManager:
   - MainSubcomponent
   - PingPongBall
   - AimTarget
+  - Gun
   layers:
   - Default
   - TransparentFX
