@@ -10,6 +10,8 @@ public class AssaultRifleGunControl : GunControl
     public AudioClip[] shotSounds;
     [Range(0f, 1f)] public float volume = 0.8f;
     
+    public ParticleSystem muzzleFlash;
+    
     protected override void Start()
     {
         base.Start();
@@ -25,6 +27,7 @@ public class AssaultRifleGunControl : GunControl
                 Debug.Log("Trigger premuto.");
                 ExecuteShot();
                 PlayShotSFX();
+                PlayVisualEffects();
                 lastFire = Time.time;
             }
         }
@@ -36,6 +39,15 @@ public class AssaultRifleGunControl : GunControl
         {
             AudioClip shotSound = shotSounds[Random.Range(0, shotSounds.Length)];
             audioSource.PlayOneShot(shotSound, volume);
+        }
+    }
+    
+    private void PlayVisualEffects()
+    {
+        if (muzzleFlash != null)
+        {
+            // Play() avvia il Burst che abbiamo configurato
+            muzzleFlash.Play(); 
         }
     }
 }
