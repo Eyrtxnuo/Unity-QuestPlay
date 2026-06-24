@@ -50,8 +50,8 @@ public class GunControl : MonoBehaviour
         if (gun)
         {
             Rigidbody grb = gun.GetComponent<Rigidbody>();
-            grb.AddForce(-grb.transform.forward * recoilForce, ForceMode.Impulse);
-            grb.AddRelativeTorque(Vector3.left * (recoilForce/2), ForceMode.Impulse);
+            grb.AddForce(-grb.transform.forward * 4, ForceMode.Impulse);
+            grb.AddRelativeTorque(Vector3.left * (recoilForce/4), ForceMode.Impulse);
         }
     }
 }
