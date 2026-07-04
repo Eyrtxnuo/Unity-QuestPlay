@@ -189,6 +189,10 @@ MonoBehaviour:
         2}'
     - line: '|   - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b,
         type: 3}'
+    - line: '|   - {fileID: 4045019326524178487, guid: fa6017d1af151274f812ea2610934c17,
+        type: 2}'
+    - line: '|   - {fileID: -8626815254929709313, guid: f557eebee5ac24f4ab5d5923889a87d0,
+        type: 2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
     - line: '|   xboxOneDisableKinectGpuReservation: 1'
@@ -208,7 +212,7 @@ MonoBehaviour:
     - line: '|   androidMaxAspectRatio: 2.4'
     - line: '|   androidMinAspectRatio: 1'
     - line: '|   applicationIdentifier:'
-    - line: '|     Android: com.UnityTechnologies.com.unity.template.urpblank'
+    - line: '|     Android: it.bossimattia.vr.meta.pingpong'
     - line: '|     Standalone: com.Unity-Technologies.com.unity.template.urp-blank'
     - line: '|     iPhone: com.Unity-Technologies.com.unity.template.urp-blank'
     - line: '|   buildNumber:'
@@ -301,7 +305,7 @@ MonoBehaviour:
     - line: '|   clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a'
     - line: '|   templatePackageId: com.unity.template.urp-blank@17.1.0'
     - line: '|   templateDefaultScene: Assets/Scenes/SampleScene.unity'
-    - line: '|   useCustomMainManifest: 0'
+    - line: '|   useCustomMainManifest: 1'
     - line: '|   useCustomLauncherManifest: 0'
     - line: '|   useCustomMainGradleTemplate: 0'
     - line: '|   useCustomLauncherGradleManifest: 0'
