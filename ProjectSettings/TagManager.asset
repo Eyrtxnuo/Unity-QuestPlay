@@ -8,6 +8,25 @@ TagManager:
   - PingPongBall
   - AimTarget
   - Gun
+  - QDSUIBackplateGradient
+  - QDSUIBorderlessButton
+  - QDSUIIcon
+  - QDSUISharedThemeColor
+  - QDSUIDestructiveButton
+  - QDSUISecondaryButton
+  - QDSUIPrimaryButton
+  - QDSUIAccentColor
+  - QDSUITextInvertedColor
+  - QDSUITextSecondaryInvertedColor
+  - QDSUIToggleButton
+  - QDSUITextSecondaryColor
+  - QDSUIToggleBorderlessButton
+  - QDSUIToggleCheckboxRadio
+  - QDSUITooltip
+  - QDSUIToggleSwitch
+  - QDSUISection
+  - QDSUITextInputField
+  - QDSUIBackplate
   layers:
   - Default
   - TransparentFX
@@ -40,7 +59,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - OVROverlayCanvas Rendering
   m_SortingLayers:
   - name: Default
     uniqueID: 0

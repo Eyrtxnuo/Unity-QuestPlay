@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void GoToWorld()
     {
-        StartCoroutine(LoadSceneAsyncRoutine("Antiaerea"));
+        //StartCoroutine(LoadSceneAsyncRoutine("Antiaerea"));
     }
     
     private IEnumerator LoadSceneAsyncRoutine(string sceneName)
