@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/PingPong.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/AirHokey.unity
+    path: Assets/Scenes/AirHockey.unity
     guid: fb4418e878d8bcc44b96fb6bc3d05e0a
   - enabled: 1
-    path: Assets/Scenes/Antiaerea.unity
+    path: Assets/Scenes/ShootingRange.unity
     guid: b0b8b02b3f319cf408c4128ae5bfb973
   - enabled: 1
     path: Assets/Scenes/HandPoses.unity

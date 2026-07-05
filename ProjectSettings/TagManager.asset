@@ -27,6 +27,7 @@ TagManager:
   - QDSUISection
   - QDSUITextInputField
   - QDSUIBackplate
+  - QDSUILineDrawing
   layers:
   - Default
   - TransparentFX
