@@ -53,7 +53,7 @@ public class GyroController : MonoBehaviour
         Vector3 inputDirection3D = new Vector3(AnalogInput.x, 0f, AnalogInput.y);
         Vector3 endPos = startPos + (inputDirection3D * debugLineLength);
         Color lineColor = Color.Lerp(Color.green, Color.red, AnalogInput.magnitude);
-        Debug.Log(AnalogInput.magnitude);
+        //Debug.Log(AnalogInput.magnitude);
         Debug.DrawLine(startPos, endPos, lineColor);
         Debug.DrawRay(startPos, Vector3.up * 0.2f, Color.red);
     }
