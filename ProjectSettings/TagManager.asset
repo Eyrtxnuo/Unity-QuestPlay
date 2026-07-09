@@ -28,6 +28,7 @@ TagManager:
   - QDSUITextInputField
   - QDSUIBackplate
   - QDSUILineDrawing
+  - CR_Scarecrow
   layers:
   - Default
   - TransparentFX
