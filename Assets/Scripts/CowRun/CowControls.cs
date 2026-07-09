@@ -2,44 +2,73 @@
 
 public class CowControls : MonoBehaviour
 {
-    public float acceleration = 0.1f;
-    public float maxSpeed = 4f;
+    [Header("Movement Settings")]
+    public float forwardAcceleration = 0.5f;
+    public float maxForwardSpeed = 4f;
+    public float maxOffroadSpeed = 0.5f;
+    
+    [Header("Rotation Settings")]
+    public float turnAcceleration = 1f;
+    public float maxTurnSpeed = 15;
+    [Header("Physics Settings")]
     [Min(1f)]
     public float brakeIntensity = 1.05f;
     public LayerMask floorLayer = 64; // Walkable
       
-    private Vector3 _velocity = Vector3.zero;
+    private float _currentForwardSpeed = 0f;
+    private float _currentTurnSpeed = 0f;
     
     public GyroController gyroController;
+
     void FixedUpdate()
     {
         var movement = gyroController.AnalogInput;
-        if (movement.magnitude < 0.1f)
+
+        if (Mathf.Abs(movement.x) < 0.1f)
         {
-            this._velocity /= brakeIntensity;
-            if (this._velocity.magnitude < 0.1f)
+            _currentTurnSpeed /= brakeIntensity;
+            if (Mathf.Abs(_currentTurnSpeed) < 0.1f)
             {
-                this._velocity = Vector3.zero;
+                _currentTurnSpeed = 0f;
             }
         }
         else
         {
-            this._velocity.x = Mathf.Clamp(this._velocity.x + movement.x * acceleration, -maxSpeed, maxSpeed);
-            this._velocity.z = Mathf.Clamp(this._velocity.z + movement.y * acceleration, -maxSpeed, maxSpeed);
+            _currentTurnSpeed = Mathf.Clamp(_currentTurnSpeed + movement.x * turnAcceleration, -maxTurnSpeed, maxTurnSpeed);
         }
-        Vector3 targetPosition = transform.position + (_velocity * Time.fixedDeltaTime);
+
+        if (Mathf.Abs(movement.y) < 0.1f)
+        {
+            _currentForwardSpeed /= brakeIntensity;
+            if (Mathf.Abs(_currentForwardSpeed) < 0.1f)
+            {
+                _currentForwardSpeed = 0f;
+            }
+        }
+        else
+        {
+            _currentForwardSpeed = Mathf.Clamp(_currentForwardSpeed + movement.y * forwardAcceleration, -maxForwardSpeed, maxForwardSpeed);
+        }
+
+        transform.Rotate(0, _currentTurnSpeed * Time.fixedDeltaTime, 0, Space.World);
+
+        Vector3 velocityVector = transform.forward * _currentForwardSpeed;
+        Vector3 targetPosition = transform.position + (velocityVector * Time.fixedDeltaTime);
+        
         Debug.Log(CheckGround(targetPosition));
+        
         if (!CheckGround(targetPosition))
         {
-            _velocity.x = 0;
+            _currentForwardSpeed = Mathf.Clamp(_currentForwardSpeed, -maxOffroadSpeed, maxOffroadSpeed);;
+            velocityVector = transform.forward * _currentForwardSpeed;
         }
-        this.transform.Translate(_velocity * Time.fixedDeltaTime, Space.World);
-        
+
+        transform.position += velocityVector * Time.fixedDeltaTime;
     }
 
     bool CheckGround(Vector3 targetPosition)
     {
         Debug.DrawRay(targetPosition, Vector3.down, Color.red);
-        return Physics.Raycast(targetPosition, Vector3.down, 1, floorLayer);
+        return Physics.Raycast(targetPosition + Vector3.up * 0.1f, Vector3.down, 1f, floorLayer);
     }
 }
