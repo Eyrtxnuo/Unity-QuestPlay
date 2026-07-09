@@ -22,13 +22,13 @@ public class GyroController : MonoBehaviour
         //Debug.Log("pitch: " + pitchX + " " + rollZ);
         
         //Se il controller è quasi verticale evito di fare minimovimenti.
-        if (Math.Abs(pitchX) < deadZone && Math.Abs(pitchX) < deadZone)
+        if (Math.Abs(pitchX) < deadZone && Math.Abs(rollZ) < deadZone)
         {
             pitchX = 0;
             rollZ = 0;
         }
         
-        float inputY = -Mathf.Clamp(pitchX / maxTiltAngle, -1f, 1f);
+        float inputY = Mathf.Clamp(pitchX / maxTiltAngle, -1f, 1f);
         float inputX = Mathf.Clamp(-rollZ / maxTiltAngle, -1f, 1f); 
         
         AnalogInput = new Vector2(inputX, inputY);
