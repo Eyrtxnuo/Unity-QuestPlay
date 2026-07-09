@@ -13,7 +13,7 @@ public class CowControls : MonoBehaviour
     void FixedUpdate()
     {
         var movement = gyroController.AnalogInput;
-        Debug.Log(movement.magnitude);
+        //Debug.Log(movement.magnitude);
         if (movement.magnitude < 0.1f)
         {
             this._velocity /= brakeIntensity;

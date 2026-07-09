@@ -14,7 +14,6 @@ public class CowInteraction : MonoBehaviour
         if (triggerObject.CompareTag("CR_Scarecrow"))
         {
             Debug.Log("Trigger scarecrow.");
-            Destroy(triggerObject.gameObject);
             Scarecrow scarecrow = triggerObject.gameObject.GetComponent<Scarecrow>();
             if (scarecrow == null) return;
             var points = scarecrow.PointsValue;
