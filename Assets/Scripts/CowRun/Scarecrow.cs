@@ -1,31 +1,24 @@
-﻿using Meta.WitAi;
+﻿using CowRun;
+using Meta.WitAi;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Collider))] 
-public class Scarecrow : MonoBehaviour
+public class Scarecrow : CollidingElement
 {
-    public int PointsValue { get; private set; } = 1; 
     private Animator _animator;
-    private Collider _collider;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override int PointsValue { get; protected set; } = 1;
+
+    protected override void Start()
     {
-        _animator = GetComponent<Animator>();
-        _collider = GetComponent<Collider>();
+        base.Start();
+        this._animator = GetComponent<Animator>();
     }
 
-    private void OnTriggerEnter(Collider triggerObject)
+    public override CollisionEffect Hit()
     {
-    }
-
-    public void HitScarecrow()
-    {
-        Debug.Log("Hit scarecrow.");
-        // Default (fatto per overridare)
-        _collider.enabled = false;
+        base.Hit();
         _animator.Play("fallAnimation");
-        //Destroy(this.gameObject);
+        return new SpeedMultiplierEffect(0.96f);
     }
 }

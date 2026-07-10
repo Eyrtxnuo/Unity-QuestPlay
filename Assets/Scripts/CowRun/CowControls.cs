@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CowRun;
+using UnityEngine;
 
 public class CowControls : MonoBehaviour
 {
@@ -12,8 +13,7 @@ public class CowControls : MonoBehaviour
     public float maxTurnSpeed = 20;
     
     [Header("Physics Settings")]
-    [Min(1f)]
-    public float brakeIntensity = 1.05f;
+    public float brakeIntensity = 2f;
     public LayerMask floorLayer = 64; // Walkable
       
     private float _currentForwardSpeed = 0f;
@@ -30,16 +30,23 @@ public class CowControls : MonoBehaviour
         _currentTurnSpeed = Mathf.MoveTowards(_currentTurnSpeed, targetTurnSpeed, turnAcceleration * Time.fixedDeltaTime);
 
         // movement handling
-        float currentMaxSpeed = maxForwardSpeed;
         Vector3 projectedPosition = transform.position + (transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime));
         
+        float currentMaxSpeed = maxForwardSpeed;
         if (!CheckGround(projectedPosition))
         {
             currentMaxSpeed = maxOffroadSpeed;
         }
 
         float targetForwardSpeed = input.y * currentMaxSpeed;
-        _currentForwardSpeed = Mathf.MoveTowards(_currentForwardSpeed, targetForwardSpeed, forwardAcceleration * Time.fixedDeltaTime);
+        if (_currentForwardSpeed < targetForwardSpeed)
+        {
+            _currentForwardSpeed = Mathf.MoveTowards(_currentForwardSpeed, targetForwardSpeed, forwardAcceleration * Time.fixedDeltaTime);
+        }
+        else
+        {
+            _currentForwardSpeed = _currentForwardSpeed = Mathf.Lerp(_currentForwardSpeed, targetForwardSpeed, brakeIntensity * Time.fixedDeltaTime);
+        }
 
         // Applying 
         transform.Rotate(0, _currentTurnSpeed * Time.fixedDeltaTime, 0, Space.World);
@@ -50,5 +57,21 @@ public class CowControls : MonoBehaviour
     {
         Debug.DrawRay(targetPosition, Vector3.down, Color.red);
         return Physics.Raycast(targetPosition + Vector3.up * 0.1f, Vector3.down, 1f, floorLayer);
+    }
+
+    public void ApplyEffect(CollisionEffect effect)
+    {
+        switch (effect.type)
+        {
+            case CollisionType.SpeedSet:
+                SpeedSetEffect spe = (SpeedSetEffect)effect;
+                this._currentForwardSpeed = spe.speed;
+                break;
+            case CollisionType.SpeedMultiplier:
+                SpeedMultiplierEffect sme = (SpeedMultiplierEffect)effect;
+                this._currentForwardSpeed *= sme.speedMultiplier;
+                break;
+        }
+        
     }
 }

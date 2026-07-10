@@ -357,7 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f9440d09721c849864899e8986e219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.TransformRecognizerActiveState
-  _hand: {fileID: 0}
   _transformFeatureStateProvider: {fileID: 2119828194}
   _transformFeatureConfigs:
     _values:
@@ -381,7 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f7cfb1f9629da4494ac0840f3a3cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.ShapeRecognizerActiveState
-  _hand: {fileID: 0}
   _fingerFeatureStateProvider: {fileID: 2119828192}
   _shapes:
   - {fileID: 11400000, guid: 55734ff6ac9c48443ab37831fdd69d7b, type: 2}
@@ -1095,8 +1093,6 @@ MonoBehaviour:
   wideMotionModeHandPosesEnabled: 0
   _readOnlyFastMotionModeHandPosesEnabled: 0
   fastMotionModeHandPosesEnabled: 0
-  _readOnlyWideMotionMode2HandPosesEnabled: 0
-  wideMotionMode2HandPosesEnabled: 0
   dynamicResolutionVersion: 1
 --- !u!114 &1232190421
 MonoBehaviour:
@@ -1705,7 +1701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f9440d09721c849864899e8986e219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.TransformRecognizerActiveState
-  _hand: {fileID: 0}
   _transformFeatureStateProvider: {fileID: 1568708681}
   _transformFeatureConfigs:
     _values:
@@ -1729,7 +1724,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f7cfb1f9629da4494ac0840f3a3cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.ShapeRecognizerActiveState
-  _hand: {fileID: 0}
   _fingerFeatureStateProvider: {fileID: 1568708682}
   _shapes:
   - {fileID: 11400000, guid: 55734ff6ac9c48443ab37831fdd69d7b, type: 2}
@@ -1863,7 +1857,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f9440d09721c849864899e8986e219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.TransformRecognizerActiveState
-  _hand: {fileID: 0}
   _transformFeatureStateProvider: {fileID: 1568708681}
   _transformFeatureConfigs:
     _values:
@@ -1887,7 +1880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f7cfb1f9629da4494ac0840f3a3cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.ShapeRecognizerActiveState
-  _hand: {fileID: 0}
   _fingerFeatureStateProvider: {fileID: 1568708682}
   _shapes:
   - {fileID: 11400000, guid: 8c50ac09b966a6c41a742e54e91506c3, type: 2}
@@ -1998,7 +1990,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f9440d09721c849864899e8986e219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.TransformRecognizerActiveState
-  _hand: {fileID: 0}
   _transformFeatureStateProvider: {fileID: 1568708681}
   _transformFeatureConfigs:
     _values:
@@ -2022,7 +2013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f7cfb1f9629da4494ac0840f3a3cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PoseDetection.ShapeRecognizerActiveState
-  _hand: {fileID: 0}
   _fingerFeatureStateProvider: {fileID: 1568708682}
   _shapes:
   - {fileID: 11400000, guid: 01ef3ba1d06a8164eb4a2e61df68cc08, type: 2}

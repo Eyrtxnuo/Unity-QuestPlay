@@ -28,7 +28,9 @@ TagManager:
   - QDSUITextInputField
   - QDSUIBackplate
   - QDSUILineDrawing
-  - CR_Scarecrow
+  - SamplesInfoPanel
+  - Locomotion
+  - CR_Collider
   layers:
   - Default
   - TransparentFX

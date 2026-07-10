@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c848eb5766600a64eab9fcaefcd93e18, type: 3}
       propertyPath: m_TagString
-      value: CR_Scarecrow
+      value: CR_Collider
       objectReference: {fileID: 0}
     - target: {fileID: 1451360964211670116, guid: c848eb5766600a64eab9fcaefcd93e18, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
