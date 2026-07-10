@@ -3,13 +3,14 @@
 public class CowControls : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float forwardAcceleration = 0.5f;
+    public float forwardAcceleration = 1f;
     public float maxForwardSpeed = 4f;
-    public float maxOffroadSpeed = 0.5f;
+    public float maxOffroadSpeed = 1f;
     
     [Header("Rotation Settings")]
-    public float turnAcceleration = 1f;
-    public float maxTurnSpeed = 15;
+    public float turnAcceleration = 10f;
+    public float maxTurnSpeed = 20;
+    
     [Header("Physics Settings")]
     [Min(1f)]
     public float brakeIntensity = 1.05f;
@@ -22,48 +23,27 @@ public class CowControls : MonoBehaviour
 
     void FixedUpdate()
     {
-        var movement = gyroController.AnalogInput;
+        var input = gyroController.AnalogInput;
+        
+        // Rotation handlind
+        float targetTurnSpeed = input.x * maxTurnSpeed; 
+        _currentTurnSpeed = Mathf.MoveTowards(_currentTurnSpeed, targetTurnSpeed, turnAcceleration * Time.fixedDeltaTime);
 
-        if (Mathf.Abs(movement.x) < 0.1f)
+        // movement handling
+        float currentMaxSpeed = maxForwardSpeed;
+        Vector3 projectedPosition = transform.position + (transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime));
+        
+        if (!CheckGround(projectedPosition))
         {
-            _currentTurnSpeed /= brakeIntensity;
-            if (Mathf.Abs(_currentTurnSpeed) < 0.1f)
-            {
-                _currentTurnSpeed = 0f;
-            }
-        }
-        else
-        {
-            _currentTurnSpeed = Mathf.Clamp(_currentTurnSpeed + movement.x * turnAcceleration, -maxTurnSpeed, maxTurnSpeed);
-        }
-
-        if (Mathf.Abs(movement.y) < 0.1f)
-        {
-            _currentForwardSpeed /= brakeIntensity;
-            if (Mathf.Abs(_currentForwardSpeed) < 0.1f)
-            {
-                _currentForwardSpeed = 0f;
-            }
-        }
-        else
-        {
-            _currentForwardSpeed = Mathf.Clamp(_currentForwardSpeed + movement.y * forwardAcceleration, -maxForwardSpeed, maxForwardSpeed);
+            currentMaxSpeed = maxOffroadSpeed;
         }
 
+        float targetForwardSpeed = input.y * currentMaxSpeed;
+        _currentForwardSpeed = Mathf.MoveTowards(_currentForwardSpeed, targetForwardSpeed, forwardAcceleration * Time.fixedDeltaTime);
+
+        // Applying 
         transform.Rotate(0, _currentTurnSpeed * Time.fixedDeltaTime, 0, Space.World);
-
-        Vector3 velocityVector = transform.forward * _currentForwardSpeed;
-        Vector3 targetPosition = transform.position + (velocityVector * Time.fixedDeltaTime);
-        
-        Debug.Log(CheckGround(targetPosition));
-        
-        if (!CheckGround(targetPosition))
-        {
-            _currentForwardSpeed = Mathf.Clamp(_currentForwardSpeed, -maxOffroadSpeed, maxOffroadSpeed);;
-            velocityVector = transform.forward * _currentForwardSpeed;
-        }
-
-        transform.position += velocityVector * Time.fixedDeltaTime;
+        transform.position += transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime);
     }
 
     bool CheckGround(Vector3 targetPosition)
