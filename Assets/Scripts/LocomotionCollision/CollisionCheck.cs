@@ -15,6 +15,7 @@ namespace LocomotionCollision
         void Update()
         {
             Debug.Log(collision.IsColliding2D(new  Vector2(transform.position.x, transform.position.z)));
+            //Debug.Log(collision.IsColliding(transform.position));
         }
     }
 }
