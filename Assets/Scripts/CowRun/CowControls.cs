@@ -1,4 +1,5 @@
 ﻿using CowRun;
+using LocomotionCollision;
 using UnityEngine;
 
 public class CowControls : MonoBehaviour
@@ -14,7 +15,7 @@ public class CowControls : MonoBehaviour
     
     [Header("Physics Settings")]
     public float brakeIntensity = 2f;
-    public LayerMask floorLayer = 64; // Walkable
+    public LocomotionCollision.LocomotionCollision collision;
       
     private float _currentForwardSpeed = 0f;
     private float _currentTurnSpeed = 0f;
@@ -31,12 +32,8 @@ public class CowControls : MonoBehaviour
 
         // movement handling
         Vector3 projectedPosition = transform.position + (transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime));
-        
-        float currentMaxSpeed = maxForwardSpeed;
-        if (!CheckGround(projectedPosition))
-        {
-            currentMaxSpeed = maxOffroadSpeed;
-        }
+
+        float currentMaxSpeed = GetCurrentMaxForwardSpeed();
 
         float targetForwardSpeed = input.y * currentMaxSpeed;
         if (_currentForwardSpeed < targetForwardSpeed)
@@ -50,13 +47,29 @@ public class CowControls : MonoBehaviour
 
         // Applying 
         transform.Rotate(0, _currentTurnSpeed * Time.fixedDeltaTime, 0, Space.World);
-        transform.position += transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime);
+        var newPosition = transform.position + transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime);
+        if (collision.IsColliding2D(new Vector2(newPosition.x, newPosition.z)) !=
+            LocomotionCollisionType.NoCollision)   // avoid exiting the road
+        {
+            transform.position = newPosition;
+        }
     }
 
-    bool CheckGround(Vector3 targetPosition)
+    /* Gets the max speed based on the road collision
+     */
+    private float GetCurrentMaxForwardSpeed()
     {
-        Debug.DrawRay(targetPosition, Vector3.down, Color.red);
-        return Physics.Raycast(targetPosition + Vector3.up * 0.1f, Vector3.down, 1f, floorLayer);
+        var collType = collision.IsColliding2D(new Vector2(transform.position.x, transform.position.z));
+        switch (collType)
+        {
+            case LocomotionCollisionType.Road:
+                return maxForwardSpeed;
+            case LocomotionCollisionType.OffRoad:
+                return maxOffroadSpeed;
+            case LocomotionCollisionType.NoCollision:
+            default:
+                return 0;
+        }
     }
 
     public void ApplyEffect(CollisionEffect effect)
