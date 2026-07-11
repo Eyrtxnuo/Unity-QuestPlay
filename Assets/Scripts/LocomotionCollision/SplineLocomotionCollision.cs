@@ -13,6 +13,7 @@ namespace LocomotionCollision
         public float roadWidth = 4;
         public float offroadWidth = 12;
         public float roadHeight = 0.1f;
+        public bool roadForceEndStop = true;
         
         void Start()
         {
@@ -27,6 +28,11 @@ namespace LocomotionCollision
             float3 positionLocal = _roadSpline.transform.InverseTransformPoint(position); // spline needs local coordinates.
             SplineUtility.GetNearestPoint(_roadSpline.Spline, positionLocal, out float3 nearestPointLocal, out float t);
             Vector3 nearestPointWorld = _roadSpline.transform.TransformPoint(nearestPointLocal); // returning to world coords.
+
+            if (roadForceEndStop && t is <= 0 or >= 1) //if nearest t is 0 or 1, the position is outside the road spline length
+            {
+                return LocomotionCollisionType.NoCollision;
+            }
 
             // deltaY checks if the point is in the road vertically 
             float deltaY = Mathf.Abs(position.y - nearestPointWorld.y);
@@ -64,7 +70,14 @@ namespace LocomotionCollision
         public override LocomotionCollisionType IsColliding2D(Vector2 position)
         {
             float3 positionLocal = _roadSpline.transform.InverseTransformPoint(new Vector3(position.x, 0, position.y));
-            SplineUtility.GetNearestPoint(_roadSpline.Spline, positionLocal, out var nearestPointLocal, out _);
+            SplineUtility.GetNearestPoint(_roadSpline.Spline, positionLocal, out var nearestPointLocal, out float t);
+            
+            //Debug.Log("t:" + t);
+            if (roadForceEndStop && t is <= 0 or >= 1) //if nearest t is 0 or 1, the position is outside the road spline length
+            {
+                return LocomotionCollisionType.NoCollision;
+            }
+            
             Vector3 nearestPointWorld = _roadSpline.transform.TransformPoint(new Vector3(nearestPointLocal.x, 0, nearestPointLocal.z));
             Vector2 nearestPoint2D = new Vector2(nearestPointWorld.x, nearestPointWorld.z);
             float squaredDistance = (position - nearestPoint2D).sqrMagnitude;
