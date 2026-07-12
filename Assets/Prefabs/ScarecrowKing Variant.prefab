@@ -83,6 +83,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2674675791166109511}
   m_SourcePrefab: {fileID: 100100000, guid: 98e0403e9279c824ebb3607e35740118, type: 3}
+--- !u!1 &2615655827555713861 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3262169409894461589, guid: 98e0403e9279c824ebb3607e35740118, type: 3}
+  m_PrefabInstance: {fileID: 651087726803956688}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4627129164470846151 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5278216165425328407, guid: 98e0403e9279c824ebb3607e35740118, type: 3}
@@ -100,6 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86811a243ac044658c0413ca3004c3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CowRun.ScarecrowKing
+  roadSpline: {fileID: 0}
+  container: {fileID: 2615655827555713861}
+  directionReverseBorder: 0.7
+  angleOffset: 20
 --- !u!4 &5439519151541639293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4788501849358920621, guid: 98e0403e9279c824ebb3607e35740118, type: 3}
