@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -97,6 +98,21 @@ namespace LocomotionCollision
                 Debug.DrawLine(new Vector3(position.x, nearestPointWorld.y, position.y), nearestPointWorld, Color.red);
                 return LocomotionCollisionType.NoCollision;
             }
+        }
+
+
+        public (Vector3 closestPoint, float distance, float t, Vector3 splineTangent) GetClosestPointAndTangent(Vector3 position)
+        {
+            Debug.Log("spline");
+            Debug.Log(_roadSpline);
+            Debug.Log(_roadSpline.transform);
+            float3 positionLocal = _roadSpline.transform.InverseTransformPoint(position); // spline needs local coordinates.
+            SplineUtility.GetNearestPoint(_roadSpline.Spline, positionLocal, out float3 nearestPointLocal, out float t);
+            Vector3 nearestPointWorld = _roadSpline.transform.TransformPoint(nearestPointLocal); // returning to world coords.
+            float distance = Vector3.Distance(position, nearestPointWorld);
+            float3 tangentLocal = _roadSpline.Spline.EvaluateTangent(t);
+            Vector3 splineTangent = _roadSpline.transform.TransformDirection(tangentLocal).normalized;
+            return (nearestPointWorld, distance, t, splineTangent);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
+using LocomotionCollision;
+using UnityEngine;
 
 namespace CowRun
 {
@@ -6,6 +9,13 @@ namespace CowRun
     public class ScarecrowKing : CollidingElement
     {
         private Animator _animator;
+        private Vector3 _jumpDistance = new Vector3(0.3f, 0, 0);
+        private bool dirRight = true;
+
+        public SplineLocomotionCollision roadSpline;
+        public GameObject container;
+        public float directionReverseBorder = 0.5f;
+        public float angleOffset = 20;
     
         public override int PointsValue { get; protected set; } = 10;
 
@@ -13,18 +23,79 @@ namespace CowRun
         {
             base.Start();
             this._animator = GetComponent<Animator>();
+            StartCoroutine(StartAnimationRoutine());
         }
         
-        void FixedUpdate()
-        {
-            // implementa movimento TODO
-        }
 
         public override CollisionEffect Hit()
         {
             base.Hit();
             _animator.Play("fallAnimation");
             return new SpeedMultiplierEffect(0.96f);
+        }
+
+
+        private IEnumerator StartAnimationRoutine()
+        {
+            yield return null;
+            EseguiBalzoLaterale();
+        }
+        
+        
+        
+        public void EseguiBalzoLaterale()
+        {
+            if(this.IsHit) return;// when hit everything stops
+            
+            var (closestPoint, distance, f, splineTangent) = roadSpline.GetClosestPointAndTangent(container.transform.position);
+            
+            //Reverse?
+            if ((roadSpline.roadWidth/2) - directionReverseBorder < distance)
+            {
+                dirRight = !dirRight;
+            }
+            
+            //angle the container
+            var actualOffset = dirRight ? -angleOffset : angleOffset;
+            Vector3 rotatedTangent = Quaternion.Euler(0, actualOffset, 0) * splineTangent;
+            container.transform.rotation = Quaternion.LookRotation(rotatedTangent, Vector3.up);
+            
+
+
+            //animation instance
+            if (dirRight)
+            {
+                StartCoroutine(JumpSequenceRoutine("LateralJumpRight", _jumpDistance));
+            }
+            else
+            {
+                StartCoroutine(JumpSequenceRoutine("LateralJumpLeft", FlipX(_jumpDistance)));
+            }
+        }
+
+        private IEnumerator JumpSequenceRoutine(string animationName = null, Vector3 positionOffset = new Vector3())
+        {
+            _animator.Play(animationName, 0, 0);
+            yield return null;
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            float animationDuration = stateInfo.length;
+            
+            yield return new WaitForSeconds(animationDuration);// waits for the animation end
+            
+            if(!this.IsHit){// skip tp if during animation the scarecrow got hit
+                container.transform.position += container.transform.TransformDirection(positionOffset);
+            }
+            
+            Debug.Log("Balzo fatto");
+
+            EseguiBalzoLaterale();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Vector3 FlipX(Vector3 vector)
+        {
+            vector.x = -vector.x;
+            return vector;
         }
     }
 }
