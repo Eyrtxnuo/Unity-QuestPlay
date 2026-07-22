@@ -691,6 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThumbsUpPoseTest
   colorChange: {fileID: 1824267447}
+  handObject: {fileID: 828991356}
 --- !u!4 &821657559
 Transform:
   m_ObjectHideFlags: 0
@@ -706,6 +707,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &828991356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3926817986544170146, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
+  m_PrefabInstance: {fileID: 1465774955}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963252429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,7 +1026,7 @@ MonoBehaviour:
   _monoscopic: 0
   _sharpenType: 0
   _disableRecording: 0
-  _enableDynamicResolution: 0
+  _enableDynamicResolution: 1
   minDynamicResolutionScale: 1
   maxDynamicResolutionScale: 1
   quest2MinDynamicResolutionScale: 0.7
@@ -1075,7 +1081,7 @@ MonoBehaviour:
   requestBodyTrackingPermissionOnStartup: 0
   requestFaceTrackingPermissionOnStartup: 0
   requestEyeTrackingPermissionOnStartup: 0
-  requestScenePermissionOnStartup: 0
+  requestScenePermissionOnStartup: 1
   requestRecordAudioPermissionOnStartup: 0
   requestPassthroughCameraAccessPermissionOnStartup: 0
   _localDimming: 1
@@ -1776,6 +1782,7 @@ GameObject:
   - component: {fileID: 1646014934}
   - component: {fileID: 1646014933}
   - component: {fileID: 1646014932}
+  - component: {fileID: 1646014935}
   - component: {fileID: 1646014931}
   - component: {fileID: 1646014930}
   m_Layer: 0
@@ -1844,6 +1851,7 @@ MonoBehaviour:
   _activeStates:
   - {fileID: 1646014933}
   - {fileID: 1646014932}
+  - {fileID: 1646014935}
   _logicOperator: 0
 --- !u!114 &1646014932
 MonoBehaviour:
@@ -1898,6 +1906,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1646014935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646014929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f695b4663f67d74c9246c96005db80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RotationRecogniser
+  obj: {fileID: 828991356}
+  direction: {x: 0, y: 1, z: 0.4}
+  slack: 20
 --- !u!1 &1745726977
 GameObject:
   m_ObjectHideFlags: 0

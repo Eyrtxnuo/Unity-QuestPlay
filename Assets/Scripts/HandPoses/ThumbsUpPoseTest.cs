@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class ThumbsUpPoseTest : MonoBehaviour
 { 
     public GameObject colorChange;
+    public GameObject handObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,5 +20,11 @@ public class ThumbsUpPoseTest : MonoBehaviour
     public void onPoseEnd()
     {
         colorChange.GetComponent<Renderer>().material.color = Color.red;
+    }
+
+    private void Update()
+    {
+        handObject.GetComponent<Renderer>().material.color = Color.darkOrchid;
+        Debug.DrawRay(handObject.transform.position, handObject.transform.forward, Color.springGreen);
     }
 }
