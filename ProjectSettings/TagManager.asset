@@ -31,6 +31,9 @@ TagManager:
   - SamplesInfoPanel
   - Locomotion
   - CR_Collider
+  - PingPongField
+  - PingPongPlayerPaddle
+  - PingPongOpponentPaddle
   layers:
   - Default
   - TransparentFX

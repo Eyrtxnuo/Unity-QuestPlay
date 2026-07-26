@@ -93,8 +93,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 49143c5026826ad429148b225bfffc5f, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: eb836b948c9615d4eb97f8ae51f1e7aa, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -956,6 +956,10 @@ PrefabInstance:
     - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_Name
       value: PaddleVr
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_TagString
+      value: PingPongPlayerPaddle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2907,7 +2911,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -5720,7 +5724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball3D
   launchForce: 3.5
-  magnusConstant: 0.005
+  magnusConstant: 0.01
+  maxSpeed: 20
 --- !u!4 &948860416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5350894737792160111, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
@@ -7474,6 +7479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PaddleBot
       objectReference: {fileID: 0}
+    - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_TagString
+      value: PingPongOpponentPaddle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7615,8 +7624,6 @@ MonoBehaviour:
   wideMotionModeHandPosesEnabled: 0
   _readOnlyFastMotionModeHandPosesEnabled: 0
   fastMotionModeHandPosesEnabled: 0
-  _readOnlyWideMotionMode2HandPosesEnabled: 0
-  wideMotionMode2HandPosesEnabled: 0
   dynamicResolutionVersion: 1
 --- !u!114 &1309491046
 MonoBehaviour:
@@ -8364,6 +8371,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 143694685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1419050084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5226146800311933236, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+  m_PrefabInstance: {fileID: 985077345458147450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1430542704
 GameObject:
   m_ObjectHideFlags: 0
@@ -9556,6 +9568,52 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1622407033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622407035}
+  - component: {fileID: 1622407034}
+  m_Layer: 0
+  m_Name: PingPongGameMaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1622407034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622407033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26c195e725f7504c8246b457bfe4286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PingPong.PingPongGameMaster
+  netObject: {fileID: 1419050084}
+  ball: {fileID: 948860411}
+--- !u!4 &1622407035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622407033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.98793, y: 1.025, z: 1.35685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629569263
 GameObject:
   m_ObjectHideFlags: 0
@@ -9934,7 +9992,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &1687029240
 MeshCollider:
@@ -12137,9 +12195,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 342256457725726197, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377551665644242937, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_TagString
+      value: PingPongField
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377551665644242937, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4505688897399702264, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_Name
       value: PingPongTable
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505688897399702264, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894893809704437478, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979449052237676385, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5008227462551475741, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12181,6 +12263,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5226146800311933236, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374760873329339493, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7047570946369017158, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12204,3 +12306,4 @@ SceneRoots:
   - {fileID: 1568921861}
   - {fileID: 635087604}
   - {fileID: 1857885190}
+  - {fileID: 1622407035}

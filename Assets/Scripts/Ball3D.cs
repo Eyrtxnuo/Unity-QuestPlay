@@ -1,4 +1,7 @@
+using System;
+using PingPong;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Ball3D : MonoBehaviour
@@ -7,31 +10,34 @@ public class Ball3D : MonoBehaviour
     public float magnusConstant = 0.05f;
     public float maxSpeed = 20f;
     
-    private Rigidbody rb;
-    private Vector3 originalPosition;
+    private Rigidbody _rb;
+    private Vector3 _originalPosition;
+    public event Action<Collision> OnAnyCollision;
     
     void Start()
     {
         
-        originalPosition = transform.position;
-        rb = GetComponent<Rigidbody>();
+        _originalPosition = transform.position;
+        _rb = GetComponent<Rigidbody>();
         //rb.maxLinearVelocity = 9;
-        Launch();
+        //Launch();
+        this.enabled = false;
     }
 
     public void Relaunch()
     {
-        RigidbodyInterpolation pre_interpolation = rb.interpolation;
-        rb.interpolation = RigidbodyInterpolation.None; // disattiva interpolazione per evitare di far impazzire unity
-        rb.position = originalPosition;
-        rb.rotation = Quaternion.identity;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.interpolation = pre_interpolation; // riattiva l'interpolazione al valore precedente
+        this.enabled = true;
+        RigidbodyInterpolation pre_interpolation = _rb.interpolation;
+        _rb.interpolation = RigidbodyInterpolation.None; // disattiva interpolazione per evitare di far impazzire unity
+        _rb.position = _originalPosition;
+        _rb.rotation = Quaternion.identity;
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        _rb.interpolation = pre_interpolation; // riattiva l'interpolazione al valore precedente
         Launch();
     }
 
-    public void Launch()
+    public void Launch(PingPong.Team side)
     {
         // Randomly pick player 1 or player 2's side of the table (Z axis)
         float directionZ = 1;//Random.value < 0.5f ? -1f : 1f;
@@ -40,20 +46,23 @@ public class Ball3D : MonoBehaviour
         Vector3 launchDirection = new Vector3(0, -0.6f, directionZ).normalized;
         Random.Range(-0.3f, 0.3f);
         // Apply an impulse force to shoot the ball
-        rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
+        _rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
     }
     
     void FixedUpdate()
     {
-        Vector3 magnusForce = Vector3.Cross(rb.angularVelocity, rb.linearVelocity) * magnusConstant;
-        rb.AddForce(magnusForce, ForceMode.Force);
+        Vector3 magnusForce = Vector3.Cross(_rb.angularVelocity, _rb.linearVelocity) * magnusConstant;
+        _rb.AddForce(magnusForce, ForceMode.Force);
         
         //clamp della velocità per evitare di creare satelliti
-        if (rb.linearVelocity.magnitude > maxSpeed)
+        if (_rb.linearVelocity.magnitude > maxSpeed)
         {
-            rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed);
+            _rb.linearVelocity = Vector3.ClampMagnitude(_rb.linearVelocity, maxSpeed);
         }
-        
-        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        OnAnyCollision?.Invoke(collision);// invokes the event if listeners are present
     }
 }
