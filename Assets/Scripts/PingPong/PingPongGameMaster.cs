@@ -6,10 +6,12 @@ namespace PingPong
     {
         public GameObject netObject;
         public Ball3D ball;
+        public Transform serveHandPosition;
         
         private Tuple<int, int> _scores =  new Tuple<int, int>(0, 0);
-        private Team ServeTurn = Team.Player;
-        private short bouncesLeft = 0;
+        private Team _serveTurn = Team.Player;
+        private short _bouncesLeft = 0;
+        private bool _playerServing = false;
         
     
         void Start()
@@ -32,10 +34,17 @@ namespace PingPong
         {
             Debug.DrawRay(netObject.transform.position, netObject.transform.right,  Color.red);
             Debug.DrawRay(netObject.transform.position, -netObject.transform.right,  Color.darkRed);
+
         }
 
         void HandleBounce(Collision collision)
         {
+            Debug.Log(collision.gameObject.name);
+            if(_playerServing)
+            {
+                _playerServing = false;
+                ball.ServeBind = false;
+            };
             
             Debug.DrawRay(netObject.transform.position, netObject.transform.forward * 3f, Color.red, 2f);
 
@@ -63,14 +72,33 @@ namespace PingPong
             else return Team.Opponent;
         }
 
-        void Serve(Team? team)
+        public void Serve(Team? team)
         {
-            team ??= ServeTurn;
-            
+            team ??= _serveTurn;
+            if (team == Team.Opponent)
+            {
+                ball.ServeBind = false;
+                _playerServing = false;
+                ball.Relaunch();
+            }
+            else
+            {
+                _playerServing = true;
+                ball.ServeBind = true;
+            }
             
             
         }
-        
+
+        public void BallTossInput()
+        {
+            if (_playerServing)
+            {
+                ball.ServeBind = false;
+                _playerServing = false;
+                ball.Toss();
+            }
+        }
     }
 
 

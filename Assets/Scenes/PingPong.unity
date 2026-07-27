@@ -5731,6 +5731,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5350894737792160111, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
   m_PrefabInstance: {fileID: 2006218443}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &948860421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948860405}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b002fe1a2d254c36b4cf9da39630346e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FollowPoint
+  point: {fileID: 165166437}
+  movementSpeed: 5
+  rotationSpeed: 1800
+  movementDampening: 2
+  bounceForce: 15
 --- !u!1 &951314092
 GameObject:
   m_ObjectHideFlags: 0
@@ -8506,6 +8523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControllerInputManager
   ball: {fileID: 948860405}
+  gameMaster: {fileID: 1622407034}
 --- !u!4 &1438888572
 Transform:
   m_ObjectHideFlags: 0
@@ -9599,6 +9617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PingPong.PingPongGameMaster
   netObject: {fileID: 1419050084}
   ball: {fileID: 948860411}
+  serveHandPosition: {fileID: 1438888572}
 --- !u!4 &1622407035
 Transform:
   m_ObjectHideFlags: 0
@@ -11464,6 +11483,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2726930942255771008, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 948860411}
+    - targetCorrespondingSourceObject: {fileID: 2726930942255771008, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 948860421}
   m_SourcePrefab: {fileID: 100100000, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
 --- !u!1 &2010625973
 GameObject:

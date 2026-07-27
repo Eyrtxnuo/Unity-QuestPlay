@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using PingPong;
 using UnityEngine;
 
 public class ControllerInputManager : MonoBehaviour
 {
 
     public GameObject ball;
+    public PingPongGameMaster gameMaster;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,10 +18,22 @@ public class ControllerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+        {
+            Debug.Log("Pulsante Y premuto, batte il player.");
+            //ball.GetComponent<Ball3D>().Relaunch();
+            gameMaster.Serve(Team.Player);
+        }
+        
         if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
         {
-            Debug.Log("Pulsante B premuto, reset palla.");
-            ball.GetComponent<Ball3D>().Relaunch();
+            Debug.Log("Pulsante B premuto, batte il bot.");
+            gameMaster.Serve(Team.Opponent);
+        }
+        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
+        {
+            Debug.Log("Pulsante X premuto, player alza la pallina.");
+            gameMaster.BallTossInput();
         }
     }
 }
