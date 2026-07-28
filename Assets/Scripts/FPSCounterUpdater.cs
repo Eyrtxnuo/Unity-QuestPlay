@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(TextMeshPro))]
 public class FPSCounterUpdater : MonoBehaviour
 {
     private TextMeshPro fpsText;
@@ -21,10 +22,7 @@ public class FPSCounterUpdater : MonoBehaviour
         float fps = 1.0f / deltaTime;
 
         // Aggiorna il testo (Arrotondato per intero)
-        if (fpsText != null)
-        {
-            fpsText.text = Mathf.Ceil(fps).ToString() + " FPS";
-        }
+        fpsText.SetText("{0} FPS", Mathf.Ceil(fps));
         
     }
 }
