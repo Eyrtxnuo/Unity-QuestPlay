@@ -8,6 +8,7 @@ namespace PingPong
         public Ball3D ball;
         public Transform serveHandPosition;
         public float paddleDebounceTime = 0.1f;
+        public GameObject ghostBallPrefab;
         
         private Scores _scores =  new Scores();
         private Team _serveTurn = Team.Player;
@@ -16,10 +17,10 @@ namespace PingPong
         private bool _playerServing = false;
         private bool _ballTossed = false;
         private float _lastPaddleTouchTime = 0;
-        
-        
-        
-    
+        private bool _playEnded;//TODO: far capire meglio che lo scambio è concluso.
+        private GameObject _ghost;
+
+
         void Start()
         {
             ball.enabled = false;
@@ -45,6 +46,7 @@ namespace PingPong
 
         void HandleBounce(Collision collision)
         {
+            if(_playEnded) return;
             //Paddle Debounce
             if (collision.gameObject.CompareTag("PingPongPlayerPaddle") ||
                 collision.gameObject.CompareTag("PingPongOpponentPaddle"))
@@ -74,7 +76,7 @@ namespace PingPong
                 {
                     //TODO: fallo, ripeti battuta. (ora da il punto)
                     Debug.Log($"SCORED: punto a {NotTeam(_serveTurn)} — lancio battuta caduto a terra");
-                    ScoredRoutine(NotTeam(_serveTurn));
+                    ScoredRoutine(NotTeam(_serveTurn), BallPosFromCollision(collision));
                     return;
                 }
             }
@@ -95,7 +97,7 @@ namespace PingPong
                         // primo rimbalzo battuta non nel campo del player che ha battuto
                         // punto a chi non è _lastTouch
                         Debug.Log($"SCORED: punto a {NotTeam(_serveTurn)} — primo rimbalzo di battuta fuori dal campo di chi ha servito");
-                        ScoredRoutine(NotTeam(_serveTurn));
+                        ScoredRoutine(NotTeam(_serveTurn), BallPosFromCollision(collision));
                         //TODO: reset stato
                     }
                     return;
@@ -108,7 +110,7 @@ namespace PingPong
                         // palla rimbalza nel campo di chi l'ha toccata.
                         // punto a chi non è _lastTouch
                         Debug.Log($"SCORED: punto a {NotTeam(_lastTouch)} — la palla è rimbalzata di nuovo nel campo di chi l'ha toccata");
-                        ScoredRoutine(NotTeam(_lastTouch));
+                        ScoredRoutine(NotTeam(_lastTouch), BallPosFromCollision(collision));
                         
                         //TODO: reset stato
                     }
@@ -117,7 +119,7 @@ namespace PingPong
                 else
                 {
                     Debug.Log($"SCORED: punto a {NotTeam(_lastTouch)} — la palla è rimbalzata troppe volte");
-                    ScoredRoutine(NotTeam(_lastTouch));
+                    ScoredRoutine(NotTeam(_lastTouch), BallPosFromCollision(collision));
                     return;
                 }
             }
@@ -134,7 +136,7 @@ namespace PingPong
             {
                 // Fallo, punto Opponent (toccata pallina quando doveva toccarla l'altro)
                 Debug.Log("SCORED: punto a Opponent — il player ha fatto un doppio tocco");
-                ScoredRoutine(Team.Opponent);
+                ScoredRoutine(Team.Opponent, BallPosFromCollision(collision));
                 //TODO: reset stato
                 return;
             }
@@ -142,7 +144,7 @@ namespace PingPong
             {
                 // Fallo, punto Player (toccata pallina quando doveva toccarla l'altro)
                 Debug.Log("SCORED: punto a Player — l'opponent ha fatto un doppio tocco");
-                ScoredRoutine(Team.Player);
+                ScoredRoutine(Team.Player, BallPosFromCollision(collision));
                 //TODO: reset stato
                 return;
             }
@@ -150,7 +152,7 @@ namespace PingPong
             {
                 // Fallo, punto Opponent (toccata pallina prima del rimbalzo)
                 Debug.Log("SCORED: punto a Opponent — il player ha toccato la pallina prima del rimbalzo");
-                ScoredRoutine(Team.Opponent);
+                ScoredRoutine(Team.Opponent, BallPosFromCollision(collision));
                 //TODO: reset stato
                 return;
             }
@@ -158,7 +160,7 @@ namespace PingPong
             {
                 // Fallo, punto Player (toccata pallina prima del rimbalzo) 
                 Debug.Log("SCORED: punto a Player — l'Opponent ha toccato la pallina prima del rimbalzo");
-                ScoredRoutine(Team.Player);
+                ScoredRoutine(Team.Player, BallPosFromCollision(collision));
                 //TODO: reset stato
                 return;
             }
@@ -179,7 +181,7 @@ namespace PingPong
                 // Punto != _lastTouch, campo mancato
                 
                 Debug.Log($"SCORED: punto a {NotTeam(_lastTouch)} — palla fuori dal campo prima del rimbalzo");
-                ScoredRoutine(NotTeam(_lastTouch));
+                ScoredRoutine(NotTeam(_lastTouch), BallPosFromCollision(collision));
                 //TODO: reset stato
                 return;
             }
@@ -187,7 +189,7 @@ namespace PingPong
             {
                 // Punto == _lastTouch, palla a terra quando va presa
                 Debug.Log($"SCORED: punto a {_lastTouch} — palla fuori dal campo dopo il rimbalzo, non presa.");
-                ScoredRoutine(_lastTouch);
+                ScoredRoutine(_lastTouch, BallPosFromCollision(collision));
 
                 
                 //TODO: reset stato
@@ -211,7 +213,7 @@ namespace PingPong
             else return Team.Opponent;
         }
 
-        public void Serve(Team? team)
+        public void Serve(Team? team = null)
         {
             team ??= _serveTurn;
             _serveTurn = team.Value;
@@ -254,14 +256,42 @@ namespace PingPong
             return _scores.GetScores();
         }
 
-        void ScoredRoutine(Team team)
+        void ScoredRoutine(Team team, Vector3? pointPosition = null)
         {
             _scores.Scored(team);
             Team turn = _scores.GetTurn();
-            Serve(turn);
+            //Serve(turn);return;// serve ora  avviene quando il player schiaccia il tasto A. 
+            _serveTurn = turn;
+            _playEnded = true;
+            
+            //add ghost ball
+            if(!ghostBallPrefab)return;
+            if (!pointPosition.HasValue) return;
+            _ghost = Instantiate(ghostBallPrefab, pointPosition.Value, ball.transform.rotation);
 
         }
-        
+
+        public void Ready_Button()
+        {
+            if (_playEnded)
+            {
+                _playEnded = false;
+                Serve();
+                //TODO: resetta pallina, fantasma pallina e tutto il resto
+                if (_ghost)
+                {
+                    Destroy(_ghost);
+                    _ghost = null;
+                }
+            }
+        }
+
+        public Vector3 BallPosFromCollision(Collision collision)
+        {
+            ContactPoint contactPoint = collision.GetContact(0);
+            return contactPoint.point + contactPoint.normal * 0.025f; // 0.025 è il raggio della pallina
+            
+        }
     }
 
     public class Scores
