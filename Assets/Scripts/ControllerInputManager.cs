@@ -16,7 +16,7 @@ public class ControllerInputManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // DEBUG INPUTS //////////////////////////////
         if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))

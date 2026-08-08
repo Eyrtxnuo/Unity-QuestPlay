@@ -27,7 +27,7 @@ public class Ball3D : MonoBehaviour
     private bool _isServeBind;
     private FollowPoint _bindToServeHand;
 
-    private void Start()
+    private void Awake()
     {
         _originalPosition = transform.position;
         _rb = GetComponent<Rigidbody>();
