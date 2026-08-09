@@ -13,21 +13,24 @@ namespace PingPong
         public GameObject haloPrefab;
         public int haloRipples = 3;
         public float rippleDelay = 0.4f;
+        public FXManager fxManager;
         
         private Scores _scores =  new Scores();
         private Team _serveTurn = Team.Player;
         private short _bouncesLeft = 0;
         private Team _lastTouch = Team.Player;
-        private bool _playerServing = false;
+        private bool _playerServing = true;
         private bool _ballTossed = false;
         private float _lastPaddleTouchTime = 0;
         private bool _playEnded;//TODO: far capire meglio che lo scambio è concluso.
         private GameObject _ghost;
+        private bool _matchEnded;
 
 
         void Start()
         {
-            ball.enabled = false;
+            ball.enabled = true;
+            ball.ServeBind = true;
         }
         
         private void OnEnable()
@@ -51,6 +54,7 @@ namespace PingPong
         void HandleBounce(Collision collision)
         {
             if(_playEnded) return;
+            if(_matchEnded)return;
             //Paddle Debounce
             if (collision.gameObject.CompareTag("PingPongPlayerPaddle") ||
                 collision.gameObject.CompareTag("PingPongOpponentPaddle"))
@@ -262,7 +266,11 @@ namespace PingPong
 
         void ScoredRoutine(Team team, Collision collision = null)
         {
+            if(_matchEnded)return;
+            
             _scores.Scored(team);
+            fxManager.ScoredSfx(team);
+            
             Team turn = _scores.GetTurn();
             //Serve(turn);return;// serve ora  avviene quando il player schiaccia il tasto A. 
             _serveTurn = turn;
@@ -280,11 +288,26 @@ namespace PingPong
             {
                 StartCoroutine(SpawnRipplesCoroutine(collision.GetContact(0).point, collision.GetContact(0).normal, team));
             }
-
+            if (_scores.GetWinner() is { } win) // se non null la partita è finita
+            {
+                _matchEnded = true;
+                if (win == Team.Player)
+                {
+                    fxManager.WInMatchSfx(Team.Player);
+                    // TODO: blocca tutto e mostra schermo vittoria
+                }
+                else
+                {
+                    fxManager.WInMatchSfx(Team.Opponent);
+                    //TODO: blocca tutto e mostra schermo sconfitta
+                }
+                return;
+            }
         }
 
         public void Ready_Button()
         {
+            if(_matchEnded)return;
             if (_playEnded)
             {
                 _playEnded = false;
@@ -360,6 +383,23 @@ namespace PingPong
             }
             // Normale, si inverte ogni 2 punti
             return (tot/2) % 2 == 0 ? Team.Player : Team.Opponent;
+        }
+
+        public Team? GetWinner()
+        {
+            if (_player >= 10 && _opponent >= 10 && Math.Abs(_player - _opponent) <= 2)
+            {
+                return _player-_opponent>=0 ? Team.Player : Team.Opponent;
+            }
+            if (_player >= 11 && _opponent <= 9)
+            {
+                return Team.Player;
+            }
+            if (_opponent >= 11 && _player <= 9)
+            {
+                return Team.Opponent;
+            }
+            return null;
         }
     }
 
