@@ -22,13 +22,13 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(LoadSceneAsyncRoutine(worldName));
     }
     
-    private IEnumerator LoadSceneAsyncRoutine(string sceneName)
+    public static IEnumerator LoadSceneAsyncRoutine(string sceneName)
     {
         //TODO: disattiva i click per il loading degli altri mondi
         // e mangari aggiungere uno schermo di caricamento
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
-        while (!asyncLoad.isDone)
+        while (asyncLoad is { isDone: false })
         {
             yield return null; 
         }

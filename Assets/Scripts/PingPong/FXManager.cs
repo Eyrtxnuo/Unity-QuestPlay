@@ -20,7 +20,9 @@ namespace PingPong
             foreach (var launcher in confettiLaunchers)
             {
                 var lParSys = launcher.GetComponentInChildren<ParticleSystem>();
+                lParSys.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 var main = lParSys.main;
+                //main.stop
                 main.startColor = color;
                 main.duration = scoredConfettiDuration;
                 lParSys.Play();
@@ -34,6 +36,7 @@ namespace PingPong
             foreach (var launcher in confettiLaunchers)
             {
                 var lParSys = launcher.GetComponentInChildren<ParticleSystem>();
+                lParSys.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 var main = lParSys.main;
                 main.startColor = color;
                 main.duration = winConfettiDuration;

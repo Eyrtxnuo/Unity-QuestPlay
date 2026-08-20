@@ -14,6 +14,7 @@ namespace PingPong
         public int haloRipples = 3;
         public float rippleDelay = 0.4f;
         public FXManager fxManager;
+        public EndGamePanelManager endgamePanel;
         
         private Scores _scores =  new Scores();
         private Team _serveTurn = Team.Player;
@@ -25,12 +26,17 @@ namespace PingPong
         private bool _playEnded;//TODO: far capire meglio che lo scambio è concluso.
         private GameObject _ghost;
         private bool _matchEnded;
+        private GameObject _playerPaddle;
+        private GameObject _opponentPaddle;
+        
 
 
         void Start()
         {
             ball.enabled = true;
             ball.ServeBind = true;
+            _playerPaddle = GameObject.FindWithTag("PingPongPlayerPaddle");
+            _opponentPaddle = GameObject.FindWithTag("PingPongOpponentPaddle");
         }
         
         private void OnEnable()
@@ -42,6 +48,7 @@ namespace PingPong
         {
             ball.OnAnyCollision -= HandleBounce;
         }
+
 
         // Update is called once per frame
         void Update()
@@ -126,8 +133,8 @@ namespace PingPong
                 }
                 else
                 {
-                    Debug.Log($"SCORED: punto a {NotTeam(_lastTouch)} — la palla è rimbalzata troppe volte");
-                    ScoredRoutine(NotTeam(_lastTouch), collision);
+                    Debug.Log($"SCORED: punto a {_lastTouch} — la palla è rimbalzata troppe volte");
+                    ScoredRoutine(_lastTouch, collision);
                     return;
                 }
             }
@@ -290,17 +297,25 @@ namespace PingPong
             }
             if (_scores.GetWinner() is { } win) // se non null la partita è finita
             {
+                Debug.Log("Match ended, winner: " + win);
                 _matchEnded = true;
+
+                _playerPaddle.SetActive(false);
+                _opponentPaddle.SetActive(false);
+                
+                
                 if (win == Team.Player)
                 {
                     fxManager.WInMatchSfx(Team.Player);
                     // TODO: blocca tutto e mostra schermo vittoria
+                    
                 }
                 else
                 {
                     fxManager.WInMatchSfx(Team.Opponent);
                     //TODO: blocca tutto e mostra schermo sconfitta
                 }
+                endgamePanel.ShowPanel(_scores);
                 return;
             }
         }
