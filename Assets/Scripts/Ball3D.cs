@@ -11,6 +11,7 @@ public class Ball3D : MonoBehaviour
     public float magnusConstant = 0.05f;
     public float maxSpeed = 20f;
     public event Action<Collision> OnAnyCollision;
+    public Transform playerUntrackedServeTransform;
 
     public bool ServeBind
     {
@@ -64,7 +65,22 @@ public class Ball3D : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(ServeBind)return;
+        if(ServeBind)
+        {
+            var lTracked = OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch);
+            Debug.Log("log1: " +  lTracked);
+            _bindToServeHand.active = lTracked;
+            if (!lTracked)
+            {
+                _rb.transform.position = playerUntrackedServeTransform.position;
+                _rb.transform.rotation = playerUntrackedServeTransform.rotation;
+                _rb.linearVelocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
+            }
+            return;
+        };
+        
+        
         Vector3 magnusForce = Vector3.Cross(_rb.angularVelocity, _rb.linearVelocity) * magnusConstant;
         _rb.AddForce(magnusForce, ForceMode.Force);
 

@@ -402,7 +402,7 @@ namespace PingPong
 
         public Team? GetWinner()
         {
-            if (_player >= 10 && _opponent >= 10 && Math.Abs(_player - _opponent) <= 2)
+            if (_player >= 10 && _opponent >= 10 && Math.Abs(_player - _opponent) >= 2)
             {
                 return _player-_opponent>=0 ? Team.Player : Team.Opponent;
             }

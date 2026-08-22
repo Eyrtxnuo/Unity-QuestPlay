@@ -9,7 +9,8 @@ public class FollowPoint : MonoBehaviour
     public float rotationSpeed = 180;
     public float movementDampening = 2f;
     public float teleportDistance = float.MaxValue;
-
+    public bool active = true;
+    
     
     private Rigidbody _rb;
     private float _vOffsetPaddle = 0.05f;
@@ -22,6 +23,8 @@ public class FollowPoint : MonoBehaviour
     
     void FixedUpdate()
     {
+        if(!active)return;
+        
         if (Vector3.Distance(_rb.position, point.transform.position) > teleportDistance)
         {
             _rb.position = point.transform.position;
