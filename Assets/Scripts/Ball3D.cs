@@ -68,7 +68,6 @@ public class Ball3D : MonoBehaviour
         if(ServeBind)
         {
             var lTracked = OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch);
-            Debug.Log("log1: " +  lTracked);
             _bindToServeHand.active = lTracked;
             if (!lTracked)
             {

@@ -8,6 +8,7 @@ public class ControllerInputManager : MonoBehaviour
 
     public GameObject ball;
     public PingPongGameMaster gameMaster;
+    public PauseManager pauseManager;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,7 +17,7 @@ public class ControllerInputManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // DEBUG INPUTS //////////////////////////////
         if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
@@ -42,7 +43,12 @@ public class ControllerInputManager : MonoBehaviour
             Debug.Log("Pulsante X premuto, player alza la pallina.");
             gameMaster.BallTossInput();
         }
-        
+
+
+        if (OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch))
+        {
+            pauseManager.PauseInput();
+        }
         
     }
 }
