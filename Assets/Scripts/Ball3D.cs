@@ -12,6 +12,7 @@ public class Ball3D : MonoBehaviour
     public float maxSpeed = 20f;
     public event Action<Collision> OnAnyCollision;
     public Transform playerUntrackedServeTransform;
+    public Transform tableTop = null;
 
     public bool ServeBind
     {
@@ -98,5 +99,45 @@ public class Ball3D : MonoBehaviour
     public void Toss()
     {
         _rb.AddForce(new Vector3(0, launchForce, 0), ForceMode.VelocityChange);
+    }
+
+
+    public Vector3 PredictFallPosition()
+    {
+        float tableY = 0;
+        if (tableTop) tableY = tableTop.position.y;
+        return GetFallPositionAtY(_rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass, magnusConstant, _rb.angularDamping, tableY);
+    }
+    
+    
+    public static Vector3 GetFallPositionAtY(
+        Vector3 startPos, 
+        Vector3 startVel, 
+        Vector3 startAngularVel, 
+        float mass, 
+        float magnusConst, 
+        float angularDamping, 
+        float targetY = 0f,
+        int maxIterations = 250)
+    {
+        Vector3 currentPos = startPos;
+        Vector3 currentVel = startVel;
+        Vector3 currentAngularVel = startAngularVel; 
+    
+        float dt = Time.fixedDeltaTime; 
+        int iteration = 0;
+        while (currentPos.y > targetY && iteration < maxIterations)
+        {
+            Vector3 magnusForce = Vector3.Cross(currentAngularVel, currentVel) * magnusConst;
+            Vector3 totalAcceleration = Physics.gravity + (magnusForce / mass);
+            currentVel += totalAcceleration * dt;
+            currentPos += currentVel * dt;
+            currentAngularVel *= Mathf.Clamp01(1f - angularDamping * dt);
+
+            iteration++;
+        }
+
+        return currentPos.y > targetY ? 
+            Vector3.negativeInfinity : currentPos;// if the currentPos is still over Y, the while exited for the iteration count. Returning a extreme value to stop render. 
     }
 }
