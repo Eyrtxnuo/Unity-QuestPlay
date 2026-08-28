@@ -10,7 +10,7 @@ Progetto sviluppato in Unity per Meta Quest, che mira a ricreare l'esperienza di
 | :--- | :--- | :--- |
 | **Menù Principale** | Bozza | Implementata UI interattiva di prova. |
 | **Charge** | Bozza | Sistema di movimento e collisioni con nemici e terreno. |
-| **Ping Pong** | Bozza | Fisica della racchetta da ottimizzare. |
+| **Ping Pong** | IN CORSO | Avversario da migliorare, ambiente, musica e rifinitura da fare. |
 | **Shooting Range** | Bozza | Sistema di sparo via Raycast. |
 | **Laser Hockey** | Bozza | Movimento 2D e logica di rimbalzo in fase di test. |
 | **Pose Mii** | Bozza | Riconoscimento gestuale (Pollice su, Mano aperta, Pace). |
