@@ -101,22 +101,27 @@ public class Ball3D : MonoBehaviour
         _rb.AddForce(new Vector3(0, launchForce, 0), ForceMode.VelocityChange);
     }
 
+    public Rigidbody GetRigidBody()
+    {
+        return _rb;
+    }
 
-    public Vector3 PredictFallPosition()
+    public Vector3? PredictFallPosition()
     {
         float tableY = 0;
         if (tableTop) tableY = tableTop.position.y;
         return GetFallPositionAtY(_rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass, magnusConstant, _rb.angularDamping, tableY);
     }
-    
-    
-    public static Vector3 GetFallPositionAtY(
-        Vector3 startPos, 
-        Vector3 startVel, 
-        Vector3 startAngularVel, 
-        float mass, 
-        float magnusConst, 
-        float angularDamping, 
+
+
+    public static (Vector3 position, Vector3 velocity, Vector3 angularVelocity)? GetImpactState(
+        Vector3 startPos,
+        Vector3 startVel,
+        Vector3 startAngularVel,
+        float mass,
+        float magnusConst,
+        float dinamicFriction,
+        float angularDamping,
         float targetY = 0f,
         int maxIterations = 250)
     {
@@ -133,11 +138,70 @@ public class Ball3D : MonoBehaviour
             currentVel += totalAcceleration * dt;
             currentPos += currentVel * dt;
             currentAngularVel *= Mathf.Clamp01(1f - angularDamping * dt);
+            currentVel *= Mathf.Clamp01(1f - dinamicFriction * dt);
 
             iteration++;
         }
 
-        return currentPos.y > targetY ? 
-            Vector3.negativeInfinity : currentPos;// if the currentPos is still over Y, the while exited for the iteration count. Returning a extreme value to stop render. 
+        return iteration>=maxIterations? null : (currentPos, currentVel, currentAngularVel);
+    }
+
+    public Vector3? GetFallPositionAtY(
+        Vector3 startPos,
+        Vector3 startVel,
+        Vector3 startAngularVel,
+        float mass,
+        float magnusConst,
+        float angularDamping,
+        float targetY = 0f,
+        int maxIterations = 250)
+    {
+        return GetImpactState(startPos, startVel, startAngularVel, mass, magnusConst, angularDamping, targetY, maxIterations)?.position;
+    }
+    
+    
+    public static Vector3 GetPositionAfterBounce(
+        Vector3 impactPos,
+        Vector3 impactVel,
+        Vector3 impactAngVel,
+        float mass,
+        float magnusConst,
+        float angularDamping,
+        float bounciness = 0.9f,
+        float timeAfterBounce = 0.5f)
+    {
+        Vector3 currentVel = new Vector3(impactVel.x, -impactVel.y * bounciness, impactVel.z);
+        Vector3 currentPos = impactPos;
+        Vector3 currentAngularVel = impactAngVel; 
+
+        float dt = Time.fixedDeltaTime;
+        int iterations = Mathf.RoundToInt(timeAfterBounce / dt);
+
+        for (int i = 0; i < iterations; i++)
+        {
+            Vector3 magnusForce = Vector3.Cross(currentAngularVel, currentVel) * magnusConst;
+            Vector3 totalAcceleration = Physics.gravity + (magnusForce / mass);
+            currentVel += totalAcceleration * dt;
+            currentPos += currentVel * dt;
+            currentAngularVel *= Mathf.Clamp01(1f - angularDamping * dt);
+        }
+
+        return currentPos;
+    }
+    
+    public (Vector3 fallPosition, Vector3 afterBouncePosition)? GetBouncePositions(float timeAfterBounce = 0.5f)
+    {
+        
+        float tableY = 0;
+        if (tableTop) tableY = tableTop.position.y;
+        var impactNullable = GetImpactState(_rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass, magnusConstant, _rb.angularDamping, tableY);
+        if (!impactNullable.HasValue) return null;
+        var impact = impactNullable.Value;
+
+        Vector3 afterBouncePosition = GetPositionAfterBounce(
+            impact.position, impact.velocity, impact.angularVelocity, 
+            _rb.mass, magnusConstant, _rb.angularDamping, 0.95f, 0.5f);
+        
+        return (impact.position, afterBouncePosition);
     }
 }

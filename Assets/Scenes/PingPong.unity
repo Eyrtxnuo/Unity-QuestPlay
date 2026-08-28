@@ -13110,6 +13110,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1828220418}
+    - targetCorrespondingSourceObject: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1828220421}
   m_SourcePrefab: {fileID: 100100000, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
 --- !u!1 &1309491043
 GameObject:
@@ -21346,7 +21349,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828220417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43a4ffc67efd1dc4fa0629b8228c5520, type: 3}
   m_Name: 
@@ -21354,6 +21357,22 @@ MonoBehaviour:
   speed: 3
   rotationSpeed: 600
   follow: {fileID: 948860405}
+  bounceDirTarget: {fileID: 1270426894}
+--- !u!114 &1828220421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828220417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f37646f2ef4bb589ae25d83131aaa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaddleBotV2
+  speed: 7
+  rotationSpeed: 600
+  ball: {fileID: 948860411}
   bounceDirTarget: {fileID: 1270426894}
 --- !u!1 &1833651095
 GameObject:

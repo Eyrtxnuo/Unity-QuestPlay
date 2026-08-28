@@ -17,7 +17,9 @@ public class FallTargetManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var fallPosition = ball.PredictFallPosition();
+        var fallPositionNullable = ball.PredictFallPosition();
+        if(fallPositionNullable == null)return;
+        var fallPosition =  fallPositionNullable.Value;
         if (fallPosition.x > _tableTopCollider.bounds.max.x || fallPosition.x < -_tableTopCollider.bounds.max.x ||
             fallPosition.z > _tableTopCollider.bounds.max.z || fallPosition.z < -_tableTopCollider.bounds.max.z ||
             ball.ServeBind)
