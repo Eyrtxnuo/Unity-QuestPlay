@@ -1,4 +1,5 @@
 ﻿using System;
+using Meta.XR.ImmersiveDebugger.UserInterface;
 using UnityEngine;
 
 public class PaddleBotV2 : MonoBehaviour
@@ -13,8 +14,9 @@ public class PaddleBotV2 : MonoBehaviour
     public Collider tableTopCollider;
     public GameObject testTargetPrefab;
 
-    private Vector3 _lastPredicedBouncePos;
+    private (Vector3 position, Vector3 velocity, Vector3 angularVelocity) _lastTargetState;
     private float _bounceFactor = 1.4f;
+    private bool _isTurn;
 
     void Start()
     {
@@ -31,7 +33,7 @@ public class PaddleBotV2 : MonoBehaviour
             _bounceFactor = col.material.bounciness;
             break;
         }
-
+        _lastTargetState = (_rb.position, _rb.linearVelocity, _rb.angularVelocity);
     }
 
     private void Update()
@@ -41,52 +43,54 @@ public class PaddleBotV2 : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!_isTurn)return;
+        Debug.DrawLine(_rb.position, _rb.position + new Vector3(0, 0.13f, 0), Color.tomato);
         // Go to predicted bounce position
-        var bouncePositionsNullable = ball.GetBouncePositions();
-        if(bouncePositionsNullable == null)return;
-        
-        var fallPosition = bouncePositionsNullable.Value.fallPosition;
-        if(fallPosition.x > tableTopCollider.bounds.max.x || fallPosition.x < -tableTopCollider.bounds.max.x ||
-           fallPosition.z > tableTopCollider.bounds.max.z || fallPosition.z < -tableTopCollider.bounds.max.z) return;
-        
-        var afterBouncePosition =  bouncePositionsNullable.Value.afterBouncePosition;
-        
-        testTargetPrefab.transform.position = afterBouncePosition;
-        
-        float x = afterBouncePosition.x;
-        float y = afterBouncePosition.y + 0.13f;
-        float z = afterBouncePosition.z - 0.1f;
+        var bouncePositionsNullable = ball.GetBounceStates(0.25f);
+        if (bouncePositionsNullable.HasValue)
+        {
+            var fallPosition = bouncePositionsNullable.Value.fallPosition;
+            if (!(fallPosition.x > tableTopCollider.bounds.max.x || fallPosition.x < -tableTopCollider.bounds.max.x ||
+                fallPosition.z > 0 || fallPosition.z < -tableTopCollider.bounds.max.z))
+            {
+                var bounceS = bouncePositionsNullable.Value.afterBounceState;
+                testTargetPrefab.transform.position = bounceS.position;
+                this._lastTargetState = bounceS;
+            };
+        }
+
+        var tPos = this._lastTargetState.position;
+        Debug.DrawRay(tPos, new Vector3(0, 10, 0), Color.red);
 
         
-        _rb.MovePosition(Vector3.MoveTowards(_rb.position, new Vector3(x, y, z), speed * Time.deltaTime));
         if (
-                Vector3.Distance(afterBouncePosition, this.transform.position) 
-                < 
-                Vector3.Distance(this._lastPredicedBouncePos, this.transform.position) 
+                true//bounceS.velocity.normalized.z < 0
             &&
-                Vector3.Distance(afterBouncePosition, this.transform.position) > 0.05
+                Vector3.Distance(ball.transform.position, this.transform.position) > 0.1 // when ball is close, freeze to avoid orbital launches
             )
         {   
-            _rb.MoveRotation(Quaternion.RotateTowards(this.transform.rotation, CalculatePaddleRotation(), rotationSpeed *  Time.deltaTime));
+            _rb.MovePosition(Vector3.MoveTowards(_rb.position, new Vector3(tPos.x, tPos.y, tPos.z), speed * Time.fixedDeltaTime));
+            _rb.MoveRotation(Quaternion.RotateTowards(this.transform.rotation, CalculatePaddleRotation(this._lastTargetState), rotationSpeed *  Time.fixedDeltaTime));
         }
         else
         {
-            CalculatePaddleRotation();// serve per disegnare i debug, non applico l'angolo.
+            CalculatePaddleRotation(this._lastTargetState);// serve per disegnare i debug, non applico l'angolo.
+            
         }
         //this.transform.forward = CalculatePaddleRotation();
         
         
-        this._lastPredicedBouncePos = afterBouncePosition;
+        Debug.DrawLine(tPos, _rb.position, Color.chartreuse);
     }
 
 
-    Quaternion CalculatePaddleRotation()
+    Quaternion CalculatePaddleRotation((Vector3 position, Vector3 velocity, Vector3 angularVelocity)bounceState)
     {
         float horizontalTravel = Mathf.Abs(bounceDirTarget.transform.position.z - this.transform.position.z);
         float totalTravel = Vector3.Distance(bounceDirTarget.transform.position, this.transform.position);
         float horizontalRatio = totalTravel > 0.01f ? (horizontalTravel / totalTravel) : 1f;
         
-        float currentSpeed = Mathf.Abs(ball.GetRigidBody().linearVelocity.magnitude);
+        float currentSpeed = Mathf.Abs(bounceState.velocity.magnitude);
         float afterBounceSpeed = currentSpeed * _bounceFactor;
         if (afterBounceSpeed < 0.1f) afterBounceSpeed = 0.1f;
         
@@ -121,15 +125,15 @@ public class PaddleBotV2 : MonoBehaviour
         float gravityHeigthLoss = 0.5f * gravity * (Mathf.Pow(fligthETA, 2));
         Vector3 compensatedTarget = bounceDirTarget.transform.position + new Vector3(0, gravityHeigthLoss, 0);
         
-        Vector3 inverseTravelDirection = -ball.GetRigidBody().linearVelocity.normalized;
+        Vector3 inverseTravelDirection = -bounceState.velocity.normalized;
         
-        Vector3 targetBouncePos = new Vector3(ball.GetRigidBody().transform.position.x, ball.GetRigidBody().transform.position.y-0.13f, this.transform.position.z);
+        Vector3 targetBouncePos = new Vector3(bounceState.position.x, bounceState.position.y, this.transform.position.z);
         Vector3 targetBounceDir = (compensatedTarget - targetBouncePos).normalized;
         
         Vector3 targetBounceSurfaceNormal = (targetBounceDir + inverseTravelDirection).normalized;
         
         
-        Debug.DrawLine(targetBouncePos, targetBouncePos + targetBounceSurfaceNormal * 2f, Color.cyan);
+        Debug.DrawLine(targetBouncePos, targetBouncePos + targetBounceSurfaceNormal, Color.cyan);
         
         
         Debug.DrawLine(bounceDirTarget.transform.position, bounceDirTarget.transform.position + new Vector3(0,0,0.2f), Color.blue);
@@ -139,16 +143,6 @@ public class PaddleBotV2 : MonoBehaviour
         Debug.DrawLine(compensatedTarget, compensatedTarget + new Vector3(0,0.2f,0), Color.Lerp(Color.green, Color.black, .5f));
         Debug.DrawLine(compensatedTarget, compensatedTarget + new Vector3(0.2f,0,0), Color.Lerp(Color.red, Color.black, .5f));
     
-        //return targetBounceSurfaceNormal;
-        
-        // Quaternion rotation = Quaternion.LookRotation(-transform.forward, targetBounceSurfaceNormal);
-        // return rotation;
-        
-        // float angoloInGradi = Mathf.Atan2(targetBounceSurfaceNormal.z, targetBounceSurfaceNormal.x) * Mathf.Rad2Deg;
-        // angoloInGradi -= 90f;
-        // Quaternion rotazioneZ = Quaternion.Euler(0, 0, angoloInGradi);
-        // return rotazioneZ;
-        
         Quaternion nuovaRotazione = Quaternion.FromToRotation(Vector3.forward, targetBounceSurfaceNormal);
         return nuovaRotazione;
     }
@@ -167,5 +161,16 @@ public class PaddleBotV2 : MonoBehaviour
             brb.linearVelocity = bounceVel * _bounceFactor;
         }
     }
-    
+
+    public void SetTurn(bool isTurn)
+    {
+        _isTurn = isTurn;
+        Debug.Log("Turn " + (_isTurn?"yes":"no") );
+        GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", isTurn ? Color.red : Color.white);
+    }
+
+    public bool GetTurn()
+    {
+        return _isTurn;
+    }
 }

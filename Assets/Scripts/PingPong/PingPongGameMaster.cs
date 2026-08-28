@@ -28,6 +28,7 @@ namespace PingPong
         private bool _matchEnded;
         private GameObject _playerPaddle;
         private GameObject _opponentPaddle;
+        private PaddleBotV2 _opponentBot;
         
 
 
@@ -37,6 +38,7 @@ namespace PingPong
             ball.ServeBind = true;
             _playerPaddle = GameObject.FindWithTag("PingPongPlayerPaddle");
             _opponentPaddle = GameObject.FindWithTag("PingPongOpponentPaddle");
+            _opponentBot = _opponentPaddle.GetComponent<PaddleBotV2>();
         }
         
         private void OnEnable()
@@ -62,6 +64,20 @@ namespace PingPong
         {
             if(_playEnded) return;
             if(_matchEnded)return;
+            
+            if (_lastTouch == Team.Opponent && _opponentBot.GetTurn())
+            {
+                _opponentBot.SetTurn(false);
+            }
+            if (_bouncesLeft <= 2 && !_opponentBot.GetTurn() && (_lastTouch == Team.Player||collision.gameObject.CompareTag("PingPongPlayerPaddle")) )
+            {
+                _opponentBot.SetTurn(true);
+            }
+            else
+            {
+                Debug.Log(_bouncesLeft  + "  -  " + !_opponentBot.GetTurn() + "  -  " + (_lastTouch == Team.Player));
+            }
+            
             //Paddle Debounce
             if (collision.gameObject.CompareTag("PingPongPlayerPaddle") ||
                 collision.gameObject.CompareTag("PingPongOpponentPaddle"))
@@ -72,9 +88,11 @@ namespace PingPong
                 }
                 _lastPaddleTouchTime = Time.time;
             }
-                
-            
+
             Debug.Log(collision.gameObject.name);
+            
+            
+            
             if(_playerServing)
             {
                 if (collision.gameObject.CompareTag("PingPongPlayerPaddle"))
@@ -119,8 +137,9 @@ namespace PingPong
                 }
                 else  if (_bouncesLeft == 0)
                 {
-                    Debug.Log(IsPlayerSide(collision.contacts[0].point));
-                    if (IsPlayerSide(collision.contacts[0].point) == _lastTouch)
+                    var side = IsPlayerSide(collision.contacts[0].point);
+                    Debug.Log(side);
+                    if (side == _lastTouch)
                     {
                         // palla rimbalza nel campo di chi l'ha toccata.
                         // punto a chi non è _lastTouch
@@ -137,6 +156,7 @@ namespace PingPong
                     ScoredRoutine(_lastTouch, collision);
                     return;
                 }
+                
             }
             
             // tocco rete, ok, ma non conta come rimbalzo
@@ -273,6 +293,7 @@ namespace PingPong
 
         void ScoredRoutine(Team team, Collision collision = null)
         {
+            _opponentBot.SetTurn(false);
             if(_matchEnded)return;
             
             _scores.Scored(team);

@@ -110,7 +110,7 @@ public class Ball3D : MonoBehaviour
     {
         float tableY = 0;
         if (tableTop) tableY = tableTop.position.y;
-        return GetFallPositionAtY(_rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass, magnusConstant, _rb.angularDamping, tableY);
+        return GetFallPositionAtY(_rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass, magnusConstant,_rb.linearDamping, _rb.angularDamping, tableY);
     }
 
 
@@ -120,17 +120,17 @@ public class Ball3D : MonoBehaviour
         Vector3 startAngularVel,
         float mass,
         float magnusConst,
-        float dinamicFriction,
+        float linearDrag,
         float angularDamping,
         float targetY = 0f,
-        int maxIterations = 250)
+        int maxIterations = 600)
     {
         Vector3 currentPos = startPos;
         Vector3 currentVel = startVel;
         Vector3 currentAngularVel = startAngularVel; 
-    
         float dt = Time.fixedDeltaTime; 
         int iteration = 0;
+
         while (currentPos.y > targetY && iteration < maxIterations)
         {
             Vector3 magnusForce = Vector3.Cross(currentAngularVel, currentVel) * magnusConst;
@@ -138,12 +138,12 @@ public class Ball3D : MonoBehaviour
             currentVel += totalAcceleration * dt;
             currentPos += currentVel * dt;
             currentAngularVel *= Mathf.Clamp01(1f - angularDamping * dt);
-            currentVel *= Mathf.Clamp01(1f - dinamicFriction * dt);
+            currentVel *= Mathf.Clamp01(1f - linearDrag * dt); 
 
             iteration++;
         }
 
-        return iteration>=maxIterations? null : (currentPos, currentVel, currentAngularVel);
+        return iteration >= maxIterations ? null : (currentPos, currentVel, currentAngularVel);
     }
 
     public Vector3? GetFallPositionAtY(
@@ -152,31 +152,58 @@ public class Ball3D : MonoBehaviour
         Vector3 startAngularVel,
         float mass,
         float magnusConst,
+        float linearDrag,
         float angularDamping,
         float targetY = 0f,
         int maxIterations = 250)
     {
-        return GetImpactState(startPos, startVel, startAngularVel, mass, magnusConst, angularDamping, targetY, maxIterations)?.position;
+        return GetImpactState(startPos, startVel, startAngularVel, mass, magnusConst, linearDrag, angularDamping, targetY, maxIterations)?.position;
     }
-    
-    
-    public static Vector3 GetPositionAfterBounce(
+
+    public static (Vector3 position, Vector3 velocity, Vector3 angularVelocity) GetStateAfterBounce(
         Vector3 impactPos,
         Vector3 impactVel,
         Vector3 impactAngVel,
         float mass,
         float magnusConst,
         float angularDamping,
+        float linearDrag,
         float bounciness = 0.9f,
+        float dynamicFriction = 0.2f,
+        float ballRadius = 0.02f,
         float timeAfterBounce = 0.5f)
     {
-        Vector3 currentVel = new Vector3(impactVel.x, -impactVel.y * bounciness, impactVel.z);
         Vector3 currentPos = impactPos;
+        Vector3 currentVel = impactVel;
         Vector3 currentAngularVel = impactAngVel; 
-
         float dt = Time.fixedDeltaTime;
-        int iterations = Mathf.RoundToInt(timeAfterBounce / dt);
 
+        // --- 1. RISOLUZIONE IMPATTO (Attrito di Coulomb e trasferimento Spin) ---
+        float normalImpulse = (1f + bounciness) * Mathf.Abs(currentVel.y) * mass;
+        currentVel.y = -currentVel.y * bounciness; // Inversione asse Y
+
+        Vector3 contactPointOffset = new Vector3(0, -ballRadius, 0);
+        Vector3 contactSurfaceVel = currentVel + Vector3.Cross(currentAngularVel, contactPointOffset);
+        Vector3 tangentVel = new Vector3(contactSurfaceVel.x, 0, contactSurfaceVel.z);
+
+        if (tangentVel.sqrMagnitude > 0.0001f)
+        {
+            Vector3 tangentDir = tangentVel.normalized;
+            float inertia = (2f / 3f) * mass * ballRadius * ballRadius; 
+            float maxFrictionImpulse = dynamicFriction * normalImpulse;
+            
+            float slipFactor = 1f / ( (1f / mass) + (ballRadius * ballRadius / inertia) );
+            float desiredTangentImpulse = tangentVel.magnitude * slipFactor;
+            
+            float appliedImpulse = Mathf.Min(desiredTangentImpulse, maxFrictionImpulse);
+            Vector3 frictionImpulseVector = -tangentDir * appliedImpulse;
+
+            currentVel += frictionImpulseVector / mass;
+            currentAngularVel += Vector3.Cross(contactPointOffset, frictionImpulseVector) / inertia;
+        }
+
+        // --- 2. SIMULAZIONE VOLO POST-RIMBALZO ---
+        int iterations = Mathf.RoundToInt(timeAfterBounce / dt);
         for (int i = 0; i < iterations; i++)
         {
             Vector3 magnusForce = Vector3.Cross(currentAngularVel, currentVel) * magnusConst;
@@ -184,24 +211,28 @@ public class Ball3D : MonoBehaviour
             currentVel += totalAcceleration * dt;
             currentPos += currentVel * dt;
             currentAngularVel *= Mathf.Clamp01(1f - angularDamping * dt);
+            currentVel *= Mathf.Clamp01(1f - linearDrag * dt);
         }
 
-        return currentPos;
+        return (currentPos, currentVel, currentAngularVel);
     }
     
-    public (Vector3 fallPosition, Vector3 afterBouncePosition)? GetBouncePositions(float timeAfterBounce = 0.5f)
+    public (Vector3 fallPosition, (Vector3 position, Vector3 velocity, Vector3 angularVelocity) afterBounceState)? GetBounceStates(float timeAfterBounce = 0.5f)
     {
+        float tableY = tableTop ? tableTop.position.y : 0f;
         
-        float tableY = 0;
-        if (tableTop) tableY = tableTop.position.y;
-        var impactNullable = GetImpactState(_rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass, magnusConstant, _rb.angularDamping, tableY);
+        var impactNullable = GetImpactState(
+            _rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass,
+            magnusConstant, _rb.linearDamping, _rb.angularDamping, tableY);
+        
         if (!impactNullable.HasValue) return null;
         var impact = impactNullable.Value;
 
-        Vector3 afterBouncePosition = GetPositionAfterBounce(
+        var afterBounceState = GetStateAfterBounce(
             impact.position, impact.velocity, impact.angularVelocity, 
-            _rb.mass, magnusConstant, _rb.angularDamping, 0.95f, 0.5f);
+            _rb.mass, magnusConstant, _rb.angularDamping, _rb.linearDamping, 
+            0.95f, 0.05f, 0.05f, timeAfterBounce);
         
-        return (impact.position, afterBouncePosition);
+        return (impact.position, afterBounceState);
     }
 }
