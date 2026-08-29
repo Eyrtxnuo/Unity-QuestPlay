@@ -2,7 +2,7 @@
 
 public class SfxPool : MonoBehaviour
 {
-    public int poolSize = 3;
+    [SerializeField] private int poolSize = 3;
     
     private AudioSource[] _audioSourcePool;
     private int _poolPointer = 0;
