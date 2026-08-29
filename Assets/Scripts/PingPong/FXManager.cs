@@ -14,7 +14,7 @@ namespace PingPong
         public float scoredConfettiDuration = 1f;
         public float winConfettiDuration = 4f;
     
-        public void ScoredSfx(Team  team)
+        public void ScoredFx(Team  team)
         {
             var color =  GetColor(team);
             foreach (var launcher in confettiLaunchers)
@@ -30,7 +30,7 @@ namespace PingPong
             
         }
 
-        public void WInMatchSfx(Team team)
+        public void WInMatchFx(Team team)
         {
             var color =  GetColor(team);
             foreach (var launcher in confettiLaunchers)

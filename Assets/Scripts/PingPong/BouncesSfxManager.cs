@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Animations;
 
 namespace PingPong
 {
@@ -12,7 +13,6 @@ namespace PingPong
         public AudioClip paddleBounceClipOpponent;
         public AudioClip otherBounceClip;
 
-
         public void Start()
         {
             ball.OnAnyCollision += HandleBounce;
@@ -20,6 +20,7 @@ namespace PingPong
 
         private void HandleBounce(Collision collision)
         {
+            
             if (collision.gameObject.CompareTag("PingPongField"))
             {
                 PlayTableBounce(collision.contacts[0].point);
@@ -36,7 +37,6 @@ namespace PingPong
             {
              if(otherBounceClip != null) PlayOtherBounce(collision.contacts[0].point);
             }
-            
         }
     
         public void PlayTableBounce(Vector3 position)

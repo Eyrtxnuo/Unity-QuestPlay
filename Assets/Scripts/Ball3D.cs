@@ -170,7 +170,7 @@ public class Ball3D : MonoBehaviour
         float linearDrag,
         float bounciness = 0.9f,
         float dynamicFriction = 0.2f,
-        float ballRadius = 0.02f,
+        float ballRadius = 0.045f,
         float timeAfterBounce = 0.5f)
     {
         Vector3 currentPos = impactPos;

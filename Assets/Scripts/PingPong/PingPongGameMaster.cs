@@ -297,7 +297,7 @@ namespace PingPong
             if(_matchEnded)return;
             
             _scores.Scored(team);
-            fxManager.ScoredSfx(team);
+            fxManager.ScoredFx(team);
             
             Team turn = _scores.GetTurn();
             //Serve(turn);return;// serve ora  avviene quando il player schiaccia il tasto A. 
@@ -327,13 +327,13 @@ namespace PingPong
                 
                 if (win == Team.Player)
                 {
-                    fxManager.WInMatchSfx(Team.Player);
+                    fxManager.WInMatchFx(Team.Player);
                     // TODO: blocca tutto e mostra schermo vittoria
                     
                 }
                 else
                 {
-                    fxManager.WInMatchSfx(Team.Opponent);
+                    fxManager.WInMatchFx(Team.Opponent);
                     //TODO: blocca tutto e mostra schermo sconfitta
                 }
                 endgamePanel.ShowPanel(_scores);
