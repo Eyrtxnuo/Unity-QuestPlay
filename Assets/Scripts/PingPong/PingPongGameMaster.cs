@@ -256,9 +256,15 @@ namespace PingPong
             _bouncesLeft = 2;
             if (team == Team.Opponent)
             {
+                var ballSpawnPosition = ball.GetSpawnPosition();
+                _opponentPaddle.transform.position = ballSpawnPosition + new Vector3(0, 0, -0.1f);
+                _opponentPaddle.transform.rotation = Quaternion.identity;
+                _opponentBot.ClearTargetState(ballSpawnPosition);
                 ball.ServeBind = false;
                 _playerServing = false;
                 ball.Relaunch();
+                fxManager.OpponentServe(ballSpawnPosition);
+                
             }
             else
             {
@@ -327,13 +333,13 @@ namespace PingPong
                 
                 if (win == Team.Player)
                 {
-                    fxManager.WInMatchFx(Team.Player);
+                    fxManager.WinMatchFx(Team.Player);
                     // TODO: blocca tutto e mostra schermo vittoria
                     
                 }
                 else
                 {
-                    fxManager.WInMatchFx(Team.Opponent);
+                    fxManager.WinMatchFx(Team.Opponent);
                     //TODO: blocca tutto e mostra schermo sconfitta
                 }
                 endgamePanel.ShowPanel(_scores);

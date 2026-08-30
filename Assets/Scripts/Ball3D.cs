@@ -235,4 +235,9 @@ public class Ball3D : MonoBehaviour
         
         return (impact.position, afterBounceState);
     }
+
+    public Vector3 GetSpawnPosition()
+    {
+        return _originalPosition;
+    }
 }

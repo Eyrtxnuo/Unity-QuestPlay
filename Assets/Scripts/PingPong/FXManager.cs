@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PingPong
 {
     public class FXManager : MonoBehaviour
     {
+        public SfxPool sfxPool;
+        public AudioClip opponentServeClip;
+        
         public List<GameObject> confettiLaunchers;
 
         public ParticleSystem.MinMaxGradient playerColor;
@@ -30,7 +34,7 @@ namespace PingPong
             
         }
 
-        public void WInMatchFx(Team team)
+        public void WinMatchFx(Team team)
         {
             var color =  GetColor(team);
             foreach (var launcher in confettiLaunchers)
@@ -44,6 +48,11 @@ namespace PingPong
             }
         }
 
+        public void OpponentServe(Vector3 position)
+        {
+            sfxPool.PlayClipAtPosition(opponentServeClip, position, pitch:Random.Range(0.95f, 1.05f));
+            
+        }
 
         private ParticleSystem.MinMaxGradient GetColor(Team team)
         {

@@ -583,6 +583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c9ef1b66e6d014f8cb28c2794346f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FXManager
+  sfxPool: {fileID: 252174}
+  opponentServeClip: {fileID: 8300000, guid: a8f7c29838f5a7246ad53dfdd611258a, type: 3}
   confettiLaunchers:
   - {fileID: 678987972}
   - {fileID: 1320929894}
@@ -21638,7 +21640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f37646f2ef4bb589ae25d83131aaa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PaddleBotV2
-  speed: 7
+  speed: 4
   rotationSpeed: 600
   ball: {fileID: 948860411}
   bounceDirTarget: {fileID: 1270426894}

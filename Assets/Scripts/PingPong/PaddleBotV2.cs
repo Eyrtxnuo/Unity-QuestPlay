@@ -69,7 +69,7 @@ public class PaddleBotV2 : MonoBehaviour
                 Vector3.Distance(ball.transform.position, this.transform.position) > 0.1 // when ball is close, freeze to avoid orbital launches
             )
         {   
-            _rb.MovePosition(Vector3.MoveTowards(_rb.position, new Vector3(tPos.x, tPos.y, tPos.z), speed * Time.fixedDeltaTime));
+            _rb.MovePosition(Vector3.MoveTowards(_rb.position, tPos, speed * Time.fixedDeltaTime));
             _rb.MoveRotation(Quaternion.RotateTowards(this.transform.rotation, CalculatePaddleRotation(this._lastTargetState), rotationSpeed *  Time.fixedDeltaTime));
         }
         else
@@ -172,5 +172,10 @@ public class PaddleBotV2 : MonoBehaviour
     public bool GetTurn()
     {
         return _isTurn;
+    }
+
+    public void ClearTargetState(Vector3 position)
+    {
+        this._lastTargetState = (position, Vector3.zero, Vector3.zero);
     }
 }
