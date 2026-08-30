@@ -11203,6 +11203,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0821e49d5da3abb49b813fcec98db4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball3D
+--- !u!114 &948860412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948860405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b931428140e74ad45bac9c12e3b4afd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RedShilfing
+  maxSpeed: 10
+  speedGradient:
+    serializedVersion: 2
+    key0: {r: 0.21226418, g: 0.26854622, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 1, g: 0.35161516, b: 0.3254717, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 32768
+    ctime2: 65535
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
 --- !u!1 &951314092
 GameObject:
   m_ObjectHideFlags: 0
@@ -22645,7 +22688,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2726930942255771008, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 948860412}
   m_SourcePrefab: {fileID: 100100000, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
 --- !u!1 &2010625973
 GameObject:
@@ -23867,7 +23913,7 @@ PrefabInstance:
     - target: {fileID: 1618166775082488151, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: invokeClip
       value: 
-      objectReference: {fileID: 8300000, guid: 4cc29975311436d479c3dffd47ea15be, type: 3}
+      objectReference: {fileID: 8300000, guid: 675dcc7880daea244b6031430db281ec, type: 3}
     - target: {fileID: 1618166775082488151, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: pauseManager
       value: 
