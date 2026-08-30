@@ -41,22 +41,22 @@ namespace PingPong
     
         public void PlayTableBounce(Vector3 position)
         {
-            sourcePool.PlayClipAtPosition(tableBounceClips[Random.Range(0, tableBounceClips.Length)], position, volume:volume, pitch:Random.Range(0.95f, 1.05f));
+            sourcePool.PlayClipAtPosition(tableBounceClips[Random.Range(0, tableBounceClips.Length)], position, volume:volume, pitch:Random.Range(0.95f, 1.05f), priority:100);
         }
 
         public void PlayPlayerPaddleBounce(Vector3 position)
         {
-            sourcePool.PlayClipAtPosition(paddleBounceClipPlayer, position, volume:volume, pitch:Random.Range(0.95f, 1.05f));
+            sourcePool.PlayClipAtPosition(paddleBounceClipPlayer, position, volume:volume, pitch:Random.Range(0.95f, 1.05f), priority:100);
         }
 
         public void PlayOpponentPaddleBounce(Vector3 position)
         {
-            sourcePool.PlayClipAtPosition(paddleBounceClipOpponent, position, volume:volume, pitch:Random.Range(0.95f, 1.05f));
+            sourcePool.PlayClipAtPosition(paddleBounceClipOpponent, position, volume:volume, pitch:Random.Range(0.95f, 1.05f), priority:100);
         }
 
         public void PlayOtherBounce(Vector3 position)
         {
-            sourcePool.PlayClipAtPosition(otherBounceClip, position, volume:volume, pitch:Random.Range(0.95f, 1.05f));
+            sourcePool.PlayClipAtPosition(otherBounceClip, position, volume:volume, pitch:Random.Range(0.95f, 1.05f), priority:100);
         }
     }
 }

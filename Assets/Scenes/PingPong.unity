@@ -23865,6 +23865,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1618166775082488151, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
+      propertyPath: invokeClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4cc29975311436d479c3dffd47ea15be, type: 3}
+    - target: {fileID: 1618166775082488151, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: pauseManager
       value: 
       objectReference: {fileID: 170151099}

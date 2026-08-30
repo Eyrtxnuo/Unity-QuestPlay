@@ -1,50 +1,66 @@
-using PingPong;
-using TMPro;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class PausePanelManager : PanelManager
+namespace PingPong
 {
-    public PauseManager pauseManager;
-
-    private bool reloading = false;
-
-    public void Start()
+    public class PausePanelManager : PanelManager
     {
-        pauseManager.OnPause += ShowPanel;
-        pauseManager.OnResume += HidePanel;
-        HidePanel();
-         
-    }
-    public void ResumeButtonHandler()
-    {
-        pauseManager.Resume();
-        HidePanel();
-    }
+        public PauseManager pauseManager;
+        public AudioClip invokeClip;
 
-    public new void PlayAgainButtonHandler()
-    {
-        reloading = true;
-        pauseManager.Resume();
-        base.PlayAgainButtonHandler();
-    }
+        private AudioSource _audioSource;
+        private bool reloading = false;
 
-    public new void ChangeGameButtonHandler()
-    {
-        reloading = true;
-        pauseManager.Resume();
-        base.ChangeGameButtonHandler();
-    }
+        public void Awake()
+        {
+            
+            TryGetComponent(out _audioSource);
+        }
 
-    public new void ShowPanel()
-    {
-        if(!reloading) base.ShowPanel();
-    }
+        public void Start()
+        {
+            pauseManager.OnPause += ShowPanel;
+            pauseManager.OnResume += HidePanel;
+            HidePanel();
+        }
+        public void ResumeButtonHandler()
+        {
+            pauseManager.Resume();
+            HidePanel();
+        }
 
-    public new void HidePanel()
-    {
-        if(!reloading) base.HidePanel();
-    }
+        public new void PlayAgainButtonHandler()
+        {
+            reloading = true;
+            pauseManager.Resume();
+            base.PlayAgainButtonHandler();
+        }
+
+        public new void ChangeGameButtonHandler()
+        {
+            reloading = true;
+            pauseManager.Resume();
+            base.ChangeGameButtonHandler();
+        }
+
+        public new void ShowPanel()
+        {
+            if(reloading)return;
+            base.ShowPanel();
+            PlaySfx(invokeClip);
+        }
+
+        public new void HidePanel()
+        {
+            if(reloading)return;
+            base.HidePanel();
+        }
+        
+        private void PlaySfx(AudioClip audioClip)
+        {
+            if(!_audioSource) return;
+            _audioSource.PlayOneShot(audioClip);
+        }
     
+    }
 }

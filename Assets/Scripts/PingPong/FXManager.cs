@@ -50,7 +50,7 @@ namespace PingPong
 
         public void OpponentServe(Vector3 position)
         {
-            sfxPool.PlayClipAtPosition(opponentServeClip, position, pitch:Random.Range(0.95f, 1.05f));
+            sfxPool.PlayClipAtPosition(opponentServeClip, position, pitch:Random.Range(0.95f, 1.05f), priority:100);
             
         }
 
