@@ -77,7 +77,7 @@ public class SfxPool : MonoBehaviour
         
         public float GetRemainingTime()
         {
-            if (source.clip == null) return 0f;
+            if (!source.clip) return 0f;
             float clipPitch = source.pitch == 0 ? 1f : Mathf.Abs(source.pitch);
             return (source.clip.length - source.time) / clipPitch;
             

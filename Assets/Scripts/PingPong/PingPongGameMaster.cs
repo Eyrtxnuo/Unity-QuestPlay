@@ -303,10 +303,8 @@ namespace PingPong
             if(_matchEnded)return;
             
             _scores.Scored(team);
-            fxManager.ScoredFx(team);
             
             Team turn = _scores.GetTurn();
-            //Serve(turn);return;// serve ora  avviene quando il player schiaccia il tasto A. 
             _serveTurn = turn;
             _playEnded = true;
             
@@ -344,6 +342,10 @@ namespace PingPong
                 }
                 endgamePanel.ShowPanel(_scores);
                 return;
+            }
+            else
+            {
+                fxManager.ScoredFx(team); // scoredFX can interfere with WinMatchFX  
             }
         }
 
@@ -427,17 +429,19 @@ namespace PingPong
             return (tot/2) % 2 == 0 ? Team.Player : Team.Opponent;
         }
 
+        
+        private const int WIN_POINTS = 2;
         public Team? GetWinner()
         {
-            if (_player >= 10 && _opponent >= 10 && Math.Abs(_player - _opponent) >= 2)
+            if (_player >= (WIN_POINTS-1) && _opponent >= (WIN_POINTS-1) && Math.Abs(_player - _opponent) >= 2)
             {
                 return _player-_opponent>=0 ? Team.Player : Team.Opponent;
             }
-            if (_player >= 11 && _opponent <= 9)
+            if (_player >= WIN_POINTS && _opponent <= (WIN_POINTS-2))
             {
                 return Team.Player;
             }
-            if (_opponent >= 11 && _player <= 9)
+            if (_opponent >= WIN_POINTS && _player <= (WIN_POINTS-2))
             {
                 return Team.Opponent;
             }

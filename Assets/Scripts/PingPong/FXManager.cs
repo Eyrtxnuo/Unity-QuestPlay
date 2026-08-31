@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,41 +11,56 @@ namespace PingPong
         public SfxPool sfxPool;
         public AudioClip opponentServeClip;
         
-        public List<GameObject> confettiLaunchers;
+        [SerializeField] private List<GameObject> confettiLaunchers;
+        
+        private AudioSource[] _confettiAudioSources;
 
         public ParticleSystem.MinMaxGradient playerColor;
         public ParticleSystem.MinMaxGradient opponentColor;
         
         public float scoredConfettiDuration = 1f;
         public float winConfettiDuration = 4f;
-    
+        
+        
+        public AudioClip winConfettiClip;
+
+        void Start()
+        {
+            _confettiAudioSources = new AudioSource[confettiLaunchers.Count];
+            for (int i = 0; i < confettiLaunchers.Count; i++)
+            {
+                confettiLaunchers[i].TryGetComponent(out _confettiAudioSources[i]); 
+            }
+        }
+        
         public void ScoredFx(Team  team)
         {
             var color =  GetColor(team);
-            foreach (var launcher in confettiLaunchers)
-            {
-                var lParSys = launcher.GetComponentInChildren<ParticleSystem>();
-                lParSys.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-                var main = lParSys.main;
-                //main.stop
-                main.startColor = color;
-                main.duration = scoredConfettiDuration;
-                lParSys.Play();
-            }
-            
+            PlayParticleEffects(scoredConfettiDuration, color, winConfettiClip);
         }
 
         public void WinMatchFx(Team team)
         {
             var color =  GetColor(team);
-            foreach (var launcher in confettiLaunchers)
+            PlayParticleEffects(winConfettiDuration, color, winConfettiClip);
+        }
+
+        public void PlayParticleEffects(float duration, ParticleSystem.MinMaxGradient color, AudioClip clip = null)
+        {
+            for(int i = 0; i < confettiLaunchers.Count; i++)
             {
+                var launcher = confettiLaunchers[i];
                 var lParSys = launcher.GetComponentInChildren<ParticleSystem>();
                 lParSys.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 var main = lParSys.main;
                 main.startColor = color;
-                main.duration = winConfettiDuration;
+                main.duration = duration;
                 lParSys.Play();
+
+                if (clip && _confettiAudioSources[i])
+                {
+                    StartCoroutine(PlayClipForTime(_confettiAudioSources[i], clip, duration));
+                }
             }
         }
 
@@ -57,6 +73,28 @@ namespace PingPong
         private ParticleSystem.MinMaxGradient GetColor(Team team)
         {
             return team == Team.Player ? playerColor : opponentColor;
+        }
+
+        IEnumerator PlayClipForTime(AudioSource source, AudioClip clip, float duration, float dissolveTime = 1)
+        {
+            source.clip = clip;
+            source.Play();
+            float fullVolTime = duration - dissolveTime;
+            if (fullVolTime > 0)
+            {
+                yield return new WaitForSeconds(fullVolTime);
+            }
+            var initialVol =  source.volume;
+            float fadingTime = 0;
+            while (fadingTime < dissolveTime)// && source.isPlaying // ottimizzazione utile se source può essere stoppata (ora non dovrebbe mai)
+            {
+                fadingTime += Time.deltaTime;
+                source.volume = Mathf.Lerp(initialVol, 0, fadingTime / dissolveTime);
+                Debug.Log(fadingTime + " s: " +  source.volume);
+                yield return null;
+            }
+            source.Stop();
+            source.volume = initialVol;
         }
     }
 }
