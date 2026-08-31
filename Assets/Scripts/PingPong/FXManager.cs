@@ -9,6 +9,7 @@ namespace PingPong
     public class FXManager : MonoBehaviour
     {
         public SfxPool sfxPool;
+        public AudioClip playerServeClip;
         public AudioClip opponentServeClip;
         
         [SerializeField] private List<GameObject> confettiLaunchers;
@@ -67,7 +68,11 @@ namespace PingPong
         public void OpponentServe(Vector3 position)
         {
             sfxPool.PlayClipAtPosition(opponentServeClip, position, pitch:Random.Range(0.95f, 1.05f), priority:100);
-            
+        }
+
+        public void PlayerServe(Vector3 position)
+        {
+            sfxPool.PlayClipAtPosition(playerServeClip, position, volume:0.3f , pitch:Random.Range(0.95f, 1.05f), priority:100);
         }
 
         private ParticleSystem.MinMaxGradient GetColor(Team team)

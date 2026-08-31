@@ -284,6 +284,7 @@ namespace PingPong
                 //_playerServing = false;
                 _ballTossed = true;
                 ball.Toss();
+                fxManager.PlayerServe(ball.transform.position);
             }
         }
 
@@ -430,7 +431,7 @@ namespace PingPong
         }
 
         
-        private const int WIN_POINTS = 2;
+        private const int WIN_POINTS = 11;
         public Team? GetWinner()
         {
             if (_player >= (WIN_POINTS-1) && _opponent >= (WIN_POINTS-1) && Math.Abs(_player - _opponent) >= 2)

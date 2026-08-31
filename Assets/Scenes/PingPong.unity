@@ -584,6 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FXManager
   sfxPool: {fileID: 252174}
+  playerServeClip: {fileID: 8300000, guid: e9a7d04d0d61bf243a7bcc4ce4b6928e, type: 3}
   opponentServeClip: {fileID: 8300000, guid: a8f7c29838f5a7246ad53dfdd611258a, type: 3}
   confettiLaunchers:
   - {fileID: 678987972}
