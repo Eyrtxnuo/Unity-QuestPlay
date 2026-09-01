@@ -14,6 +14,8 @@ public class FollowPoint : MonoBehaviour
     
     private Rigidbody _rb;
     private float _vOffsetPaddle = 0.05f;
+    //public float bounceForce = 15f;
+ 
     
     void Start()
     {
@@ -50,6 +52,9 @@ public class FollowPoint : MonoBehaviour
         }
     }
     
-    public float bounceForce = 15f;
- 
+    public float GetCurrentDistance()
+    {
+        return Vector3.Distance(_rb.position, point.transform.position);
+    }
+    
 }

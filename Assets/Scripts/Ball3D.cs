@@ -240,4 +240,10 @@ public class Ball3D : MonoBehaviour
     {
         return _originalPosition;
     }
+
+    private const float RECATCH_DISTANCE = 0.07f; 
+    public bool CanCancelToss()
+    {
+        return _bindToServeHand.GetCurrentDistance() < RECATCH_DISTANCE;
+    }
 }

@@ -58,6 +58,7 @@ namespace PingPong
             Debug.DrawRay(netObject.transform.position, netObject.transform.right,  Color.red);
             Debug.DrawRay(netObject.transform.position, -netObject.transform.right,  Color.darkRed);
 
+            
         }
 
         void HandleBounce(Collision collision)
@@ -276,6 +277,8 @@ namespace PingPong
             
         }
 
+        
+        private const bool CAN_RECATCH_TOSS = true;
         public void BallTossInput()
         {
             if (_playerServing && !_ballTossed)
@@ -285,8 +288,10 @@ namespace PingPong
                 _ballTossed = true;
                 ball.Toss();
                 fxManager.PlayerServe(ball.transform.position);
+                if (CAN_RECATCH_TOSS) StartCoroutine(RecatchTossCoroutine(0.3f, 2f));
             }
         }
+
 
         private Team NotTeam(Team team)
         {
@@ -300,6 +305,9 @@ namespace PingPong
 
         void ScoredRoutine(Team team, Collision collision = null)
         {
+            _ballTossed = false;
+            ball.ServeBind = false;
+            _playerServing = false;
             _opponentBot.SetTurn(false);
             if(_matchEnded)return;
             
@@ -387,6 +395,24 @@ namespace PingPong
             {
                 SpawnHalo(position, normal, scoringTeam);
                 yield return new WaitForSeconds(rippleDelay);
+            }
+        }
+        
+        IEnumerator RecatchTossCoroutine(float startDelay, float endDelay)
+        {
+            var startTime = Time.time;
+            yield return new WaitForSeconds(startDelay);
+
+            while (Time.time - startTime < endDelay)
+            {
+                if (!_ballTossed) yield break;
+                
+                if (ball.CanCancelToss())
+                {
+                    _ballTossed = false;
+                    ball.ServeBind = true;
+                }
+                yield return null;
             }
         }
     }
