@@ -288,7 +288,7 @@ namespace PingPong
                 _ballTossed = true;
                 ball.Toss();
                 fxManager.PlayerServe(ball.transform.position);
-                if (CAN_RECATCH_TOSS) StartCoroutine(RecatchTossCoroutine(0.3f, 2f));
+                if (CAN_RECATCH_TOSS) StartCoroutine(RecatchTossCoroutine());
             }
         }
 
@@ -397,11 +397,13 @@ namespace PingPong
                 yield return new WaitForSeconds(rippleDelay);
             }
         }
-        
-        IEnumerator RecatchTossCoroutine(float startDelay, float endDelay)
+
+        private static readonly WaitForSeconds WAIT_100ms = new WaitForSeconds(0.1f);
+
+        IEnumerator RecatchTossCoroutine(float endDelay = 2f)
         {
             var startTime = Time.time;
-            yield return new WaitForSeconds(startDelay);
+            yield return WAIT_100ms;
 
             while (Time.time - startTime < endDelay)
             {
