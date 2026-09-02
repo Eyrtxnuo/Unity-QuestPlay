@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class TooltipManager : MonoBehaviour
+public class TooltipFollow : MonoBehaviour
 {
     public GameObject followObject;
     public Vector3 offset;

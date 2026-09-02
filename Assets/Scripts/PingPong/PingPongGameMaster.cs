@@ -15,6 +15,7 @@ namespace PingPong
         public float rippleDelay = 0.4f;
         public FXManager fxManager;
         public EndGamePanelManager endgamePanel;
+        public TooltipHandler tooltipH;
         
         private Scores _scores =  new Scores();
         private Team _serveTurn = Team.Player;
@@ -30,7 +31,9 @@ namespace PingPong
         private GameObject _opponentPaddle;
         private PaddleBotV2 _opponentBot;
         
+        private float _waitingInputFrom;
 
+        private const float TOOLTIP_WAIT_TIME = 1.5f;
 
         void Start()
         {
@@ -58,7 +61,19 @@ namespace PingPong
             Debug.DrawRay(netObject.transform.position, netObject.transform.right,  Color.red);
             Debug.DrawRay(netObject.transform.position, -netObject.transform.right,  Color.darkRed);
 
-            
+            if (tooltipH && Time.time > _waitingInputFrom + TOOLTIP_WAIT_TIME)
+            {
+                if (_playerServing && !_ballTossed)
+                {
+                    tooltipH.ShowToss(true);
+                    _waitingInputFrom = float.MaxValue;
+                }
+                else if(!_matchEnded && _playEnded)
+                {
+                    tooltipH.ShowContinue(true);
+                    _waitingInputFrom = float.MaxValue;
+                }
+            }
         }
 
         void HandleBounce(Collision collision)
@@ -272,6 +287,7 @@ namespace PingPong
                 _playerServing = true;
                 _ballTossed = false;
                 ball.ServeBind = true;
+                _waitingInputFrom = Time.time;
             }
             
             
@@ -283,6 +299,7 @@ namespace PingPong
         {
             if (_playerServing && !_ballTossed)
             {
+                tooltipH.ShowToss(false);
                 ball.ServeBind = false;
                 //_playerServing = false;
                 _ballTossed = true;
@@ -305,6 +322,7 @@ namespace PingPong
 
         void ScoredRoutine(Team team, Collision collision = null)
         {
+            _waitingInputFrom = Time.time;
             _ballTossed = false;
             ball.ServeBind = false;
             _playerServing = false;
@@ -363,6 +381,7 @@ namespace PingPong
             if(_matchEnded)return;
             if (_playEnded)
             {
+                tooltipH.ShowContinue(false);
                 _playEnded = false;
                 Serve();
                 //TODO: resetta pallina, fantasma pallina e tutto il resto
@@ -413,6 +432,7 @@ namespace PingPong
                 {
                     _ballTossed = false;
                     ball.ServeBind = true;
+                    _waitingInputFrom = Time.time;
                 }
                 yield return null;
             }
