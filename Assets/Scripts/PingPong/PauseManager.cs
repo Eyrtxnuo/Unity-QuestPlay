@@ -36,7 +36,11 @@ namespace PingPong
             Time.timeScale = 1;
             OnResume?.Invoke();
         }
-        
+
+        public bool IsPaused()
+        {
+            return _is_paused;   
+        }
         
     }
 }
