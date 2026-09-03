@@ -22117,13 +22117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f37646f2ef4bb589ae25d83131aaa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PaddleBotV2
-  speed: 4
-  rotationSpeed: 600
   ball: {fileID: 948860411}
   bounceDirTarget: {fileID: 1270426894}
   tableTopCollider: {fileID: 1567120896}
   testTargetPrefab: {fileID: 1650190120}
   borderSimulationSlack: 0.2
+  difficulty: 3
 --- !u!1 &1833651095
 GameObject:
   m_ObjectHideFlags: 0

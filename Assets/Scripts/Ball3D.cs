@@ -217,20 +217,21 @@ public class Ball3D : MonoBehaviour
         return (currentPos, currentVel, currentAngularVel);
     }
     
-    public (Vector3 fallPosition, (Vector3 position, Vector3 velocity, Vector3 angularVelocity) afterBounceState)? GetBounceStates(float timeAfterBounce = 0.5f)
+    public (Vector3 fallPosition, (Vector3 position, Vector3 velocity, Vector3 angularVelocity) afterBounceState)? GetBounceStates(float timeAfterBounce = 0.5f, bool ignoreMagnus = false)
     {
+        float useThisMagnusConstant = ignoreMagnus ? -magnusConstant : magnusConstant;
         float tableY = tableTop ? tableTop.position.y : 0f;
         
         var impactNullable = GetImpactState(
             _rb.position, _rb.linearVelocity, _rb.angularVelocity, _rb.mass,
-            magnusConstant, _rb.linearDamping, _rb.angularDamping, tableY);
+            useThisMagnusConstant, _rb.linearDamping, _rb.angularDamping, tableY);
         
         if (!impactNullable.HasValue) return null;
         var impact = impactNullable.Value;
 
         var afterBounceState = GetStateAfterBounce(
             impact.position, impact.velocity, impact.angularVelocity, 
-            _rb.mass, magnusConstant, _rb.angularDamping, _rb.linearDamping, 
+            _rb.mass, useThisMagnusConstant, _rb.angularDamping, _rb.linearDamping, 
             0.95f, 0.05f, 0.05f, timeAfterBounce);
         
         return (impact.position, afterBounceState);

@@ -7,16 +7,18 @@ namespace PingPong
     [RequireComponent(typeof(Collider))]
     public class PaddleBotV2 : MonoBehaviour
     {
-        public float speed = 10f;
-        public float rotationSpeed = 600;
-    
+
+        
 
         public Ball3D ball;
         public GameObject bounceDirTarget;
         public Collider tableTopCollider;
         public GameObject testTargetPrefab;
         public float borderSimulationSlack =  0.2f;
-    
+        public Difficulty difficulty = Difficulty.Easy;
+        
+        
+        private DifficultyParams _config;
         private Rigidbody _rb;
         private Collider[] _cols;
         private (Vector3 position, Vector3 velocity, Vector3 angularVelocity) _lastTargetState;
@@ -25,6 +27,8 @@ namespace PingPong
 
         void Start()
         {
+            _config = DifficultyParams.GetFromDifficulty(difficulty); // set Difficulty
+            
             // Time.timeScale = 1f;
             // Time.fixedDeltaTime = 0.005f * Time.timeScale;
             _rb = GetComponent<Rigidbody>();
@@ -51,7 +55,7 @@ namespace PingPong
             if(!_isTurn)return;
             Debug.DrawLine(_rb.position, _rb.position + new Vector3(0, 0.13f, 0), Color.tomato);
             // Go to predicted bounce position
-            var bouncePositionsNullable = ball.GetBounceStates(0.25f);
+            var bouncePositionsNullable = ball.GetBounceStates(0.25f, _config.ignoreMagnus);
             if (bouncePositionsNullable.HasValue)
             {
                 var fallPosition = bouncePositionsNullable.Value.fallPosition;
@@ -79,8 +83,8 @@ namespace PingPong
                 Vector3.Distance(ball.transform.position, this.transform.position) > 0.2 // when ball is close, freeze to avoid orbital launches
             )
             {   
-                _rb.MovePosition(Vector3.MoveTowards(_rb.position, tPos, speed * Time.fixedDeltaTime));
-                _rb.MoveRotation(Quaternion.RotateTowards(this.transform.rotation, CalculatePaddleRotation(this._lastTargetState), rotationSpeed *  Time.fixedDeltaTime));
+                _rb.MovePosition(Vector3.MoveTowards(_rb.position, tPos, _config.speed * Time.fixedDeltaTime));
+                _rb.MoveRotation(Quaternion.RotateTowards(this.transform.rotation, CalculatePaddleRotation(this._lastTargetState), _config.rotationSpeed *  Time.fixedDeltaTime));
             }
             else
             {
@@ -176,7 +180,7 @@ namespace PingPong
                 if(!fPos.HasValue) return;
                 var currentDistance = collision.contacts[0].point.z - fPos.Value.z;
                 var targetDistance = collision.contacts[0].point.z - bounceDirTarget.transform.position.z;
-                var factor = targetDistance / currentDistance;
+                var factor = Mathf.Clamp(targetDistance / currentDistance, _config.minSpeedMuliplier, _config.maxSpeedMuliplier) * RandMult();
                 bounceVel.z *= factor;
                 brb.linearVelocity = bounceVel;
                 
@@ -211,6 +215,46 @@ namespace PingPong
             foreach (var colW in otherCols)
             {
                 Physics.IgnoreCollision(mainCol, colW, false);
+            }
+        }
+        
+        public enum Difficulty
+        {
+            Easy,
+            Medium,
+            Hard,
+            Max
+        }
+
+        private float RandMult()
+        {
+            return 1 + Random.Range(-_config.generalizedError, _config.generalizedError);
+        }
+        
+        private struct DifficultyParams
+        {
+            public float speed;
+            public float rotationSpeed;
+            public bool ignoreMagnus;
+            public float maxSpeedMuliplier;
+            public float minSpeedMuliplier;
+            public float generalizedError;
+
+            public static readonly DifficultyParams Easy = new DifficultyParams { speed = 3f,  rotationSpeed = 70f,  ignoreMagnus = true, maxSpeedMuliplier = 1.2f, minSpeedMuliplier = 1, generalizedError = 0.1f};
+            public static readonly DifficultyParams Medium = new DifficultyParams { speed = 6f,  rotationSpeed = 300f,  ignoreMagnus = false, maxSpeedMuliplier =  1.5f, minSpeedMuliplier = 0.9f, generalizedError = 0.05f};
+            public static readonly DifficultyParams Hard = new DifficultyParams { speed = 8f,  rotationSpeed = 500f,  ignoreMagnus = false, maxSpeedMuliplier =  1.8f, minSpeedMuliplier = 0.7f, generalizedError = 0.03f};
+            public static readonly DifficultyParams Max = new DifficultyParams { speed = 10f,  rotationSpeed = 600f,  ignoreMagnus = false, maxSpeedMuliplier = 6,  minSpeedMuliplier = 0.1f, generalizedError = 0};
+
+            public static DifficultyParams GetFromDifficulty(Difficulty difficulty)
+            {
+                return difficulty switch
+                {
+                    Difficulty.Easy => Easy,
+                    Difficulty.Medium => Medium,
+                    Difficulty.Hard => Hard,
+                    Difficulty.Max => Max,
+                    _ => Easy
+                };
             }
         }
     }
