@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+
 namespace PingPong
 {
     public class PingPongGameMaster : MonoBehaviour
@@ -16,21 +17,23 @@ namespace PingPong
         public FXManager fxManager;
         public EndGamePanelManager endgamePanel;
         public TooltipHandler tooltipH;
-        
-        private Scores _scores =  new Scores();
+        public PauseManager pauseManager;
+
+        private Scores _scores = new Scores();
         private Team _serveTurn = Team.Player;
         private short _bouncesLeft = 0;
         private Team _lastTouch = Team.Player;
         private bool _playerServing = true;
         private bool _ballTossed = false;
         private float _lastPaddleTouchTime = 0;
-        private bool _playEnded;//TODO: far capire meglio che lo scambio è concluso.
+        private bool _playEnded; //TODO: far capire meglio che lo scambio è concluso.
         private GameObject _ghost;
         private bool _matchEnded;
         private GameObject _playerPaddle;
         private GameObject _opponentPaddle;
         private PaddleBotV2 _opponentBot;
-        
+        private PaddleSafeRespawn _safeRespawnComponent;
+
         private float _waitingInputFrom;
 
         private const float TOOLTIP_WAIT_TIME = 1.5f;
@@ -42,24 +45,28 @@ namespace PingPong
             _playerPaddle = GameObject.FindWithTag("PingPongPlayerPaddle");
             _opponentPaddle = GameObject.FindWithTag("PingPongOpponentPaddle");
             _opponentBot = _opponentPaddle.GetComponent<PaddleBotV2>();
+            _safeRespawnComponent = _playerPaddle.GetComponent<PaddleSafeRespawn>();
         }
-        
+
         private void OnEnable()
         {
             ball.OnAnyCollision += HandleBounce;
+            pauseManager.OnPause += HandlePause;
+            pauseManager.OnResume += HandleResume;
         }
 
         private void OnDisable()
         {
             ball.OnAnyCollision -= HandleBounce;
+            pauseManager.OnPause -= HandlePause;
+            pauseManager.OnResume -= HandleResume;
         }
-
 
         // Update is called once per frame
         void Update()
         {
-            Debug.DrawRay(netObject.transform.position, netObject.transform.right,  Color.red);
-            Debug.DrawRay(netObject.transform.position, -netObject.transform.right,  Color.darkRed);
+            Debug.DrawRay(netObject.transform.position, netObject.transform.right, Color.red);
+            Debug.DrawRay(netObject.transform.position, -netObject.transform.right, Color.darkRed);
 
             if (tooltipH && Time.time > _waitingInputFrom + TOOLTIP_WAIT_TIME)
             {
@@ -68,7 +75,7 @@ namespace PingPong
                     tooltipH.ShowToss(true);
                     _waitingInputFrom = float.MaxValue;
                 }
-                else if(!_matchEnded && _playEnded)
+                else if (!_matchEnded && _playEnded)
                 {
                     tooltipH.ShowContinue(true);
                     _waitingInputFrom = float.MaxValue;
@@ -78,22 +85,24 @@ namespace PingPong
 
         void HandleBounce(Collision collision)
         {
-            if(_playEnded) return;
-            if(_matchEnded)return;
-            
+            if (_playEnded) return;
+            if (_matchEnded) return;
+
             if (_lastTouch == Team.Opponent && _opponentBot.GetTurn())
             {
                 _opponentBot.SetTurn(false);
             }
-            if (_bouncesLeft <= 2 && !_opponentBot.GetTurn() && (_lastTouch == Team.Player||collision.gameObject.CompareTag("PingPongPlayerPaddle")) )
+
+            if (_bouncesLeft <= 2 && !_opponentBot.GetTurn() &&
+                (_lastTouch == Team.Player || collision.gameObject.CompareTag("PingPongPlayerPaddle")))
             {
                 _opponentBot.SetTurn(true);
             }
             else
             {
-                Debug.Log(_bouncesLeft  + "  -  " + !_opponentBot.GetTurn() + "  -  " + (_lastTouch == Team.Player));
+                Debug.Log(_bouncesLeft + "  -  " + !_opponentBot.GetTurn() + "  -  " + (_lastTouch == Team.Player));
             }
-            
+
             //Paddle Debounce
             if (collision.gameObject.CompareTag("PingPongPlayerPaddle") ||
                 collision.gameObject.CompareTag("PingPongOpponentPaddle"))
@@ -102,18 +111,17 @@ namespace PingPong
                 {
                     return;
                 }
+
                 _lastPaddleTouchTime = Time.time;
             }
 
             Debug.Log(collision.gameObject.name);
-            
-            
-            
-            if(_playerServing)
+
+
+            if (_playerServing)
             {
                 if (collision.gameObject.CompareTag("PingPongPlayerPaddle"))
                 {
-                    
                     _playerServing = false;
                     _ballTossed = true;
                     ball.ServeBind = false;
@@ -129,13 +137,13 @@ namespace PingPong
                     return;
                 }
             }
-            
-            
+
+
             Debug.DrawRay(netObject.transform.position, netObject.transform.forward * 3f, Color.red, 2f);
 
             Debug.DrawLine(netObject.transform.position, collision.transform.position, Color.blue, 2f);
-            
-            
+
+
             if (collision.gameObject.CompareTag("PingPongField"))
             {
                 _bouncesLeft--;
@@ -145,13 +153,15 @@ namespace PingPong
                     {
                         // primo rimbalzo battuta non nel campo del player che ha battuto
                         // punto a chi non è _lastTouch
-                        Debug.Log($"SCORED: punto a {NotTeam(_serveTurn)} — primo rimbalzo di battuta fuori dal campo di chi ha servito");
+                        Debug.Log(
+                            $"SCORED: punto a {NotTeam(_serveTurn)} — primo rimbalzo di battuta fuori dal campo di chi ha servito");
                         ScoredRoutine(NotTeam(_serveTurn), collision);
                         //TODO: reset stato
                     }
+
                     return;
                 }
-                else  if (_bouncesLeft == 0)
+                else if (_bouncesLeft == 0)
                 {
                     var side = IsPlayerSide(collision.contacts[0].point);
                     Debug.Log(side);
@@ -159,11 +169,13 @@ namespace PingPong
                     {
                         // palla rimbalza nel campo di chi l'ha toccata.
                         // punto a chi non è _lastTouch
-                        Debug.Log($"SCORED: punto a {NotTeam(_lastTouch)} — la palla è rimbalzata di nuovo nel campo di chi l'ha toccata");
+                        Debug.Log(
+                            $"SCORED: punto a {NotTeam(_lastTouch)} — la palla è rimbalzata di nuovo nel campo di chi l'ha toccata");
                         ScoredRoutine(NotTeam(_lastTouch), collision);
-                        
+
                         //TODO: reset stato
                     }
+
                     return;
                 }
                 else
@@ -172,15 +184,14 @@ namespace PingPong
                     ScoredRoutine(_lastTouch, collision);
                     return;
                 }
-                
             }
-            
+
             // tocco rete, ok, ma non conta come rimbalzo
             if (collision.gameObject == netObject)
             {
                 return;
             }
-            
+
             // tocco racchette:
 
             if (_lastTouch == Team.Player && collision.gameObject.CompareTag("PingPongPlayerPaddle"))
@@ -191,6 +202,7 @@ namespace PingPong
                 //TODO: reset stato
                 return;
             }
+
             if (_lastTouch == Team.Opponent && collision.gameObject.CompareTag("PingPongOpponentPaddle"))
             {
                 // Fallo, punto Player (toccata pallina quando doveva toccarla l'altro)
@@ -199,7 +211,9 @@ namespace PingPong
                 //TODO: reset stato
                 return;
             }
-            if (_lastTouch == Team.Opponent && collision.gameObject.CompareTag("PingPongPlayerPaddle") && _bouncesLeft > 0)
+
+            if (_lastTouch == Team.Opponent && collision.gameObject.CompareTag("PingPongPlayerPaddle") &&
+                _bouncesLeft > 0)
             {
                 // Fallo, punto Opponent (toccata pallina prima del rimbalzo)
                 Debug.Log("SCORED: punto a Opponent — il player ha toccato la pallina prima del rimbalzo");
@@ -207,7 +221,9 @@ namespace PingPong
                 //TODO: reset stato
                 return;
             }
-            if (_lastTouch == Team.Player && collision.gameObject.CompareTag("PingPongOpponentPaddle") && _bouncesLeft > 0)
+
+            if (_lastTouch == Team.Player && collision.gameObject.CompareTag("PingPongOpponentPaddle") &&
+                _bouncesLeft > 0)
             {
                 // Fallo, punto Player (toccata pallina prima del rimbalzo) 
                 Debug.Log("SCORED: punto a Player — l'Opponent ha toccato la pallina prima del rimbalzo");
@@ -215,22 +231,23 @@ namespace PingPong
                 //TODO: reset stato
                 return;
             }
-            
-            if (collision.gameObject.CompareTag("PingPongPlayerPaddle") || collision.gameObject.CompareTag("PingPongOpponentPaddle"))
+
+            if (collision.gameObject.CompareTag("PingPongPlayerPaddle") ||
+                collision.gameObject.CompareTag("PingPongOpponentPaddle"))
             {
                 //TODO: ritorna palla
                 _lastTouch = collision.gameObject.CompareTag("PingPongPlayerPaddle") ? Team.Player : Team.Opponent;
                 _bouncesLeft = 1;
                 return;
             }
-            
-            
+
+
             // tocco qualunque altro oggetto
 
             if (_bouncesLeft > 0)
             {
                 // Punto != _lastTouch, campo mancato
-                
+
                 Debug.Log($"SCORED: punto a {NotTeam(_lastTouch)} — palla fuori dal campo prima del rimbalzo");
                 ScoredRoutine(NotTeam(_lastTouch), collision);
                 //TODO: reset stato
@@ -242,7 +259,7 @@ namespace PingPong
                 Debug.Log($"SCORED: punto a {_lastTouch} — palla fuori dal campo dopo il rimbalzo, non presa.");
                 ScoredRoutine(_lastTouch, collision);
 
-                
+
                 //TODO: reset stato
                 return;
             }
@@ -251,12 +268,12 @@ namespace PingPong
         Team IsPlayerSide(Vector3 position)
         {
             Vector3 localPosition = netObject.transform.InverseTransformPoint(position);
-            if (localPosition.z > 0) 
+            if (localPosition.z > 0)
             {
                 // Campo player
                 return Team.Player;
-            } 
-            else if (localPosition.z < 0) 
+            }
+            else if (localPosition.z < 0)
             {
                 // Campo avversario
                 return Team.Opponent;
@@ -280,21 +297,20 @@ namespace PingPong
                 _playerServing = false;
                 ball.Relaunch();
                 fxManager.OpponentServe(ballSpawnPosition);
-                
             }
             else
             {
+                _safeRespawnComponent.EnableSafeMode(true);
                 _playerServing = true;
                 _ballTossed = false;
                 ball.ServeBind = true;
                 _waitingInputFrom = Time.time;
             }
-            
-            
         }
 
-        
+
         private const bool CAN_RECATCH_TOSS = true;
+
         public void BallTossInput()
         {
             if (_playerServing && !_ballTossed)
@@ -327,16 +343,16 @@ namespace PingPong
             ball.ServeBind = false;
             _playerServing = false;
             _opponentBot.SetTurn(false);
-            if(_matchEnded)return;
-            
+            if (_matchEnded) return;
+
             _scores.Scored(team);
-            
+
             Team turn = _scores.GetTurn();
             _serveTurn = turn;
             _playEnded = true;
-            
+
             //add ghost ball and halo
-            if(collision == null) return;
+            if (collision == null) return;
             Vector3 touchPos = BallPosFromCollision(collision);
             if (ghostBallPrefab)
             {
@@ -345,8 +361,10 @@ namespace PingPong
 
             if (haloPrefab)
             {
-                StartCoroutine(SpawnRipplesCoroutine(collision.GetContact(0).point, collision.GetContact(0).normal, team));
+                StartCoroutine(SpawnRipplesCoroutine(collision.GetContact(0).point, collision.GetContact(0).normal,
+                    team));
             }
+
             if (_scores.GetWinner() is { } win) // se non null la partita è finita
             {
                 Debug.Log("Match ended, winner: " + win);
@@ -354,19 +372,19 @@ namespace PingPong
 
                 _playerPaddle.SetActive(false);
                 _opponentPaddle.SetActive(false);
-                
-                
+
+
                 if (win == Team.Player)
                 {
                     fxManager.WinMatchFx(Team.Player);
                     // TODO: blocca tutto e mostra schermo vittoria
-                    
                 }
                 else
                 {
                     fxManager.WinMatchFx(Team.Opponent);
                     //TODO: blocca tutto e mostra schermo sconfitta
                 }
+
                 endgamePanel.ShowPanel(_scores);
                 return;
             }
@@ -378,7 +396,7 @@ namespace PingPong
 
         public void Ready_Button()
         {
-            if(_matchEnded)return;
+            if (_matchEnded) return;
             if (_playEnded)
             {
                 tooltipH.ShowContinue(false);
@@ -397,9 +415,8 @@ namespace PingPong
         {
             ContactPoint contactPoint = collision.GetContact(0);
             return contactPoint.point + contactPoint.normal * 0.025f; // 0.025 è il raggio della pallina
-            
         }
-        
+
         void SpawnHalo(Vector3 position, Vector3 normal, Team scoringTeam)
         {
             Debug.Log("Spawning halo");
@@ -407,7 +424,7 @@ namespace PingPong
             HaloHandler halo = haloObj.GetComponent<HaloHandler>();
             halo.SpawnHalo(position, normal, scoringTeam);
         }
-        
+
         IEnumerator SpawnRipplesCoroutine(Vector3 position, Vector3 normal, Team scoringTeam)
         {
             for (int i = 0; i < haloRipples; i++)
@@ -426,15 +443,27 @@ namespace PingPong
             while (Time.time - startTime < endDelay)
             {
                 if (!_ballTossed) yield break;
-                
+
                 if (ball.CanCancelToss())
                 {
                     _ballTossed = false;
                     ball.ServeBind = true;
                     _waitingInputFrom = Time.time;
                 }
+
                 yield return null;
             }
+        }
+
+
+        private void HandlePause()
+        {
+            fxManager.PauseAll();
+        }
+
+        private void HandleResume()
+        {
+            fxManager.ResumeAll();
         }
     }
 
@@ -442,8 +471,8 @@ namespace PingPong
     {
         private int _player;
         private int _opponent;
-        
-        public Scores(int player = 0, int opponent= 0)
+
+        public Scores(int player = 0, int opponent = 0)
         {
             this._player = player;
             this._opponent = opponent;
@@ -454,7 +483,8 @@ namespace PingPong
             if (team == Team.Player)
             {
                 _player++;
-            }else if (team == Team.Opponent)
+            }
+            else if (team == Team.Opponent)
             {
                 _opponent++;
             }
@@ -467,32 +497,37 @@ namespace PingPong
 
         public Team GetTurn()
         {
-            int tot = _player +  _opponent;
+            int tot = _player + _opponent;
             // Vantaggi, si inverte ogni punto
             if (_player >= 10 && _opponent >= 10)
             {
                 return tot % 2 == 0 ? Team.Player : Team.Opponent;
             }
+
             // Normale, si inverte ogni 2 punti
-            return (tot/2) % 2 == 0 ? Team.Player : Team.Opponent;
+            return (tot / 2) % 2 == 0 ? Team.Player : Team.Opponent;
         }
 
-        
-        private const int WIN_POINTS = 11;
+
+        private const int WIN_POINTS = 1;
+
         public Team? GetWinner()
         {
-            if (_player >= (WIN_POINTS-1) && _opponent >= (WIN_POINTS-1) && Math.Abs(_player - _opponent) >= 2)
+            if (_player >= (WIN_POINTS - 1) && _opponent >= (WIN_POINTS - 1) && Math.Abs(_player - _opponent) >= 2)
             {
-                return _player-_opponent>=0 ? Team.Player : Team.Opponent;
+                return _player - _opponent >= 0 ? Team.Player : Team.Opponent;
             }
-            if (_player >= WIN_POINTS && _opponent <= (WIN_POINTS-2))
+
+            if (_player >= WIN_POINTS && _opponent <= (WIN_POINTS - 2))
             {
                 return Team.Player;
             }
-            if (_opponent >= WIN_POINTS && _player <= (WIN_POINTS-2))
+
+            if (_opponent >= WIN_POINTS && _player <= (WIN_POINTS - 2))
             {
                 return Team.Opponent;
             }
+
             return null;
         }
     }

@@ -82,6 +82,22 @@ public class SfxPool : MonoBehaviour
             return (source.clip.length - source.time) / clipPitch;
             
         }
-    } 
+    }
+
+    public void PauseAll()
+    {
+        foreach (var source in _audioSourcePool)
+        {
+            source.source.Pause();
+        }
+    }
+    
+    public void UnPauseAll()
+    {
+        foreach (var source in _audioSourcePool)
+        {
+            source.source.UnPause();
+        }
+    }
 }
 

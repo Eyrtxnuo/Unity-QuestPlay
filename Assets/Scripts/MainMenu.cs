@@ -24,8 +24,10 @@ public class MainMenu : MonoBehaviour
     
     public static IEnumerator LoadSceneAsyncRoutine(string sceneName)
     {
+        PanelManager.ResetInstanceCounter();
         //TODO: disattiva i click per il loading degli altri mondi
         // e mangari aggiungere uno schermo di caricamento
+        
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
         while (asyncLoad is { isDone: false })

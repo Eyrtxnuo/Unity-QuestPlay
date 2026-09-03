@@ -27,7 +27,7 @@ namespace PingPong
 
         void Start()
         {
-            _config = DifficultyParams.GetFromDifficulty(difficulty); // set Difficulty
+            SetDifficulty(difficulty);
             
             // Time.timeScale = 1f;
             // Time.fixedDeltaTime = 0.005f * Time.timeScale;
@@ -224,6 +224,11 @@ namespace PingPong
             Medium,
             Hard,
             Max
+        }
+
+        public void SetDifficulty(Difficulty diff)
+        {
+            _config = DifficultyParams.GetFromDifficulty(diff); // set Difficulty
         }
 
         private float RandMult()

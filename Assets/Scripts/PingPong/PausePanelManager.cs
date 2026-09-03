@@ -13,15 +13,14 @@ namespace PingPong
 
         public void Awake()
         {
-            
             TryGetComponent(out _audioSource);
         }
 
         public void Start()
         {
-            pauseManager.OnPause += ShowPanel;
-            pauseManager.OnResume += HidePanel;
-            HidePanel();
+            // pauseManager.OnPause += ShowPanel;
+            // pauseManager.OnResume += HidePanel;
+            //HidePanel();
         }
         public void ResumeButtonHandler()
         {

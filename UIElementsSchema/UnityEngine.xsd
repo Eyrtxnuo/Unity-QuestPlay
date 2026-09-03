@@ -17,6 +17,14 @@
       <xs:enumeration value="OneTimeCode" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="FontStyleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Normal" />
+      <xs:enumeration value="Bold" />
+      <xs:enumeration value="Italic" />
+      <xs:enumeration value="BoldAndItalic" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="TextAnchorType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="UpperLeft" />
@@ -28,14 +36,6 @@
       <xs:enumeration value="LowerLeft" />
       <xs:enumeration value="LowerCenter" />
       <xs:enumeration value="LowerRight" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="FontStyleType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Normal" />
-      <xs:enumeration value="Bold" />
-      <xs:enumeration value="Italic" />
-      <xs:enumeration value="BoldAndItalic" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="ScaleModeType">

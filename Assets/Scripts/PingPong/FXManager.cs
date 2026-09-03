@@ -101,5 +101,23 @@ namespace PingPong
             source.Stop();
             source.volume = initialVol;
         }
+
+        public void PauseAll()
+        {
+            sfxPool.PauseAll();
+            foreach (var source in _confettiAudioSources)
+            {
+                source.Pause();
+            }
+        }
+
+        public void ResumeAll()
+        {
+            sfxPool.UnPauseAll();
+            foreach (var source in _confettiAudioSources)
+            {
+                source.UnPause();
+            }
+        }
     }
 }

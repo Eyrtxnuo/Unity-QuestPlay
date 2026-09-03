@@ -5,6 +5,7 @@ namespace PingPong
 {
     public class PauseManager : MonoBehaviour
     {
+        public PausePanelManager _pausePanelManager;
         
         public Action OnPause;
         public Action OnResume;
@@ -28,6 +29,7 @@ namespace PingPong
             _is_paused = true;
             Time.timeScale = 0;
             OnPause?.Invoke();
+            _pausePanelManager.ShowPanel();
         }
 
         public void Resume()
@@ -35,6 +37,7 @@ namespace PingPong
             _is_paused = false;
             Time.timeScale = 1;
             OnResume?.Invoke();
+            _pausePanelManager.HidePanel();
         }
 
         public bool IsPaused()

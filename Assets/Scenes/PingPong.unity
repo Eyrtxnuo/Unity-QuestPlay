@@ -1230,6 +1230,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3974258325478789686, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+    - target: {fileID: 6860981679313952077, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_Name
       value: PaddleVr
@@ -1245,6 +1253,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       insertIndex: -1
       addedObject: {fileID: 648110258}
+    - targetCorrespondingSourceObject: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 648110261}
+    - targetCorrespondingSourceObject: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 648110262}
   m_SourcePrefab: {fileID: 100100000, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
 --- !u!1 &118562076
 GameObject:
@@ -1597,6 +1611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2924caca5cd34ca98f54c8de7a4fb927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PingPong.PauseManager
+  _pausePanelManager: {fileID: 375891654}
 --- !u!4 &170151100
 Transform:
   m_ObjectHideFlags: 0
@@ -3259,6 +3274,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1246253518}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &375891654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1618166775082488151, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
+  m_PrefabInstance: {fileID: 9078852199912632567}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29a3e0780274f0a97ed5442b12f3032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PausePanelManager
 --- !u!1 &377097142
 GameObject:
   m_ObjectHideFlags: 0
@@ -4868,6 +4894,39 @@ MonoBehaviour:
   interpolationFactor: 10
   debounceDelay: 0.1
   debounceLastTime: 0
+--- !u!114 &648110261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648110255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aad4d577091d4ac681c6792adaac0d7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaddleBind
+  hand: {fileID: 2010625973}
+  movementSpeed: 30
+  rotationSpeed: 3600
+  movementDampening: 2
+  bounceForce: 15
+--- !u!114 &648110262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648110255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 501dbee2ee104260a7e6df43b5ab5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PingPong.PaddleSafeRespawn
+  safeModeMaterial: {fileID: 2100000, guid: 9dfe6cb2a56b1d042bfcf083da865616, type: 2}
+  target: {fileID: 948860405}
+  safeDistance: 0.1
+  safeTime: 0.15
 --- !u!1 &675515961
 GameObject:
   m_ObjectHideFlags: 0
@@ -13611,6 +13670,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.11440001
       objectReference: {fileID: 0}
+    - target: {fileID: 6860981679313952077, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_Name
       value: PaddleBot
@@ -20854,6 +20917,7 @@ MonoBehaviour:
   fxManager: {fileID: 43810933}
   endgamePanel: {fileID: 389652508}
   tooltipH: {fileID: 1622407036}
+  pauseManager: {fileID: 170151099}
 --- !u!4 &1622407035
 Transform:
   m_ObjectHideFlags: 0
@@ -23222,7 +23286,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010625973}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e33f417a941d1c04d8b5c1c8e609fac5, type: 3}
   m_Name: 
@@ -24298,7 +24362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 495755813870472223, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.636
+      value: 0.643
       objectReference: {fileID: 0}
     - target: {fileID: 495755813870472223, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24414,7 +24478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2683451722963090010, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3616710290400618271, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: m_AnchorMax.y
