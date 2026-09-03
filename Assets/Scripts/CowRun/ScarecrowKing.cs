@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Runtime.CompilerServices;
 using LocomotionCollision;
+using PingPong;
 using UnityEngine;
 
 namespace CowRun
@@ -79,8 +80,8 @@ namespace CowRun
             yield return null;
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             float animationDuration = stateInfo.length;
-            
-            yield return new WaitForSeconds(animationDuration);// waits for the animation end
+
+            yield return WaitsCache.GetWaitForSeconds(animationDuration);// waits for the animation end
             
             if(!this.IsHit){// skip tp if during animation the scarecrow got hit
                 container.transform.position += container.transform.TransformDirection(positionOffset);

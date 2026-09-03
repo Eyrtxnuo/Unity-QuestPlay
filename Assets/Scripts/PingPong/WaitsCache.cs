@@ -19,6 +19,6 @@ namespace PingPong
             return waitObj;
         }
 
-        public static WaitForSeconds WAIT_100ms = new WaitForSeconds(0.1f);
+        public static WaitForSeconds WAIT_100ms = GetWaitForSeconds(0.1f);//direct access and pre-added to dictionary
     }
 }

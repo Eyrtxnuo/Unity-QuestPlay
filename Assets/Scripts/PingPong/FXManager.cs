@@ -87,7 +87,7 @@ namespace PingPong
             float fullVolTime = duration - dissolveTime;
             if (fullVolTime > 0)
             {
-                yield return new WaitForSeconds(fullVolTime);
+                yield return WaitsCache.GetWaitForSeconds(fullVolTime);
             }
             var initialVol =  source.volume;
             float fadingTime = 0;

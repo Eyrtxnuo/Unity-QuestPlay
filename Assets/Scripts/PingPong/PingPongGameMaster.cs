@@ -413,7 +413,7 @@ namespace PingPong
             for (int i = 0; i < haloRipples; i++)
             {
                 SpawnHalo(position, normal, scoringTeam);
-                yield return new WaitForSeconds(rippleDelay);
+                yield return WaitsCache.GetWaitForSeconds(rippleDelay);
             }
         }
 
