@@ -417,12 +417,11 @@ namespace PingPong
             }
         }
 
-        private static readonly WaitForSeconds WAIT_100ms = new WaitForSeconds(0.1f);
 
         IEnumerator RecatchTossCoroutine(float endDelay = 2f)
         {
             var startTime = Time.time;
-            yield return WAIT_100ms;
+            yield return WaitsCache.WAIT_100ms;
 
             while (Time.time - startTime < endDelay)
             {
