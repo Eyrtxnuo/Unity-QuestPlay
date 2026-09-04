@@ -4925,8 +4925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PingPong.PaddleSafeRespawn
   safeModeMaterial: {fileID: 2100000, guid: 9dfe6cb2a56b1d042bfcf083da865616, type: 2}
   target: {fileID: 948860405}
-  safeDistance: 0.1
-  safeTime: 0.15
+  safeDistance: 0.2
+  safeTime: 0.3
 --- !u!1 &675515961
 GameObject:
   m_ObjectHideFlags: 0
@@ -21353,7 +21353,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}

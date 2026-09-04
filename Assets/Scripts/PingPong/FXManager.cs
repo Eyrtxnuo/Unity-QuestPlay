@@ -95,7 +95,7 @@ namespace PingPong
             {
                 fadingTime += Time.deltaTime;
                 source.volume = Mathf.Lerp(initialVol, 0, fadingTime / dissolveTime);
-                Debug.Log(fadingTime + " s: " +  source.volume);
+                //Debug.Log(fadingTime + " s: " +  source.volume);
                 yield return null;
             }
             source.Stop();

@@ -107,6 +107,8 @@ namespace PingPong
             if (collision.gameObject.CompareTag("PingPongPlayerPaddle") ||
                 collision.gameObject.CompareTag("PingPongOpponentPaddle"))
             {
+                _opponentBot.bouncedInBotField = false;
+                
                 if (Time.time - _lastPaddleTouchTime < paddleDebounceTime)
                 {
                     return;
@@ -159,6 +161,8 @@ namespace PingPong
                         //TODO: reset stato
                     }
 
+                   
+
                     return;
                 }
                 else if (_bouncesLeft == 0)
@@ -175,7 +179,13 @@ namespace PingPong
 
                         //TODO: reset stato
                     }
-
+                    
+                    if (IsPlayerSide(collision.contacts[0].point) == Team.Opponent)
+                    {
+                        _opponentBot.bouncedInBotField = true;
+                        Debug.Log("BounceInBotField");
+                    }
+                    
                     return;
                 }
                 else
@@ -509,7 +519,7 @@ namespace PingPong
         }
 
 
-        private const int WIN_POINTS = 1;
+        private const int WIN_POINTS = 11;
 
         public Team? GetWinner()
         {

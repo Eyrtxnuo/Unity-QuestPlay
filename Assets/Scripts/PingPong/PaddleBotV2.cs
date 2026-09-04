@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace PingPong
 {
@@ -24,6 +27,7 @@ namespace PingPong
         private (Vector3 position, Vector3 velocity, Vector3 angularVelocity) _lastTargetState;
         private float _bounceFactor = 1.4f;
         private bool _isTurn;
+        [NonSerialized] public bool bouncedInBotField = false;
 
         void Start()
         {
@@ -55,22 +59,27 @@ namespace PingPong
             if(!_isTurn)return;
             Debug.DrawLine(_rb.position, _rb.position + new Vector3(0, 0.13f, 0), Color.tomato);
             // Go to predicted bounce position
-            var bouncePositionsNullable = ball.GetBounceStates(0.25f, _config.ignoreMagnus);
-            if (bouncePositionsNullable.HasValue)
+            if (!bouncedInBotField)
             {
-                var fallPosition = bouncePositionsNullable.Value.fallPosition;
-                var bounceS = bouncePositionsNullable.Value.afterBounceState;
-                if (!(fallPosition.x > tableTopCollider.bounds.max.x + borderSimulationSlack ||
-                      fallPosition.x < -tableTopCollider.bounds.max.x - borderSimulationSlack ||
-                      fallPosition.z > 0 ||
-                      fallPosition.z < -tableTopCollider.bounds.max.z - borderSimulationSlack ||
-                      bounceS.position.z > -0.4
-                      ))
+                var bouncePositionsNullable = ball.GetBounceStates(0.25f, _config.ignoreMagnus);
+                if (bouncePositionsNullable.HasValue)
                 {
-                    
-                    testTargetPrefab.transform.position = bounceS.position;
-                    this._lastTargetState = bounceS;
-                };
+                    var fallPosition = bouncePositionsNullable.Value.fallPosition;
+                    var bounceS = bouncePositionsNullable.Value.afterBounceState;
+                    if (!(fallPosition.x > tableTopCollider.bounds.max.x + borderSimulationSlack ||
+                          fallPosition.x < -tableTopCollider.bounds.max.x - borderSimulationSlack ||
+                          fallPosition.z > 0 ||
+                          fallPosition.z < -tableTopCollider.bounds.max.z - borderSimulationSlack ||
+                          bounceS.position.z > -0.4
+                        ))
+                    {
+
+                        testTargetPrefab.transform.position = bounceS.position;
+                        this._lastTargetState = bounceS;
+                    }
+
+                    ;
+                }
             }
 
             var tPos = this._lastTargetState.position;
