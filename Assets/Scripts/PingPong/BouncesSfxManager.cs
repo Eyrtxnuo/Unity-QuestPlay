@@ -13,6 +13,10 @@ namespace PingPong
         public AudioClip paddleBounceClipOpponent;
         public AudioClip otherBounceClip;
 
+        private float _bouncesMinDelay = 0.1f;
+        private float _lastPaddleBounce = 0;
+        private float _lastTableBounce = 0;
+
         public void Start()
         {
             ball.OnAnyCollision += HandleBounce;
@@ -21,17 +25,20 @@ namespace PingPong
         private void HandleBounce(Collision collision)
         {
             
-            if (collision.gameObject.CompareTag("PingPongField"))
+            if (collision.gameObject.CompareTag("PingPongField") && Time.time - _lastTableBounce > _bouncesMinDelay)
             {
                 PlayTableBounce(collision.contacts[0].point);
+                _lastTableBounce = Time.time;
             }
-            else if (collision.gameObject.CompareTag("PingPongPlayerPaddle"))
+            else if (collision.gameObject.CompareTag("PingPongPlayerPaddle") && Time.time - _lastPaddleBounce > _bouncesMinDelay)
             {
                 PlayPlayerPaddleBounce(collision.contacts[0].point);
+                _lastPaddleBounce = Time.time;
             }
-            else if (collision.gameObject.CompareTag("PingPongOpponentPaddle"))
+            else if (collision.gameObject.CompareTag("PingPongOpponentPaddle") && Time.time - _lastPaddleBounce > _bouncesMinDelay)
             {
                 PlayOpponentPaddleBounce(collision.contacts[0].point);
+                _lastPaddleBounce = Time.time;
             }
             else
             {

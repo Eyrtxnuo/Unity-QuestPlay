@@ -10,6 +10,7 @@ namespace PingPong
         public Ball3D ball;
         public Transform serveHandPosition;
         public float paddleDebounceTime = 0.1f;
+        public float tableDebounceTime = 0.1f;
         public GameObject ghostBallPrefab;
         public GameObject haloPrefab;
         public int haloRipples = 3;
@@ -26,6 +27,7 @@ namespace PingPong
         private bool _playerServing = true;
         private bool _ballTossed = false;
         private float _lastPaddleTouchTime = 0;
+        private float _lastTableTouchTime = 0;
         private bool _playEnded; //TODO: far capire meglio che lo scambio è concluso.
         private GameObject _ghost;
         private bool _matchEnded;
@@ -101,6 +103,13 @@ namespace PingPong
             else
             {
                 Debug.Log(_bouncesLeft + "  -  " + !_opponentBot.GetTurn() + "  -  " + (_lastTouch == Team.Player));
+            }
+            
+            //Table Debounce (collisioni sono buggate e ogni tanto vengono emessi due eventi)
+            if (collision.gameObject.CompareTag("PingPongField"))
+            {
+                if (Time.time - _lastTableTouchTime < tableDebounceTime) return;
+                _lastTableTouchTime = Time.time;
             }
 
             //Paddle Debounce
