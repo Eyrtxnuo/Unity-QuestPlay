@@ -138,6 +138,7 @@ namespace PingPong
                     ball.ServeBind = false;
                     _bouncesLeft = 2;
                     _lastTouch = Team.Player;
+                    tooltipH.ShowToss(false);
                     return;
                 }
                 else

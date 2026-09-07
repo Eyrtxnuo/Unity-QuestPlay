@@ -20910,6 +20910,7 @@ MonoBehaviour:
   ball: {fileID: 948860411}
   serveHandPosition: {fileID: 1438888572}
   paddleDebounceTime: 0.1
+  tableDebounceTime: 0.1
   ghostBallPrefab: {fileID: 440635067816852796, guid: 0592702a1b96923489bc43cfbcd71f0a, type: 3}
   haloPrefab: {fileID: 4295242314432038559, guid: 83be809e7998fd94696ad090e48d6df7, type: 3}
   haloRipples: 3
