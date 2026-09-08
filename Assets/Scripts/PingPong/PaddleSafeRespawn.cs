@@ -6,7 +6,7 @@ namespace PingPong
     public class PaddleSafeRespawn :  MonoBehaviour
     {
 
-        public Material safeModeMaterial;
+        public Material[] safeModeMaterial;
         public GameObject target; 
         public float safeDistance = 0.1f;
         public float safeTime = 0.15f;
@@ -14,7 +14,7 @@ namespace PingPong
         private Collider[] _colliders;
         private bool[] _originalCollisionEnabled;
         private Renderer[] _renderers;
-        private Material[] _originalMaterials;
+        private Material[][] _originalMaterials;
 
         private bool _listenEndSafeMode;
         private float _currentSafeTime = 0f;
@@ -28,10 +28,10 @@ namespace PingPong
                 _originalCollisionEnabled[i] = _colliders[i].enabled;
             }
             _renderers = GetComponentsInChildren<Renderer>();
-            _originalMaterials = new Material[_renderers.Length];
+            _originalMaterials = new Material[_renderers.Length][];
             for (int i = 0; i < _renderers.Length; i++)
             {
-                _originalMaterials[i] = _renderers[i].material;
+                _originalMaterials[i] = _renderers[i].materials;
             }
         }
 
@@ -82,7 +82,7 @@ namespace PingPong
             foreach(var col in _colliders) col.enabled = false;
             for (int i = 0; i < _renderers.Length; i++)
             {
-                _renderers[i].material = safeModeMaterial;
+                _renderers[i].materials = safeModeMaterial;
             }
         }
         
@@ -95,7 +95,7 @@ namespace PingPong
 
             for (int i = 0; i < _renderers.Length; i++)
             {
-                _renderers[i].material = _originalMaterials[i];
+                _renderers[i].materials = _originalMaterials[i];
             }
         }
     }
