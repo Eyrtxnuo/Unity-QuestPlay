@@ -219,7 +219,7 @@ public class Ball3D : MonoBehaviour
     
     public (Vector3 fallPosition, (Vector3 position, Vector3 velocity, Vector3 angularVelocity) afterBounceState)? GetBounceStates(float timeAfterBounce = 0.5f, bool ignoreMagnus = false)
     {
-        float useThisMagnusConstant = ignoreMagnus ? -magnusConstant : magnusConstant;
+        float useThisMagnusConstant = ignoreMagnus ? 0 : magnusConstant;
         float tableY = tableTop ? tableTop.position.y : 0f;
         
         var impactNullable = GetImpactState(

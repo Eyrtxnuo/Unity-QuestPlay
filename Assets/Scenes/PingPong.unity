@@ -19279,7 +19279,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.475, z: 0}
-  m_LocalScale: {x: 1, y: 0.05, z: 1}
+  m_LocalScale: {x: 1.001, y: 0.051, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1072742081}
@@ -19309,7 +19309,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8139659bb1c484e4e94d8a0c82107a6a, type: 2}
+  - {fileID: 2100000, guid: 95a9f9eb8ed079a4c802f7dac1a133bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20499,6 +20499,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1579713177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1579713178}
+  - component: {fileID: 1579713179}
+  m_Layer: 0
+  m_Name: Decal Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1579713178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579713177}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567120895}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1579713179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579713177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.DecalProjector
+  m_Material: {fileID: 2100000, guid: 1d2e2dcc4eeb375419c22ac6173d6e3f, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.9
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_RenderingLayerMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 0.005}
+  m_Size: {x: 1.98, y: 2.98, z: 0.01}
+  m_FadeFactor: 1
+  m_VisibleInScene: 1
+  version: 1
+  m_DecalLayerMask: 1
 --- !u!1 &1582782829
 GameObject:
   m_ObjectHideFlags: 0
@@ -22186,8 +22247,7 @@ MonoBehaviour:
   bounceDirTarget: {fileID: 1270426894}
   tableTopCollider: {fileID: 1567120896}
   testTargetPrefab: {fileID: 1650190120}
-  borderSimulationSlack: 0.2
-  difficulty: 3
+  difficulty: 0
 --- !u!1 &1833651095
 GameObject:
   m_ObjectHideFlags: 0
@@ -23926,6 +23986,10 @@ PrefabInstance:
       propertyPath: m_StaticShadowCaster
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1180875045067353250, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 3377551665644242937, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_TagString
       value: PingPongField
@@ -24011,8 +24075,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticShadowCaster
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0137a523fbc3e6049a59348087855650, type: 2}
+    - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_SelectedEditorRenderState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7047570946369017158, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -24027,6 +24107,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 783794501480344525, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       insertIndex: -1
       addedObject: {fileID: 62976711}
+    - targetCorrespondingSourceObject: {fileID: 783794501480344525, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1579713178}
     - targetCorrespondingSourceObject: {fileID: 7940262385795809572, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1072742081}

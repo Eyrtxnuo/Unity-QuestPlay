@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2740 1525" width="100%" height="100%">
+  <!-- Sfondo del tavolo (Blu classico) -->
+  <rect x="0" y="0" width="2740" height="1525" fill="#1b5a8c" />
+  <!-- Linea perimetrale bianca (Spessore 20mm) -->
+  <rect x="10" y="10" width="2720" height="1505" fill="none" stroke="#ffffff" stroke-width="20" />
+  <!-- Linea centrale per il doppio (Spessore 3mm) -->
+  <line x1="0" y1="762.5" x2="2740" y2="762.5" stroke="#ffffff" stroke-width="3" />
+  <!-- Riferimento visivo per la rete (Grigio scuro) -->
+  <line x1="1370" y1="0" x2="1370" y2="1525" stroke="#222222" stroke-width="15" />
+</svg>
