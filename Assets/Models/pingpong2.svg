@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1525 2740" width="100%" height="100%">
+  <!-- White perimeter line (20mm thickness, adjusted for vertical orientation) -->
+  <rect x="10" y="10" width="1505" height="2720" fill="none" stroke="#ffffff" stroke-width="20" />
+  <!-- Center line for doubles (3mm thickness, now vertical) -->
+  <line x1="762.5" y1="0" x2="762.5" y2="2740" stroke="#ffffff" stroke-width="3" />
+  <!-- Net line reference (Dark gray, now horizontal) -->
+  <line x1="0" y1="1370" x2="1525" y2="1370" stroke="#222222" stroke-width="15" />
+</svg>
