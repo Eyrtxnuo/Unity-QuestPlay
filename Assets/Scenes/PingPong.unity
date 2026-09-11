@@ -119,51 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &252171
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 252173}
-  - component: {fileID: 252174}
-  m_Layer: 0
-  m_Name: SfxAudioPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &252173
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252171}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &252174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b81609a4ad9a4130b167cbe3cf1850f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PingPong.SfxPool
-  poolSize: 10
 --- !u!1 &11922344
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c9ef1b66e6d014f8cb28c2794346f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FXManager
-  sfxPool: {fileID: 252174}
+  sfxPool: {fileID: 1622407040}
   playerServeClip: {fileID: 8300000, guid: e9a7d04d0d61bf243a7bcc4ce4b6928e, type: 3}
   opponentServeClip: {fileID: 8300000, guid: a8f7c29838f5a7246ad53dfdd611258a, type: 3}
   confettiLaunchers:
@@ -1581,51 +1536,6 @@ Transform:
   - {fileID: 2082919479}
   - {fileID: 1230381431}
   m_Father: {fileID: 1086839974}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &170151098
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 170151100}
-  - component: {fileID: 170151099}
-  m_Layer: 0
-  m_Name: PauseManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &170151099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170151098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2924caca5cd34ca98f54c8de7a4fb927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PingPong.PauseManager
-  _pausePanelManager: {fileID: 375891654}
---- !u!4 &170151100
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170151098}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01637, y: 1.59986, z: -0.32503}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &172060565
 GameObject:
@@ -3159,7 +3069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7eb472a5fd44bb4ab1a5906107c7f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PingPong.BouncesSfxManager
-  sourcePool: {fileID: 252174}
+  sourcePool: {fileID: 1622407040}
   ball: {fileID: 948860411}
   volume: 5
   tableBounceClips:
@@ -19907,53 +19817,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 831065478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1438888570
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1438888572}
-  - component: {fileID: 1438888571}
-  m_Layer: 0
-  m_Name: ControllerInputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1438888571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438888570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d59ddb3a53304f4c8d40892081091d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ControllerInputManager
-  ball: {fileID: 948860405}
-  gameMaster: {fileID: 1622407034}
-  pauseManager: {fileID: 170151099}
---- !u!4 &1438888572
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438888570}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.37436, y: 0, z: 1.77907}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439475341
 GameObject:
   m_ObjectHideFlags: 0
@@ -21027,6 +20890,10 @@ GameObject:
   - component: {fileID: 1622407035}
   - component: {fileID: 1622407034}
   - component: {fileID: 1622407036}
+  - component: {fileID: 1622407038}
+  - component: {fileID: 1622407037}
+  - component: {fileID: 1622407039}
+  - component: {fileID: 1622407040}
   m_Layer: 0
   m_Name: PingPongGameMaster
   m_TagString: Untagged
@@ -21057,7 +20924,7 @@ MonoBehaviour:
   fxManager: {fileID: 43810933}
   endgamePanel: {fileID: 389652508}
   tooltipH: {fileID: 1622407036}
-  pauseManager: {fileID: 170151099}
+  pauseManager: {fileID: 1622407037}
 --- !u!4 &1622407035
 Transform:
   m_ObjectHideFlags: 0
@@ -21087,6 +20954,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TooltipHandler
   tooltipContinue: {fileID: 200645739}
   tooltipToss: {fileID: 26992990}
+--- !u!114 &1622407037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622407033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2924caca5cd34ca98f54c8de7a4fb927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PingPong.PauseManager
+  _pausePanelManager: {fileID: 375891654}
+--- !u!114 &1622407038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622407033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc59d2bad7b2b148bed077618c330d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_120HzEnabler
+  screenHertz: 120
+--- !u!114 &1622407039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622407033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d59ddb3a53304f4c8d40892081091d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControllerInputManager
+  ball: {fileID: 948860405}
+  gameMaster: {fileID: 1622407034}
+  pauseManager: {fileID: 1622407037}
+--- !u!114 &1622407040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622407033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81609a4ad9a4130b167cbe3cf1850f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PingPong.SfxPool
+  poolSize: 10
 --- !u!1 &1629569263
 GameObject:
   m_ObjectHideFlags: 0
@@ -22520,51 +22441,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 143694685}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1857885188
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1857885190}
-  - component: {fileID: 1857885189}
-  m_Layer: 0
-  m_Name: HertsSet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1857885189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857885188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cc59d2bad7b2b148bed077618c330d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_120HzEnabler
-  screenHertz: 120
---- !u!4 &1857885190
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857885188}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.004, y: 1.025, z: -1.05309}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1864400728
 GameObject:
@@ -24557,7 +24433,7 @@ PrefabInstance:
     - target: {fileID: 1618166775082488151, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: pauseManager
       value: 
-      objectReference: {fileID: 170151099}
+      objectReference: {fileID: 1622407037}
     - target: {fileID: 1618166775082488151, guid: f1cd4cfdc3d0efe4c9de5e0c61b32e24, type: 3}
       propertyPath: OVRController
       value: 
@@ -24917,11 +24793,9 @@ SceneRoots:
   - {fileID: 2006218443}
   - {fileID: 1270426895}
   - {fileID: 1309491048}
-  - {fileID: 1438888572}
   - {fileID: 1568921861}
   - {fileID: 635087604}
   - {fileID: 1890363694}
-  - {fileID: 1857885190}
   - {fileID: 1622407035}
   - {fileID: 43810934}
   - {fileID: 192751997}
@@ -24929,10 +24803,8 @@ SceneRoots:
   - {fileID: 9078852199912632567}
   - {fileID: 860409043}
   - {fileID: 1036348120}
-  - {fileID: 170151100}
   - {fileID: 39314386}
   - {fileID: 1650190124}
-  - {fileID: 252173}
   - {fileID: 364799492}
   - {fileID: 370197758}
   - {fileID: 941137960}
