@@ -8,9 +8,15 @@ namespace Firing
     {
         public virtual int Punteggio { get; set; } = 0;
 
-        void OnShot(Vector3 position)
+        protected virtual int OnShot(Vector3 position)
         {
             Destroy(this.gameObject);
+            return Punteggio;
+        }
+
+        public int Hit(Vector3 position)
+        {
+            return OnShot(position);
         }
     }
 }
