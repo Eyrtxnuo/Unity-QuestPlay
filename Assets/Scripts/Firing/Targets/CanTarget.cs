@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Firing.Targets
 {
@@ -14,7 +15,8 @@ namespace Firing.Targets
 
         private int bouncesCount = 0;
         private Rigidbody _rb;
-        private Vector3 bounceForce = new Vector3(0f, 4, 0);
+        private float upBounceForce = 4;
+        private float maxHorizontalForce = 1;
 
         void Awake()
         {
@@ -31,7 +33,7 @@ namespace Firing.Targets
             }
             else
             {
-                _rb.linearVelocity = bounceForce;
+                _rb.linearVelocity = new Vector3(Random.Range(-maxHorizontalForce, maxHorizontalForce), upBounceForce, Random.Range(-maxHorizontalForce, maxHorizontalForce));
             }
             
             return Punteggio;
