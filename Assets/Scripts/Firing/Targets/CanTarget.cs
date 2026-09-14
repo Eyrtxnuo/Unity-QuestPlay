@@ -17,6 +17,7 @@ namespace Firing.Targets
         private Rigidbody _rb;
         private float upBounceForce = 4;
         private float maxHorizontalForce = 1;
+        public float terminalSpeed = 4f;
 
         void Awake()
         {
@@ -34,6 +35,12 @@ namespace Firing.Targets
             else
             {
                 _rb.linearVelocity = new Vector3(Random.Range(-maxHorizontalForce, maxHorizontalForce), upBounceForce, Random.Range(-maxHorizontalForce, maxHorizontalForce));
+                
+            }
+
+            if (_rb.linearVelocity.magnitude > terminalSpeed)
+            {
+                _rb.linearVelocity = _rb.linearVelocity.normalized * terminalSpeed;
             }
             
             return Punteggio;
