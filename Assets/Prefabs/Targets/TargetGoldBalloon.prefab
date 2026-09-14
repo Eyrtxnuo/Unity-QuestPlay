@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7070609427851772055}
   - component: {fileID: 1087606176942818961}
   - component: {fileID: 2566395681500083424}
+  - component: {fileID: 6134154037211859975}
   m_Layer: 0
-  m_Name: TargetBalloon
+  m_Name: TargetGoldBalloon
   m_TagString: AimTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,6 +85,18 @@ CapsuleCollider:
   m_Height: 0.36
   m_Direction: 1
   m_Center: {x: -0.18, y: 0.17, z: 0.075}
+--- !u!114 &6134154037211859975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093755618597765058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72c0f12f381478589cd30c1cf8eedf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.GoldBalloonTarget
 --- !u!1001 &4151500418741273101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,6 +109,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3852458825640553654, guid: 397651212fcc30f4bbd471165573aa5d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b10b358382d84a43a57f18135fd5894, type: 2}
     - target: {fileID: 5724076012379000482, guid: 397651212fcc30f4bbd471165573aa5d, type: 3}
       propertyPath: m_TagString
       value: Untagged
