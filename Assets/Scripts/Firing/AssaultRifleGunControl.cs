@@ -45,6 +45,7 @@ public class AssaultRifleGunControl : GunControl
         if (_audioSource != null && shotSounds != null)
         {
             AudioClip shotSound = shotSounds[Random.Range(0, shotSounds.Length)];
+            _audioSource.pitch = Random.Range(0.9f, 1.1f);
             _audioSource.PlayOneShot(shotSound, volume);
         }
     }

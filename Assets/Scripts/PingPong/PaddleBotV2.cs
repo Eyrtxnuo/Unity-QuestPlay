@@ -254,7 +254,7 @@ namespace PingPong
             public float generalizedError;
             public float borderSimulationSlack;
 
-            public static readonly DifficultyParams Easy = new DifficultyParams { speed = 3f,  rotationSpeed = 70f,  ignoreMagnus = true, maxSpeedMuliplier = 1.2f, minSpeedMuliplier = 1, generalizedError = 0.3f, borderSimulationSlack = -0.2f};
+            public static readonly DifficultyParams Easy = new DifficultyParams { speed = 3f,  rotationSpeed = 300f,  ignoreMagnus = true, maxSpeedMuliplier = 1.2f, minSpeedMuliplier = 1, generalizedError = 0.3f, borderSimulationSlack = -0.2f};
             public static readonly DifficultyParams Medium = new DifficultyParams { speed = 6f,  rotationSpeed = 300f,  ignoreMagnus = true, maxSpeedMuliplier =  1.5f, minSpeedMuliplier = 0.9f, generalizedError = 0.2f, borderSimulationSlack = -0.1f};
             public static readonly DifficultyParams Hard = new DifficultyParams { speed = 8f,  rotationSpeed = 500f,  ignoreMagnus = false, maxSpeedMuliplier =  1.8f, minSpeedMuliplier = 0.7f, generalizedError = 0.1f, borderSimulationSlack = 0f};
             public static readonly DifficultyParams Max = new DifficultyParams { speed = 10f,  rotationSpeed = 600f,  ignoreMagnus = false, maxSpeedMuliplier = 6,  minSpeedMuliplier = 0.1f, generalizedError = 0, borderSimulationSlack = 0.2f};

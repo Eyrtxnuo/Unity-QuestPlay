@@ -15,7 +15,7 @@ public class TargetSpawner : MonoBehaviour
     {
         // Trova quanti oggetti con il tag "AimTarget" esistono attualmente nella scena
         int currentObjectCount = GameObject.FindGameObjectsWithTag(targetTag).Length;
-        //Debug.Log(currentObjectCount);
+        Debug.Log(currentObjectCount);
         // Se sono meno di N, spawna fino a raggiungere il limite
         if (currentObjectCount < maxObjectsInScene)
         {

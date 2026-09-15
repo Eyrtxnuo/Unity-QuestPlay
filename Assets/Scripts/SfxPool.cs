@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SfxPool : MonoBehaviour
 {
@@ -99,5 +100,39 @@ public class SfxPool : MonoBehaviour
             source.source.UnPause();
         }
     }
+    
+    public void LogSfxMap()
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder("SFXMAP: ");
+        foreach (var worker in _audioSourcePool)
+        {
+            if (worker == null || worker.source == null || worker.source.clip == null)
+            {
+                // Null or never used
+                sb.Append("<color=grey>■</color> ");
+            }
+            else if (worker.source.isPlaying)
+            {
+                // Playing
+                sb.Append("<color=green>■</color> ");
+            }
+            else if (worker.source.time > 0f && worker.source.time < worker.source.clip.length)
+            {
+                // Paused
+                sb.Append("<color=yellow>■</color> ");
+            }
+            else
+            {
+                // Clip stopped (or ended)
+                sb.Append("<color=red>■</color> ");
+            }
+        }
+        Debug.Log(sb.ToString());
+    }
+
+    // private void Start()
+    // {
+    //     InvokeRepeating(nameof(LogSfxMap), 1f, 0.1f);
+    // }
 }
 

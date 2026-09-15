@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.Build.Profile.BuildProfileQualitySettings
   m_DefaultQualityLevel: Meta Quest (Build Profile)
   m_QualityLevels:
-  - Mobile
   - Meta Quest (Build Profile)
+  - Mobile
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

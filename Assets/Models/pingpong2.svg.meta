@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7b7b85d0bc453a646a4e55c6b29346b4
+guid: 65881bbbac43bb54dba03fc78124dd86
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -29,12 +29,12 @@ ScriptedImporter:
   maxTangentAngleEnabled: 0
   maxTangentAngle: 5
   keepTextureAspectRatio: 1
-  textureSize: 2048
+  textureSize: 1024
   textureWidth: 256
   textureHeight: 256
   wrapMode: 0
   filterMode: 0
-  sampleCount: 4
+  sampleCount: 1
   preserveSVGImageAspect: 0
   useSVGPixelsPerUnit: 0
   spriteData:

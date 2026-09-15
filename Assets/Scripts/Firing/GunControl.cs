@@ -1,3 +1,4 @@
+using Firing;
 using UnityEngine;
 
 public class GunControl : MonoBehaviour
@@ -39,8 +40,11 @@ public class GunControl : MonoBehaviour
             // Controlla se l'oggetto ha il tag corretto
             if (hit.collider.CompareTag("AimTarget"))
             {
-                Debug.Log("Eliminato: " + hit.collider.name);
-                Destroy(hit.collider.gameObject);
+                // Debug.Log("Eliminato: " + hit.collider.name);
+                // Destroy(hit.collider.gameObject);
+                Debug.Log("Colpito: " + hit.collider.name);
+                FiringTarget target = hit.collider.GetComponent<FiringTarget>();
+                var points = target.Hit(hit.point);
             }
         }
 
