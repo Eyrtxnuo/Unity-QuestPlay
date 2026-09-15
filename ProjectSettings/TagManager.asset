@@ -34,7 +34,6 @@ TagManager:
   - PingPongField
   - PingPongPlayerPaddle
   - PingPongOpponentPaddle
-  - PingPongRemoveOnServe
   layers:
   - Default
   - TransparentFX

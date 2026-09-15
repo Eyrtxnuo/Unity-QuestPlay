@@ -8,6 +8,7 @@ namespace PingPong
     {
         public GameObject netObject;
         public Ball3D ball;
+        public Transform serveHandPosition;
         public float paddleDebounceTime = 0.1f;
         public float tableDebounceTime = 0.1f;
         public GameObject ghostBallPrefab;
@@ -28,6 +29,7 @@ namespace PingPong
         private float _lastPaddleTouchTime = 0;
         private float _lastTableTouchTime = 0;
         private bool _playEnded; //TODO: far capire meglio che lo scambio è concluso.
+        private GameObject _ghost;
         private bool _matchEnded;
         private GameObject _playerPaddle;
         private GameObject _opponentPaddle;
@@ -374,7 +376,7 @@ namespace PingPong
             Vector3 touchPos = BallPosFromCollision(collision);
             if (ghostBallPrefab)
             {
-                Instantiate(ghostBallPrefab, touchPos, ball.transform.rotation);// IMPORTANTE: il prefab deve avere tag "PingPongRemoveOnServe", altrimenti non despawnerà
+                _ghost = Instantiate(ghostBallPrefab, touchPos, ball.transform.rotation);
             }
 
             if (haloPrefab)
@@ -421,10 +423,10 @@ namespace PingPong
                 _playEnded = false;
                 Serve();
                 //TODO: resetta pallina, fantasma pallina e tutto il resto
-                var listOfDespawn = GameObject.FindGameObjectsWithTag("PingPongRemoveOnServe");
-                foreach (var item in listOfDespawn)
+                if (_ghost)
                 {
-                    Destroy(item);
+                    Destroy(_ghost);
+                    _ghost = null;
                 }
             }
         }

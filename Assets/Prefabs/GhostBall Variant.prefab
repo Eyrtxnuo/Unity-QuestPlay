@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2726930942255771008, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
       propertyPath: m_TagString
-      value: PingPongRemoveOnServe
+      value: PingPongBall
       objectReference: {fileID: 0}
     - target: {fileID: 5183969897684895775, guid: 3bf544f12d59d2a4f8e185e5e77817ca, type: 3}
       propertyPath: m_Enabled
