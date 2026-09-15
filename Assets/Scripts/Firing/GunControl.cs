@@ -32,10 +32,9 @@ public class GunControl : MonoBehaviour
     {
         Vector3 startPos = transform.position;
         Ray ray = new Ray(startPos, transform.forward);
-        RaycastHit hit;
         Debug.DrawLine(transform.position, transform.forward * 6, Color.green, 2.0f);
         // Esegue il raycast solo in questo istante
-        if (Physics.Raycast(ray, out hit, maxHitDistance, collisionLayers))
+        if (Physics.SphereCast(ray, 0.05f, out RaycastHit hit, maxHitDistance, collisionLayers))
         {
             // Controlla se l'oggetto ha il tag corretto
             if (hit.collider.CompareTag("AimTarget"))

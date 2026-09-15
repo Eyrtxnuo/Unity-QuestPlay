@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3629727264998357049}
   - component: {fileID: 6986586305328752901}
+  - component: {fileID: 3264732857193119424}
   - component: {fileID: 9194051140056175606}
   - component: {fileID: 2351212554576206913}
   - component: {fileID: 4103581502522830136}
-  - component: {fileID: 3264732857193119424}
   m_Layer: 0
   m_Name: TargetCan
   m_TagString: AimTarget
@@ -64,6 +64,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3264732857193119424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6817154262068759557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93e6242ee38417297e4f5f729d8b337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.CanTarget
+  returnArea: {fileID: 0}
+  maxBounces: 5
 --- !u!114 &9194051140056175606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,19 +211,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3264732857193119424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6817154262068759557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f93e6242ee38417297e4f5f729d8b337, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.CanTarget
-  maxBounces: 5
 --- !u!1001 &4747644980408780821
 PrefabInstance:
   m_ObjectHideFlags: 0
