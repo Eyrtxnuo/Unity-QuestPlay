@@ -7,6 +7,7 @@ namespace Firing
     public class FiringTarget : MonoBehaviour
     {
         public virtual int Punteggio { get; set; } = 0;
+        
 
         protected virtual int OnShot(Vector3 position)
         {

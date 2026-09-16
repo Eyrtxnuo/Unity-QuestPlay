@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7946664252673714250}
   - component: {fileID: 2743475507868821003}
   - component: {fileID: 8623993521152924141}
-  - component: {fileID: 5971874407915242102}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -91,28 +90,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5971874407915242102
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3817222591371982846}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5415269265149770428, guid: 39f76eabef9a0504997d3259abc2c991, type: 3}
 --- !u!1 &7093755618597765058
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +101,7 @@ GameObject:
   - component: {fileID: 7070609427851772055}
   - component: {fileID: 1087606176942818961}
   - component: {fileID: 2169318244693588630}
-  - component: {fileID: 8497928650515969870}
+  - component: {fileID: 1346740997873957974}
   m_Layer: 0
   m_Name: TargetTarget
   m_TagString: AimTarget
@@ -197,7 +174,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5415269265149770428, guid: 39f76eabef9a0504997d3259abc2c991, type: 3}
---- !u!114 &8497928650515969870
+--- !u!114 &1346740997873957974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,6 +183,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7093755618597765058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d4cb568d1e143638e9b5c5928118089, type: 3}
+  m_Script: {fileID: 11500000, guid: 859e43b0eea54e6a9461e12037b7b12e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Firing.FiringTarget
+  m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.TargetTarget
+  targetExploder: {fileID: 0}
