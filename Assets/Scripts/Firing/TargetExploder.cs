@@ -2,38 +2,34 @@ using System.Collections;
 using PingPong;
 using UnityEngine;
 
+
 public class TargetExploder : MonoBehaviour
 {
+    public delegate void Callback();
+    
     public float forza = 500f;
     public float raggio = 5f;
-    // Sposta il punto di innesco leggermente in basso per far saltare i pezzi verso l'alto
-    public float offsetVerticale = -0.5f;
+    private float vanishTime = 0.6f;
 
-
-    private float vanishTime = 0.4f;
-
-    public void Explode(Vector3 explosionPosition)
+    public void Explode(Vector3 explosionPosition, Callback callback)
     {
-        // Trova tutti i Rigidbody nei 27 frammenti figli
+        this.gameObject.SetActive(true);
         Rigidbody[] fragments = GetComponentsInChildren<Rigidbody>();
         
-        // Calcola il centro dell'esplosione
-        //Vector3 puntoEsplosione = transform.position + new Vector3(0, offsetVerticale, 0);
 
         foreach (Rigidbody rb in fragments)
         {
-            // Attiva la fisica (fa cadere i pezzi)
             rb.isKinematic = false;
-            
-            // Applica la forza d'urto per farli schizzare via
             rb.AddExplosionForce(forza, explosionPosition, raggio);
         }
         
-        StartCoroutine(VanishFragments(fragments));
+        StartCoroutine(VanishFragments(fragments, callback));
     }
     
-    private IEnumerator VanishFragments(Rigidbody[] fragments)
+    private IEnumerator VanishFragments(Rigidbody[] fragments, Callback callback)
     {
+        yield return WaitsCache.GetWaitForSeconds(0.3f);
+        
         float time = 0f;
         Vector3[] initialScales = new Vector3[fragments.Length];
         for (int i = 0; i < fragments.Length; i++) 
@@ -54,5 +50,6 @@ public class TargetExploder : MonoBehaviour
             yield return null; 
         }
         Destroy(gameObject);
+        callback();
     }
 }
