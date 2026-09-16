@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3817222591371982846}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.015, z: 0.5}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7070609427851772055}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2743475507868821003
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -123,8 +123,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7070609427851772055}
   - component: {fileID: 1087606176942818961}
-  - component: {fileID: 2566395681500083424}
-  - component: {fileID: 6134154037211859975}
+  - component: {fileID: 2169318244693588630}
+  - component: {fileID: 8497928650515969870}
   m_Layer: 0
   m_Name: TargetTarget
   m_TagString: AimTarget
@@ -140,14 +140,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7093755618597765058}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.035, y: 0.05948, z: -0.12547}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.015, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7946664252673714250}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!54 &1087606176942818961
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,8 +175,8 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &2566395681500083424
-CapsuleCollider:
+--- !u!64 &2169318244693588630
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -193,12 +193,11 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.15
-  m_Height: 0.36
-  m_Direction: 1
-  m_Center: {x: -0.18, y: 0.17, z: 0.075}
---- !u!114 &6134154037211859975
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5415269265149770428, guid: 39f76eabef9a0504997d3259abc2c991, type: 3}
+--- !u!114 &8497928650515969870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,7 +206,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7093755618597765058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72c0f12f381478589cd30c1cf8eedf1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d4cb568d1e143638e9b5c5928118089, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.GoldBalloonTarget
-  floatingSpeed: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::Firing.FiringTarget
