@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TargetSpawner : MonoBehaviour
 {
-    [Header("Impostazioni Prefab")]
-    public GameObject prefabToSpawn; // Trascina qui il tuo prefab dall'Inspector
+    [FormerlySerializedAs("prefabToSpawn")] [Header("Impostazioni Prefab")]
+    public GameObject[] prefabsToSpawn; // Trascina qui il tuo prefab dall'Inspector
 
     [Header("Controllo Quantità")]
     public int maxObjectsInScene = 1; // Il numero N di oggetti da tenere attivi
@@ -25,7 +26,7 @@ public class TargetSpawner : MonoBehaviour
 
     void SpawnPrefabRandom()
     {
-        if (prefabToSpawn == null)
+        if (prefabsToSpawn.Length == 0)
         {
             Debug.LogWarning("Manca il prefab! Trascinalo nell'Inspector.");
             return;
@@ -39,7 +40,8 @@ public class TargetSpawner : MonoBehaviour
         Vector3 spawnPosition = new Vector3(randomX, randomY, fixedZ);
 
         // Genera l'oggetto
-        GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, prefabToSpawn.transform.rotation);
+        var prefab = prefabsToSpawn[Random.Range(0, prefabsToSpawn.Length)];
+        GameObject spawnedObject = Instantiate(prefab, spawnPosition, prefab.transform.rotation);
 
         // Forziamo il tag corretto così il conteggio (e il laser) funzionano al 100%
         spawnedObject.tag = targetTag;
