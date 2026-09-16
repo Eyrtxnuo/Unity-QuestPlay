@@ -97,8 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3500cef053ae4d188955d92c71558434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.BalloonTarget
-  punteggio: 0
-  punteggio: 1
 --- !u!1001 &4151500418741273101
 PrefabInstance:
   m_ObjectHideFlags: 0
