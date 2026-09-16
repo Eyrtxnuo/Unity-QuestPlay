@@ -7,7 +7,7 @@ namespace Firing.Targets
     [RequireComponent(typeof(Rigidbody))]
     public class BalloonTarget : FiringTarget
     {
-        public override int Punteggio { get; set; } = 1;
+        [field: NonSerialized] public override int Punteggio { get; set; } = 1;
 
         public float floatingSpeed = 0.3f;
         private Rigidbody _rb;

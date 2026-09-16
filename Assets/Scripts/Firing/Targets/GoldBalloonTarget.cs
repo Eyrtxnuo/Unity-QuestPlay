@@ -5,7 +5,7 @@ namespace Firing.Targets
 {
     public class GoldBalloonTarget : BalloonTarget
     {
-        public override int Punteggio { get; set; } = 5;
+        [field: NonSerialized] public override int Punteggio { get; set; } = 5;
         
     }
 }

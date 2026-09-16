@@ -9,7 +9,7 @@ namespace Firing.Targets
         [RequireComponent(typeof(Rigidbody))]
     public class CanTarget : FiringTarget
     {
-        public override int Punteggio { get; set; } = 1;
+        [field: NonSerialized] public override int Punteggio { get; set; } = 1;
         public BoundArea returnArea;
 
         public int maxBounces = 5;
