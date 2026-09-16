@@ -4752,7 +4752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!218 &780151328
 Terrain:
   m_ObjectHideFlags: 0
@@ -4774,16 +4774,16 @@ Terrain:
   m_HeightmapMinimumLODSimplification: 0
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 0
-  m_DrawHeightmap: 1
+  m_DrawHeightmap: 0
   m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
+  m_DrawTreesAndFoliage: 0
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 0
   m_MaterialTemplate: {fileID: 2100000, guid: 6ba1004f77c8e4a4d94326cf55b8fb87, type: 2}
-  m_BakeLightProbesForTrees: 1
+  m_BakeLightProbesForTrees: 0
   m_PreserveTreePrototypeLayers: 0
-  m_DeringLightProbesForTrees: 1
+  m_DeringLightProbesForTrees: 0
   m_ReceiveGI: 1
   m_ScaleInLightmap: 0.0512
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
@@ -11079,8 +11079,9 @@ GameObject:
   - component: {fileID: 1865252358}
   - component: {fileID: 1865252357}
   - component: {fileID: 1865252356}
-  - component: {fileID: 1865252355}
   - component: {fileID: 1865252354}
+  - component: {fileID: 1865252359}
+  - component: {fileID: 1865252355}
   - component: {fileID: 1865252353}
   m_Layer: 3
   m_Name: FPSDisplay
@@ -11305,6 +11306,19 @@ RectTransform:
   m_AnchoredPosition: {x: -0.151, y: 3.099}
   m_SizeDelta: {x: 2, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1865252359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865252352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc59d2bad7b2b148bed077618c330d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_120HzEnabler
+  screenHertz: 120
 --- !u!1 &1878000941
 GameObject:
   m_ObjectHideFlags: 0
