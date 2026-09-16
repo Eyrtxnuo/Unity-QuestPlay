@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Firing.Targets
 {
-    public class GoldBalloonTarget : FiringTarget
+    public class GoldBalloonTarget : BalloonTarget
     {
         public override int Punteggio { get; set; } = 5;
         
