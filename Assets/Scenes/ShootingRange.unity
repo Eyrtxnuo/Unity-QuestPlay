@@ -10006,13 +10006,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a51701c31cf98498603c5b2f54eafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrassInstancer
-  grassMesh: {fileID: -3618942682526638403, guid: bf8d27aa427cd9146be8106ee050ec2d, type: 3}
+  grassMesh: {fileID: -446417837548073170, guid: 6362615006bdc194b9eb8782562cd8f3, type: 3}
   grassMaterial: {fileID: 2100000, guid: e91467d37993ed545b2308125afc98d4, type: 2}
   meshScale: 94.79222
-  instanceCount: 80
+  instanceCount: 60
   spawnRadius: 6
-  jitterLevel: 0
-  seed: 8
+  jitterLevel: 0.324
+  seed: 4
 --- !u!1 &1597451410
 GameObject:
   m_ObjectHideFlags: 0
