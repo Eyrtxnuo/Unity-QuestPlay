@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.GoldBalloonTarget
   floatingSpeed: 0.5
+  popParticleSystem: {fileID: 1278462241158797979, guid: 0cc2a80c639eb1e488e65f287ccf35af, type: 3}
 --- !u!1001 &4151500418741273101
 PrefabInstance:
   m_ObjectHideFlags: 0

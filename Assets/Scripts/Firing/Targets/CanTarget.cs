@@ -7,19 +7,19 @@ namespace Firing.Targets
     
         [RequireComponent(typeof(AudioSource))]
         [RequireComponent(typeof(Rigidbody))]
-    public class CanTarget : FiringTarget
+    public class CanTarget : TargetTarget
     {
         [field: NonSerialized] public override int Punteggio { get; set; } = 1;
         public BoundArea returnArea;
 
         public int maxBounces = 5;
 
-        private int bouncesCount = 0;
+        private int _bouncesCount = 0;
         private Rigidbody _rb;
-        private float upBounceForce = 3;
-        private float maxHorizontalForce = 1;
-        private float terminalSpeed = 3;
-        private float maxAngularVelocity = 30;
+        private float _upBounceForce = 3;
+        private float _maxHorizontalForce = 1;
+        private float _terminalSpeed = 3;
+        private float _maxAngularVelocity = 30;
         
 
         void Awake()
@@ -29,9 +29,9 @@ namespace Firing.Targets
 
         protected override int OnShot(Vector3 position)
         {
-            bouncesCount++;
+            _bouncesCount++;
 
-            if (bouncesCount >= maxBounces)
+            if (_bouncesCount >= maxBounces)
             {
                 base.OnShot(position);//Destroy
             }
@@ -42,24 +42,24 @@ namespace Firing.Targets
                     Vector3 direction = (returnArea.bounds.center - transform.position).normalized;
                     var randomDirection = Random.insideUnitCircle.normalized;
                     var approachAreaDirection = (direction + new Vector3(randomDirection.x, 0, randomDirection.y)).normalized;
-                    var randForce = Random.Range(0, maxHorizontalForce);
+                    var randForce = Random.Range(0, _maxHorizontalForce);
 
                     _rb.linearVelocity = new Vector3(
                         randForce * approachAreaDirection.x,
-                        upBounceForce,
+                        _upBounceForce,
                         randForce * approachAreaDirection.z
                     );
                 }
                 else
                 {
-                    _rb.linearVelocity = new Vector3(Random.Range(-maxHorizontalForce, maxHorizontalForce), upBounceForce, Random.Range(-maxHorizontalForce, maxHorizontalForce));
+                    _rb.linearVelocity = new Vector3(Random.Range(-_maxHorizontalForce, _maxHorizontalForce), _upBounceForce, Random.Range(-_maxHorizontalForce, _maxHorizontalForce));
                 }
-                _rb.angularVelocity = Random.onUnitSphere * Random.Range(0f, maxAngularVelocity);
+                _rb.angularVelocity = Random.onUnitSphere * Random.Range(0f, _maxAngularVelocity);
             }
 
-            if (_rb.linearVelocity.magnitude > terminalSpeed)
+            if (_rb.linearVelocity.magnitude > _terminalSpeed)
             {
-                _rb.linearVelocity = _rb.linearVelocity.normalized * terminalSpeed;
+                _rb.linearVelocity = _rb.linearVelocity.normalized * _terminalSpeed;
             }
             
             return Punteggio;

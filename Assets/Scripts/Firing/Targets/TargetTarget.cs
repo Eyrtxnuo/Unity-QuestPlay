@@ -10,6 +10,14 @@ namespace Firing.Targets
         public GameObject targetFacade;
         public TargetExploder targetExploder;
 
+
+        // private Rigidbody _rb;
+        //
+        // void Start()
+        // {
+        //     TryGetComponent<Rigidbody>(out _rb);
+        // }
+
         protected override int OnShot(Vector3 position)
         {
             this.targetFacade.SetActive(false);

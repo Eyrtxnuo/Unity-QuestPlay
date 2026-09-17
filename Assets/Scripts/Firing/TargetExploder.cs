@@ -9,7 +9,7 @@ public class TargetExploder : MonoBehaviour
     
     public float forza = 500f;
     public float raggio = 5f;
-    private float vanishTime = 0.6f;
+    private float _vanishTime = 0.6f;
 
     public void Explode(Vector3 explosionPosition, Callback callback)
     {
@@ -36,10 +36,10 @@ public class TargetExploder : MonoBehaviour
         {
             if (fragments[i]) initialScales[i] = fragments[i].transform.localScale;
         }
-        while (time < vanishTime)
+        while (time < _vanishTime)
         {
             time += Time.deltaTime;
-            float percentage = 1f - (time / vanishTime);
+            float percentage = 1f - (time / _vanishTime);
             for (int i = 0; i < fragments.Length; i++)
             {
                 if (fragments[i])
