@@ -5,6 +5,7 @@ public class GunControl : MonoBehaviour
 {
     public float maxHitDistance = 50f;
     public LayerMask collisionLayers;
+    public FiringScoreCounter scoreCounter;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
@@ -44,6 +45,7 @@ public class GunControl : MonoBehaviour
                 Debug.Log("Colpito: " + hit.collider.name);
                 FiringTarget target = hit.collider.GetComponent<FiringTarget>();
                 var points = target.Hit(hit.point);
+                if (scoreCounter) scoreCounter.Score += points;
             }
         }
 
@@ -54,7 +56,7 @@ public class GunControl : MonoBehaviour
         {
             Rigidbody grb = gun.GetComponent<Rigidbody>();
             grb.AddForce(-grb.transform.forward * 4, ForceMode.Impulse);
-            grb.AddRelativeTorque(Vector3.left * (recoilForce/4), ForceMode.Impulse);
+            grb.AddRelativeTorque(Vector3.left * (recoilForce / 4), ForceMode.Impulse);
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Firing
             Gizmos.color = Color.brown;
             Gizmos.DrawIcon(peakPosition, "peak2");
         }
-        
+#endif        
         //DEBUG
         void Update()
         {
@@ -82,7 +82,7 @@ namespace Firing
             }
         }
         
-#endif
+
         
     }
 }
