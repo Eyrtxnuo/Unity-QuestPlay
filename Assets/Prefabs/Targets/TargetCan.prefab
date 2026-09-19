@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beac24b8b9d34aaabd25440cca345276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomGravity
-  gravityAcceleration: -3
+  gravityAcceleration: -2.5
 --- !u!136 &2351212554576206913
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ namespace Firing.Targets
         private Rigidbody _rb;
         private float _upBounceForce = 3;
         private float _maxHorizontalForce = 1;
-        private float _terminalSpeed = 3;
+        private float _terminalSpeed = 2.5f;
         private float _maxAngularVelocity = 30;
         
 
