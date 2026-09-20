@@ -51,6 +51,7 @@ public class ControllerInputManager : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch))
         {
+            // Bottone Pausa
             pauseManager.PauseInput();
         }
         

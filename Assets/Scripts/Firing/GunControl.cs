@@ -1,4 +1,5 @@
 using Firing;
+using PingPong;
 using UnityEngine;
 
 public class GunControl : MonoBehaviour
@@ -15,10 +16,7 @@ public class GunControl : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
-        {
-            //Debug.Log("Pulsante B premuto, reset palla.");
-        }
+        if(PauseManager.is_paused) return;// if paused inputs are handled by the OVR interaction manager
 
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger, OVRInput.Controller.RTouch))
         {

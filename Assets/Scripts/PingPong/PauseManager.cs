@@ -10,11 +10,11 @@ namespace PingPong
         public Action OnPause;
         public Action OnResume;
 
-        private bool _is_paused = false;
+        public static bool is_paused = false;
         
         public void PauseInput()
         {
-            if (_is_paused)
+            if (is_paused)
             {
                 Resume();
             }
@@ -26,7 +26,7 @@ namespace PingPong
 
         public void Pause()
         {
-            _is_paused = true;
+            is_paused = true;
             Time.timeScale = 0;
             OnPause?.Invoke();
             _pausePanelManager.ShowPanel();
@@ -34,7 +34,7 @@ namespace PingPong
 
         public void Resume()
         {
-            _is_paused = false;
+            is_paused = false;
             Time.timeScale = 1;
             OnResume?.Invoke();
             _pausePanelManager.HidePanel();
@@ -42,7 +42,7 @@ namespace PingPong
 
         public bool IsPaused()
         {
-            return _is_paused;   
+            return is_paused;   
         }
         
     }

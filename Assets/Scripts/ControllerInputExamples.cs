@@ -67,5 +67,15 @@ public class ControllerInputExamples : MonoBehaviour
         {
             Debug.Log("Click Grip!");
         }
+
+        if (OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch))
+        {
+            Debug.Log("Pulsante \"Options\"");
+        }
+        
+        if (OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.RTouch))
+        {
+            Debug.Log("Pulsante \"Oculus\"");
+        }
     }
 }

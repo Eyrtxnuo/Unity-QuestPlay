@@ -1,3 +1,4 @@
+using PingPong;
 using UnityEngine;
 
 public class AssaultRifleGunControl : GunControl
@@ -22,6 +23,7 @@ public class AssaultRifleGunControl : GunControl
     
     protected override void Update()
     {
+        if(PauseManager.is_paused) return;// if paused inputs are handled by the OVR interaction manager
         if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger, OVRInput.Controller.RTouch))
         {
             if (Time.time >= _lastFire + fireDelay && (_hasReleased || automaticFire))
@@ -42,7 +44,7 @@ public class AssaultRifleGunControl : GunControl
     
     private void PlayShotSFX()
     {
-        if (_audioSource != null && shotSounds != null)
+        if (_audioSource && shotSounds != null)
         {
             AudioClip shotSound = shotSounds[Random.Range(0, shotSounds.Length)];
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
@@ -52,7 +54,7 @@ public class AssaultRifleGunControl : GunControl
     
     private void PlayVisualEffects()
     {
-        if (muzzleFlash != null)
+        if (muzzleFlash)
         {
             // Play() avvia il Burst che abbiamo configurato
             muzzleFlash.Play(); 
