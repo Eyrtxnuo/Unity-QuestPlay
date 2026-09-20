@@ -1,4 +1,4 @@
-using UnityEditor;
+using Firing.Targets;
 using UnityEngine;
 
 namespace Firing
@@ -8,6 +8,8 @@ namespace Firing
         public GameObject canPrefab;
         public Vector3 defaultPosition;
         public float targetHeight;
+        public float maxDeviation;
+        public BoundArea canReturnArea;
 
         private float _prefabGravity;
 
@@ -19,13 +21,17 @@ namespace Firing
         public void LaunchCan(Vector3? target = null)
         {
             if (!canPrefab) return;
-            target ??= transform.position;
+            var tar = target.HasValue ? target.Value : defaultPosition;
+            tar.x += Random.Range(-maxDeviation, maxDeviation);
+            tar.z += Random.Range(-maxDeviation, maxDeviation);
 
             GameObject can = Instantiate(canPrefab, transform.position, Quaternion.identity);
+            can.GetComponent<CanTarget>().returnArea = canReturnArea;
             Rigidbody rb = can.GetComponent<Rigidbody>();
             if (rb)
             {
-                rb.linearVelocity = CalculateTrajectory(transform.position, defaultPosition, targetHeight);
+                rb.linearVelocity = CalculateTrajectory(transform.position, tar, targetHeight);
+                rb.angularVelocity = new  Vector3(Random.Range(-10f, 10f), Random.Range(-10f,10f), Random.Range(-10f, 10f));
             }
         }
 
@@ -61,6 +67,8 @@ namespace Firing
         {
             Gizmos.color = Color.darkOrange;
             Gizmos.DrawSphere(defaultPosition, 0.05f);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(defaultPosition,  new Vector3(maxDeviation*2, 0, maxDeviation*2));
             
             Vector3 peakPosition = new Vector3(
                 (transform.position.x + defaultPosition.x)/2, 

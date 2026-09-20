@@ -4878,8 +4878,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   canPrefab: {fileID: 6817154262068759557, guid: fe5c90371267ca142b5d3cee0fb2380d, type: 3}
-  defaultPosition: {x: -0.06, y: 0, z: 6.05}
+  defaultPosition: {x: -0.06, y: 0, z: 5.35}
   targetHeight: 6
+  maxDeviation: 0.6
+  canReturnArea: {fileID: 0}
 --- !u!4 &745128312
 Transform:
   m_ObjectHideFlags: 0
@@ -14219,6 +14221,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 951604703}
   - {fileID: 32221533}
   - {fileID: 836585704}
   - {fileID: 2002085019}
@@ -14245,6 +14248,5 @@ SceneRoots:
   - {fileID: 913139779}
   - {fileID: 745128312}
   - {fileID: 563409538}
-  - {fileID: 951604703}
   - {fileID: 1392808093}
   - {fileID: 1721967503}
