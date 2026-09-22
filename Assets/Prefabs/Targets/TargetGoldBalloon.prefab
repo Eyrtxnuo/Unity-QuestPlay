@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1087606176942818961}
   - component: {fileID: 2566395681500083424}
   - component: {fileID: 6134154037211859975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TargetGoldBalloon
   m_TagString: AimTarget
   m_Icon: {fileID: 0}
@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72c0f12f381478589cd30c1cf8eedf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.GoldBalloonTarget
-  floatingSpeed: 0.5
+  floatingSpeed: 1.4
+  speedDeviation: 0.3
   popParticleSystem: {fileID: 1278462241158797979, guid: 0cc2a80c639eb1e488e65f287ccf35af, type: 3}
 --- !u!1001 &4151500418741273101
 PrefabInstance:
@@ -116,12 +117,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 4b10b358382d84a43a57f18135fd5894, type: 2}
     - target: {fileID: 5724076012379000482, guid: 397651212fcc30f4bbd471165573aa5d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724076012379000482, guid: 397651212fcc30f4bbd471165573aa5d, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6761341828045860364, guid: 397651212fcc30f4bbd471165573aa5d, type: 3}
       propertyPath: m_Name
       value: Balloon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761341828045860364, guid: 397651212fcc30f4bbd471165573aa5d, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8204332671807304333, guid: 397651212fcc30f4bbd471165573aa5d, type: 3}
       propertyPath: m_LocalPosition.x

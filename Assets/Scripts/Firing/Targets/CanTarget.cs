@@ -18,7 +18,7 @@ namespace Firing.Targets
         private Rigidbody _rb;
         private float _upBounceForce = 3;
         private float _maxHorizontalForce = 1;
-        private float _terminalSpeed = 2.5f;
+        private float _terminalFallSpeed = 2.5f;
         private float _maxAngularVelocity = 30;
         
 
@@ -57,12 +57,16 @@ namespace Firing.Targets
                 _rb.angularVelocity = Random.onUnitSphere * Random.Range(0f, _maxAngularVelocity);
             }
 
-            if (_rb.linearVelocity.magnitude > _terminalSpeed)
-            {
-                _rb.linearVelocity = _rb.linearVelocity.normalized * _terminalSpeed;
-            }
             
             return Punteggio;
+        }
+
+        void FixedUpdate()
+        {
+            if (_rb.linearVelocity.y < 0 && _rb.linearVelocity.magnitude > _terminalFallSpeed) // clamp applied only on descent
+            {
+                _rb.linearVelocity = _rb.linearVelocity.normalized * _terminalFallSpeed;
+            }
         }
     }
 }
