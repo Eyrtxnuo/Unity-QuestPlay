@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 namespace Firing
 {
     [RequireComponent(typeof(TextMeshPro))]
@@ -18,18 +16,19 @@ namespace Firing
         }
         private int _score;
 
-        public TextMeshPro scoreText;
+        private TextMeshPro _scoreText;
 
         void Start()
         {
-            scoreText =  GetComponent<TextMeshPro>();
+            _scoreText =  GetComponent<TextMeshPro>();
             ScoreUpdate();
         }
 
         private void ScoreUpdate()
         {
-            scoreText.SetText("Score: " + Score.ToString());
+            _scoreText.SetText("Score: " + Score.ToString());
         }
+        
         
     }
 }

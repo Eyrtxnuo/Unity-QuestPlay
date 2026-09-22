@@ -1,7 +1,6 @@
 using System;
 using Firing.Targets;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Firing
@@ -10,7 +9,7 @@ namespace Firing
     {
         [Header("Gameplay configuration")] public float phaseChangeTime = 5f;
         public float durationPhase1 = 30f;
-        public float durationPhase2 = 40f;
+        
         public float durationPhase3 = 30f;
 
         public BoundArea playingArea;
@@ -46,7 +45,12 @@ namespace Firing
         private Vector2 planeSize;
         private Vector3 gridOrigin;
         private Vector3 slotsSize;
-
+        
+        
+        [Header("End Game")] public ShootingScorePanelManager endGamePanelManager;
+        public FiringScoreCounter scoreCounter;
+        public GameObject gun;
+        
         void Start()
         {
             // calcoli per la Target grid 
@@ -96,9 +100,7 @@ namespace Firing
                         // per passare alla fase 2, aspettiamo che il timer finisca, e che tutti i palloncini siano despawnati, + fallback se i palloncini non sono despawnati in 10s
                         if (this.transform.childCount == 0 || _timer >= durationPhase1 + 10)
                         {
-                            for (int i = this.transform.childCount - 1;
-                                 i >= 0;
-                                 i--) //cancella tutti i children rimasti (caso fallback 10s)
+                            for (int i = this.transform.childCount - 1; i >= 0; i--) //cancella tutti i children rimasti (caso fallback 10s)
                             {
                                 Destroy(this.transform.GetChild(i).gameObject);
                             }
@@ -165,7 +167,16 @@ namespace Firing
                     _timer += Time.fixedDeltaTime;
                     if (_timer >= durationPhase3)
                     {
-                        EndGame();
+                        if (this.transform.childCount == 0 ||  _timer >= durationPhase3 + 10) //aspetta despawn di tutti i target + fallback dopo 10s
+                        {
+                            for (int i = this.transform.childCount - 1; i >= 0; i--) //cancella tutti i children rimasti (caso fallback 10s)
+                            {
+                                Destroy(this.transform.GetChild(i).gameObject);
+                            }
+                            
+                            EndGame();
+                        }
+                        break;
                     }
 
                     if (_timer >= _randWait)
@@ -190,6 +201,8 @@ namespace Firing
                     }
 
                     break;
+                case -2:// end game / stato vuoto
+                    break;
                 default:
                     Debug.LogWarning("Unknown phase " + _phase + ", defaulting to 0");
                     PassToPhase(0);
@@ -212,8 +225,13 @@ namespace Firing
             balloon.transform.SetParent(this.transform, true);
         }
 
+        /* Spawna un target alle coordinate specificate della griglia.
+         * Se le coordinate non sono valide o il posto è occupato return;
+         * Il tipo di target è scelto random con le percentuali specificate.
+         * La probabilità di target standard è 1 - gold - negative.
+         */
         private void SpawnTarget(int x = -1, int y = -1)
-        {
+        { 
             if (x < 0 || x >= gridSize.x || y < 0 || y >= gridSize.y) return;
             if (gridOccupationMatrix[x, y]) return;
             gridOccupationMatrix[x, y] = true;
@@ -239,7 +257,8 @@ namespace Firing
                 prefab = standardTarget;
             }
 
-            var target = Instantiate(prefab, center, _targetSpawnRotation);
+            TargetTarget target = Instantiate(prefab, center, _targetSpawnRotation);
+            target.transform.SetParent(this.transform, true);
             target.SetupDestroyCallback(() => { gridOccupationMatrix[x, y] = false; });
         }
 
@@ -256,32 +275,19 @@ namespace Firing
             _timer = 0;
             _randWait = 0;
             _phase = phase;
-            // switch (phase)
-            // {
-            //     case -1:
-            //     case 0:
-            //         break;
-            //     case 1:
-            //         //spawn ballons under map
-            //
-            //         break;
-            //     case 2:
-            //         // clear balloons
-            //         // start can launcher
-            //         break;
-            //     case 3:
-            //         // clear cans (or await all are dead)
-            //         // start target summoner
-            //         break;
-            // }
         }
 
         private void EndGame()
         {
+            PassToPhase(-2);
+            endGamePanelManager.ShowPanel(scoreCounter.Score);
+            scoreCounter.gameObject.SetActive(false);
+            gun?.gameObject.SetActive(false);
+            // open end game panel
         }
 
 #if (UNITY_EDITOR)
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Vector3 planeCenter = playingArea.bounds.center;
             Vector2 planeSize = new Vector2(
