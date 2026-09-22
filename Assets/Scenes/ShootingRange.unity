@@ -9946,7 +9946,7 @@ Transform:
   m_GameObject: {fileID: 1494510724}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 4.72}
+  m_LocalPosition: {x: 0, y: 2.25, z: 4.72}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9964,7 +9964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272dce2e6c67ed44f8d6548cfc55468c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  size: {x: 5, y: 3, z: 3}
+  size: {x: 5.5, y: 3.5, z: 3.5}
 --- !u!1 &1496265946
 GameObject:
   m_ObjectHideFlags: 0
@@ -11751,7 +11751,7 @@ MonoBehaviour:
   spawnDelayRangeMin: 0.5
   spawnDelayRangeMax: 1
   maxSpawnCount: 3
-  goldProbability: 0.104
+  goldBalloonProbability: 0.104
   canLauncher: {fileID: 745128311}
   phases:
   - canNumber: 1
@@ -11766,6 +11766,12 @@ MonoBehaviour:
   - canNumber: 5
     maxDuration: 40
     canDelay: 3
+  standardTarget: {fileID: 7093755618597765058, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}
+  negativeTarget: {fileID: 7416976975550104443, guid: 2eb8c6b313d55444db46546990965fc3, type: 3}
+  negativeTargetProbability: 0.25
+  goldTarget: {fileID: 3716478505602039641, guid: b5e4d6d760ddf474ca44529994d1d7f1, type: 3}
+  goldTargetProbability: 0.1
+  gridSize: {x: 10, y: 6}
 --- !u!1 &1723928429
 GameObject:
   m_ObjectHideFlags: 0

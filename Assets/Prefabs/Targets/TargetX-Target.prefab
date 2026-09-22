@@ -256,8 +256,47 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 08ff625eb20fb044d952695016c6ac1a, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1346740997873957974, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7093755618597765058, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5122931705201666395}
   m_SourcePrefab: {fileID: 100100000, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}
+--- !u!114 &1805243919611056372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2130751977817173069, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}
+  m_PrefabInstance: {fileID: 332264054684466361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f5b3dd7ae10d5438e5a78a9cff7663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetExploder
+--- !u!1 &3487210929878960967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3817222591371982846, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}
+  m_PrefabInstance: {fileID: 332264054684466361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7416976975550104443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7093755618597765058, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}
+  m_PrefabInstance: {fileID: 332264054684466361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5122931705201666395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416976975550104443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e6f457989a43818254d4ab22e3beb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.NegativeTargetTarget
+  targetFacade: {fileID: 3487210929878960967}
+  targetExploder: {fileID: 1805243919611056372}

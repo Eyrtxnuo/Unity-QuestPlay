@@ -14,7 +14,7 @@ namespace Firing
 
         public BoundArea playingArea;
 
-        private int _phase = 2; //TODO: riporta a 0
+        private int _phase = 3; //TODO: riporta a 0
         private float _timer = 0;
 
         [Header("Phase 1")] public GameObject[] balloonPrefabs;
@@ -22,13 +22,23 @@ namespace Firing
         public float spawnYOffset = -2f;
         public float spawnDelayRangeMin = 0.5f, spawnDelayRangeMax = 1f;
         public int maxSpawnCount = 3;
-        [Range(0f, 1f)] public float goldProbability = 0.1f;
+        [Range(0f, 1f)] public float goldBalloonProbability = 0.1f;
 
         [Header("Phase 2")] public CanLauncher canLauncher;
         public CanPhase[] phases;
         private int _phaseIndex = -1;
         private int _spawnCounter = 0;
         private float _forcedEndTime = 0;
+
+        [Header("Phase 3")] public GameObject standardTarget;
+        public GameObject negativeTarget;
+        [Range(0f, 1f)] public float negativeTargetProbability = 0.25f;
+        public GameObject goldTarget;
+        [Range(0f, 1f)] public float goldTargetProbability = 0.1f;
+        public Vector2Int gridSize;
+        private bool start3 = true;
+        private Quaternion _targetSpawnRotation = Quaternion.FromToRotation(Vector3.up, Vector3.forward); 
+
 
         private float _randWait = 0;
         private int _nextPhase = 0;
@@ -138,6 +148,48 @@ namespace Firing
                         EndGame();
                     }
 
+                    if (start3)
+                    {
+                        start3 = false;
+                        Vector3 planeCenter = playingArea.bounds.center;
+                        Vector2 planeSize = new Vector2(
+                            playingArea.bounds.extents.x * 2,
+                            playingArea.bounds.extents.y * 2);
+                        Vector3 gridOrigin = new Vector3(
+                            planeCenter.x - planeSize.x / 2,
+                            planeCenter.y - planeSize.y / 2,
+                            planeCenter.z);
+
+                        Vector2 slotsSize = new Vector2(
+                            planeSize.x / gridSize.x,
+                            planeSize.y / gridSize.y);
+                        for (int i = 0; i < gridSize.x; i++)
+                        {
+                            for (int j = 0; j < gridSize.y; j++)
+                            {
+                                Vector3 center = gridOrigin + new Vector3(
+                                    slotsSize.x * i + slotsSize.x / 2,
+                                    slotsSize.y * j + slotsSize.y / 2,
+                                    0);
+
+                                var val = Random.value;
+                                GameObject prefab;
+                                if (val < goldTargetProbability)
+                                {
+                                    prefab = goldTarget;
+                                }else if (val < goldTargetProbability + negativeTargetProbability)
+                                {
+                                    prefab = negativeTarget;
+                                }
+                                else
+                                {
+                                    prefab = standardTarget;
+                                }
+                                Instantiate(prefab, center, _targetSpawnRotation);
+                            }
+                        }
+                    }
+
                     break;
                 default:
                     Debug.LogWarning("Unknown phase " + _phase + ", defaulting to 0");
@@ -154,7 +206,7 @@ namespace Firing
                 Random.Range(playingArea.bounds.min.z, playingArea.bounds.max.z));
 
 
-            GameObject prefab = Random.value < goldProbability
+            GameObject prefab = Random.value < goldBalloonProbability
                 ? goldBalloonPrefab
                 : balloonPrefabs[Random.Range(0, balloonPrefabs.Length)];
             GameObject balloon = Instantiate(prefab, balloonPos, Quaternion.identity);
@@ -196,6 +248,37 @@ namespace Firing
         private void EndGame()
         {
         }
+
+#if (UNITY_EDITOR)
+        private void OnDrawGizmos()
+        {
+            Vector3 planeCenter = playingArea.bounds.center;
+            Vector2 planeSize = new Vector2(
+                playingArea.bounds.extents.x * 2,
+                playingArea.bounds.extents.y * 2);
+            Vector3 gridOrigin = new Vector3(
+                planeCenter.x - planeSize.x / 2,
+                planeCenter.y - planeSize.y / 2,
+                planeCenter.z);
+
+            Gizmos.DrawWireCube(planeCenter, planeSize);
+            Vector2 slotsSize = new Vector2(
+                planeSize.x / gridSize.x,
+                planeSize.y / gridSize.y);
+            for (int i = 0; i < gridSize.x; i++)
+            {
+                for (int j = 0; j < gridSize.y; j++)
+                {
+                    Vector3 center = gridOrigin + new Vector3(
+                        slotsSize.x * i + slotsSize.x / 2,
+                        slotsSize.y * j + slotsSize.y / 2,
+                        0);
+                    Gizmos.DrawWireCube(center, slotsSize);
+                    Gizmos.DrawSphere(center, 0.01f);
+                }
+            }
+        }
+#endif
     }
 
 
