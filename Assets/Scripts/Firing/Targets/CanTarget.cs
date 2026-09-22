@@ -11,8 +11,8 @@ namespace Firing.Targets
     {
         [field: NonSerialized] public override int Punteggio { get; set; } = 1;
         public BoundArea returnArea;
-
         public int maxBounces = 5;
+        public float despawnUnderY = -0.2f;
 
         private int _bouncesCount = 0;
         private Rigidbody _rb;
@@ -63,9 +63,12 @@ namespace Firing.Targets
 
         void FixedUpdate()
         {
-            if (_rb.linearVelocity.y < 0 && _rb.linearVelocity.magnitude > _terminalFallSpeed) // clamp applied only on descent
+            if(this.transform.position.y < despawnUnderY) Destroy(this.gameObject);// death plane virtuale a Y < (-0.2f default)
+            
+            // clamp velocità (applicato solo in caduta)
+            if (_rb.linearVelocity.y < 0 && _rb.linearVelocity.sqrMagnitude > _terminalFallSpeed * _terminalFallSpeed)
             {
-                _rb.linearVelocity = _rb.linearVelocity.normalized * _terminalFallSpeed;
+                _rb.linearVelocity = Vector3.ClampMagnitude(_rb.linearVelocity, _terminalFallSpeed);
             }
         }
     }

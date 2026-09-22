@@ -81,6 +81,7 @@ MonoBehaviour:
   targetExploder: {fileID: 7761108694291464686}
   returnArea: {fileID: 0}
   maxBounces: 5
+  despawnUnderY: -0.2
 --- !u!114 &9194051140056175606
 MonoBehaviour:
   m_ObjectHideFlags: 0

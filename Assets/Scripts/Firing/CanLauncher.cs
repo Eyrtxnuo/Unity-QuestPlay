@@ -18,21 +18,22 @@ namespace Firing
             _prefabGravity = -canPrefab.GetComponent<CustomGravity>().gravityAcceleration;
         }
 
-        public void LaunchCan(Vector3? target = null)
+        public GameObject LaunchCan(Vector3? target = null)
         {
-            if (!canPrefab) return;
+            if (!canPrefab) return null;
             var tar = target.HasValue ? target.Value : defaultPosition;
             tar.x += Random.Range(-maxDeviation, maxDeviation);
             tar.z += Random.Range(-maxDeviation, maxDeviation);
 
             GameObject can = Instantiate(canPrefab, transform.position, Quaternion.identity);
-            can.GetComponent<CanTarget>().returnArea = canReturnArea;
+            can.GetComponent<CanTarget>().returnArea = canReturnArea; // TODO: capire se si possono togliere
             Rigidbody rb = can.GetComponent<Rigidbody>();
             if (rb)
             {
                 rb.linearVelocity = CalculateTrajectory(transform.position, tar, targetHeight);
                 rb.angularVelocity = new  Vector3(Random.Range(-10f, 10f), Random.Range(-10f,10f), Random.Range(-10f, 10f));
             }
+            return can;
         }
 
         private Vector3 CalculateTrajectory(Vector3 start, Vector3 target, float peakHeight)

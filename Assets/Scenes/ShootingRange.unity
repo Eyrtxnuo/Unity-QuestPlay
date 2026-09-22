@@ -2327,37 +2327,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1372569552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &302372238
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 302372239}
-  m_Layer: 0
-  m_Name: Phase1BalloonContainer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &302372239
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302372238}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -56.31781, y: 3.08965, z: 7.40815}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &322397479
 GameObject:
   m_ObjectHideFlags: 0
@@ -4787,10 +4756,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   canPrefab: {fileID: 6817154262068759557, guid: fe5c90371267ca142b5d3cee0fb2380d, type: 3}
-  defaultPosition: {x: -0.06, y: 0, z: 5.35}
+  defaultPosition: {x: 0, y: 0, z: 5}
   targetHeight: 6
   maxDeviation: 0.6
-  canReturnArea: {fileID: 0}
+  canReturnArea: {fileID: 1494510727}
 --- !u!4 &745128312
 Transform:
   m_ObjectHideFlags: 0
@@ -11768,7 +11737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdb93cd8e6fbe444944391855db053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  waitPreGame: 2
+  phaseChangeTime: 5
   durationPhase1: 30
   durationPhase2: 40
   durationPhase3: 30
@@ -11778,12 +11747,25 @@ MonoBehaviour:
   - {fileID: 7093755618597765058, guid: 136824caa98c1cc4f9d7f2133540f3b8, type: 3}
   - {fileID: 7093755618597765058, guid: 10d6f424690e2d7438acefc9a2d3d710, type: 3}
   goldBalloonPrefab: {fileID: 7093755618597765058, guid: 3d6299d86ff24234bbec9e36da3dc3e6, type: 3}
-  balloonContainer: {fileID: 302372238}
   spawnYOffset: -1
   spawnDelayRangeMin: 0.5
   spawnDelayRangeMax: 1
   maxSpawnCount: 3
   goldProbability: 0.104
+  canLauncher: {fileID: 745128311}
+  phases:
+  - canNumber: 1
+    maxDuration: 10
+    canDelay: 0
+  - canNumber: 3
+    maxDuration: 20
+    canDelay: 3
+  - canNumber: 3
+    maxDuration: 10
+    canDelay: 2
+  - canNumber: 5
+    maxDuration: 40
+    canDelay: 3
 --- !u!1 &1723928429
 GameObject:
   m_ObjectHideFlags: 0
@@ -13679,5 +13661,4 @@ SceneRoots:
   - {fileID: 563409538}
   - {fileID: 1392808093}
   - {fileID: 1721967503}
-  - {fileID: 302372239}
   - {fileID: 988154608}
