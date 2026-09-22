@@ -5,7 +5,7 @@ namespace Firing
 {
     public class CanLauncher : MonoBehaviour
     {
-        public GameObject canPrefab;
+        public CanTarget canPrefab;
         public Vector3 defaultPosition;
         public float targetHeight;
         public float maxDeviation;
@@ -25,15 +25,15 @@ namespace Firing
             tar.x += Random.Range(-maxDeviation, maxDeviation);
             tar.z += Random.Range(-maxDeviation, maxDeviation);
 
-            GameObject can = Instantiate(canPrefab, transform.position, Quaternion.identity);
-            can.GetComponent<CanTarget>().returnArea = canReturnArea; // TODO: capire se si possono togliere
-            Rigidbody rb = can.GetComponent<Rigidbody>();
+            CanTarget can = Instantiate(canPrefab, transform.position, Quaternion.identity);
+            can.returnArea = canReturnArea; 
+            Rigidbody rb = can.rb;
             if (rb)
             {
                 rb.linearVelocity = CalculateTrajectory(transform.position, tar, targetHeight);
                 rb.angularVelocity = new  Vector3(Random.Range(-10f, 10f), Random.Range(-10f,10f), Random.Range(-10f, 10f));
             }
-            return can;
+            return can.gameObject;
         }
 
         private Vector3 CalculateTrajectory(Vector3 start, Vector3 target, float peakHeight)
@@ -92,6 +92,6 @@ namespace Firing
         }
         
 
-        
+           
     }
 }

@@ -82,6 +82,7 @@ MonoBehaviour:
   returnArea: {fileID: 0}
   maxBounces: 5
   despawnUnderY: -0.2
+  rb: {fileID: 6986586305328752901}
 --- !u!114 &9194051140056175606
 MonoBehaviour:
   m_ObjectHideFlags: 0

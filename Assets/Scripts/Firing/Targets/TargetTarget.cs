@@ -11,17 +11,11 @@ namespace Firing.Targets
         public TargetExploder targetExploder;
 
 
-        // private Rigidbody _rb;
-        //
-        // void Start()
-        // {
-        //     TryGetComponent<Rigidbody>(out _rb);
-        // }
 
         protected override int OnShot(Vector3 position)
         {
             this.targetFacade.SetActive(false);
-            this.GetComponent<Collider>().enabled = false;
+            this.GetComponent<Collider>().enabled = false;// getComponent viene eseguito solo una volta (poi il collider viene disattivato), non serve cache
             this.tag = "Untagged";
             targetExploder.Explode(position,  OnCallback);
             return Punteggio;
