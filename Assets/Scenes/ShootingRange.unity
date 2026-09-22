@@ -11766,12 +11766,14 @@ MonoBehaviour:
   - canNumber: 5
     maxDuration: 40
     canDelay: 3
-  standardTarget: {fileID: 7093755618597765058, guid: 2d01111dc1d55014a90bcf7fc347e2c6, type: 3}
-  negativeTarget: {fileID: 7416976975550104443, guid: cb053c261c775aa43a23d4ddca318ac4, type: 3}
-  negativeTargetProbability: 0.25
-  goldTarget: {fileID: 3716478505602039641, guid: d16f87559bc97de4ab4a3745bff78d70, type: 3}
-  goldTargetProbability: 0.1
+  standardTarget: {fileID: 1346740997873957974, guid: 2d01111dc1d55014a90bcf7fc347e2c6, type: 3}
+  negativeTarget: {fileID: 5122931705201666395, guid: cb053c261c775aa43a23d4ddca318ac4, type: 3}
+  negativeTargetProbability: 0.08
+  goldTarget: {fileID: 3290991010492192699, guid: d16f87559bc97de4ab4a3745bff78d70, type: 3}
+  goldTargetProbability: 0.12
   gridSize: {x: 10, y: 6}
+  targetSpawnDelay: 1
+  targetMaxSpawnCount: 4
 --- !u!1 &1723928429
 GameObject:
   m_ObjectHideFlags: 0

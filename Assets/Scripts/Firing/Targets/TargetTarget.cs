@@ -6,13 +6,12 @@ namespace Firing.Targets
 {
     public class TargetTarget : FiringTarget
     {
-        public delegate void TargetCallback(Vector2Int position);
+        public delegate void TargetCallback();
 
         [field: NonSerialized] public override int Punteggio { get; set; } = 1;
         public GameObject targetFacade;
         public TargetExploder targetExploder;
 
-        private Vector2Int _gridPosition = new(-1, -1);
         private TargetCallback _onDestroyCallback;
 
         protected override int OnShot(Vector3 position)
@@ -30,15 +29,14 @@ namespace Firing.Targets
             base.OnShot(transform.position);
         }
 
-        public void SetupDestroyCallback(TargetCallback onDestroy, Vector2Int position)
+        public void SetupDestroyCallback(TargetCallback onDestroy)
         {
-            this._gridPosition = position;
             this._onDestroyCallback = onDestroy;
         }
 
         private void OnDestroy()
         {
-            _onDestroyCallback?.Invoke(_gridPosition);
+            _onDestroyCallback?.Invoke();
         }
     }
 }

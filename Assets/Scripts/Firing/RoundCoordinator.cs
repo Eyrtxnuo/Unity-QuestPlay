@@ -1,4 +1,5 @@
 using System;
+using Firing.Targets;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -19,9 +20,10 @@ namespace Firing
 
         [Header("Phase 1")] public GameObject[] balloonPrefabs;
         public GameObject goldBalloonPrefab;
-        public float spawnYOffset = -2f;
-        public float spawnDelayRangeMin = 0.5f, spawnDelayRangeMax = 1f;
-        public int maxSpawnCount = 3;
+        public float balloonSpawnYOffset = -2f;
+        public float balloonSpawnDelayRangeMin = 0.5f;
+        public float balloonSpawnDelayRangeMax = 1f;
+        public int balloonMaxSpawnCount = 3;
         [Range(0f, 1f)] public float goldBalloonProbability = 0.1f;
 
         [Header("Phase 2")] public CanLauncher canLauncher;
@@ -30,14 +32,37 @@ namespace Firing
         private int _spawnCounter = 0;
         private float _forcedEndTime = 0;
 
-        [Header("Phase 3")] public GameObject standardTarget;
-        public GameObject negativeTarget;
+        [Header("Phase 3")] public TargetTarget standardTarget;
+        public TargetTarget negativeTarget;
         [Range(0f, 1f)] public float negativeTargetProbability = 0.25f;
-        public GameObject goldTarget;
+        public TargetTarget goldTarget;
         [Range(0f, 1f)] public float goldTargetProbability = 0.1f;
         public Vector2Int gridSize;
-        private bool start3 = true;
-        private Quaternion _targetSpawnRotation = Quaternion.FromToRotation(Vector3.up, Vector3.forward); 
+        public float targetSpawnDelay;
+        public int targetMaxSpawnCount;
+        private Quaternion _targetSpawnRotation = Quaternion.FromToRotation(Vector3.up, Vector3.forward);
+        private bool[,] gridOccupationMatrix;
+        Vector3 planeCenter;
+        private Vector2 planeSize;
+        private Vector3 gridOrigin;
+        private Vector3 slotsSize;
+
+        void Start()
+        {
+            // calcoli per la Target grid 
+            gridOccupationMatrix = new bool[gridSize.x, gridSize.y];
+            planeCenter = playingArea.bounds.center;
+            planeSize = new Vector2(
+                playingArea.bounds.extents.x * 2,
+                playingArea.bounds.extents.y * 2);
+            gridOrigin = new Vector3(
+                planeCenter.x - planeSize.x / 2,
+                planeCenter.y - planeSize.y / 2,
+                planeCenter.z);
+            slotsSize = new Vector2(
+                planeSize.x / gridSize.x,
+                planeSize.y / gridSize.y);
+        }
 
 
         private float _randWait = 0;
@@ -86,23 +111,18 @@ namespace Firing
 
                     if (_timer >= _randWait) // spawna 1-3 palloncini ogni 0,5 - 1 secondi
                     {
-                        int spawnCount = Random.Range(0, maxSpawnCount);
+                        int spawnCount = Random.Range(1, balloonMaxSpawnCount);
                         for (int i = 0; i < spawnCount; i++)
                         {
                             SpawnBalloon();
                         }
 
-                        _randWait = _timer + Random.Range(spawnDelayRangeMin, spawnDelayRangeMax);
+                        _randWait = _timer + Random.Range(balloonSpawnDelayRangeMin, balloonSpawnDelayRangeMax);
                     }
 
                     break;
-                case 2:
+                case 2: // Cans
                     _timer += Time.fixedDeltaTime;
-                    // if (_timer >= durationPhase2 &&
-                    //     this.transform.childCount == 0) // passa alla fine del tempo e tutte le lattine rotte
-                    // {
-                    //     PhaseTransition(3);
-                    // }
 
                     if (_spawnCounter <= 0 && (this.transform.childCount == 0 || _timer >= _forcedEndTime))
                     {
@@ -141,52 +161,31 @@ namespace Firing
 
 
                     break;
-                case 3:
+                case 3: // Targets
                     _timer += Time.fixedDeltaTime;
                     if (_timer >= durationPhase3)
                     {
                         EndGame();
                     }
 
-                    if (start3)
+                    if (_timer >= _randWait)
                     {
-                        start3 = false;
-                        Vector3 planeCenter = playingArea.bounds.center;
-                        Vector2 planeSize = new Vector2(
-                            playingArea.bounds.extents.x * 2,
-                            playingArea.bounds.extents.y * 2);
-                        Vector3 gridOrigin = new Vector3(
-                            planeCenter.x - planeSize.x / 2,
-                            planeCenter.y - planeSize.y / 2,
-                            planeCenter.z);
-
-                        Vector2 slotsSize = new Vector2(
-                            planeSize.x / gridSize.x,
-                            planeSize.y / gridSize.y);
-                        for (int i = 0; i < gridSize.x; i++)
+                        int spawnCount = Random.Range(1, targetMaxSpawnCount);
+                        for (int i = 0; i < spawnCount; i++)
                         {
-                            for (int j = 0; j < gridSize.y; j++)
+                            int rx = -1;
+                            int ry = -1;
+                            for (int k = 0; k < 10; k++)
                             {
-                                Vector3 center = gridOrigin + new Vector3(
-                                    slotsSize.x * i + slotsSize.x / 2,
-                                    slotsSize.y * j + slotsSize.y / 2,
-                                    0);
-
-                                var val = Random.value;
-                                GameObject prefab;
-                                if (val < goldTargetProbability)
-                                {
-                                    prefab = goldTarget;
-                                }else if (val < goldTargetProbability + negativeTargetProbability)
-                                {
-                                    prefab = negativeTarget;
-                                }
-                                else
-                                {
-                                    prefab = standardTarget;
-                                }
-                                Instantiate(prefab, center, _targetSpawnRotation);
+                                int kx = Random.Range(0, gridSize.x);
+                                int ky = Random.Range(0, gridSize.y);
+                                if (gridOccupationMatrix[kx, ky]) continue;
+                                rx = kx;
+                                ry = ky;
+                                break;
                             }
+                            SpawnTarget(rx, ry);
+                            _randWait = _timer + targetSpawnDelay;
                         }
                     }
 
@@ -202,7 +201,7 @@ namespace Firing
         {
             Vector3 balloonPos = new Vector3(
                 Random.Range(playingArea.bounds.min.x, playingArea.bounds.max.x),
-                playingArea.bounds.min.y + spawnYOffset,
+                playingArea.bounds.min.y + balloonSpawnYOffset,
                 Random.Range(playingArea.bounds.min.z, playingArea.bounds.max.z));
 
 
@@ -212,6 +211,38 @@ namespace Firing
             GameObject balloon = Instantiate(prefab, balloonPos, Quaternion.identity);
             balloon.transform.SetParent(this.transform, true);
         }
+
+        private void SpawnTarget(int x = -1, int y = -1)
+        {
+            if (x < 0 || x >= gridSize.x || y < 0 || y >= gridSize.y) return;
+            if (gridOccupationMatrix[x, y]) return;
+            gridOccupationMatrix[x, y] = true;
+
+
+            Vector3 center = gridOrigin + new Vector3(
+                slotsSize.x * x + slotsSize.x / 2,
+                slotsSize.y * y + slotsSize.y / 2,
+                0);
+
+            var randomTypeVal = Random.value;
+            TargetTarget prefab;
+            if (randomTypeVal < goldTargetProbability)
+            {
+                prefab = goldTarget;
+            }
+            else if (randomTypeVal < goldTargetProbability + negativeTargetProbability)
+            {
+                prefab = negativeTarget;
+            }
+            else
+            {
+                prefab = standardTarget;
+            }
+
+            var target = Instantiate(prefab, center, _targetSpawnRotation);
+            target.SetupDestroyCallback(() => { gridOccupationMatrix[x, y] = false; });
+        }
+
 
         private void
             PhaseTransition(int phase) // passa alla fase scelta dopo un periodo di pausa lungo "phaseChangeTime"
