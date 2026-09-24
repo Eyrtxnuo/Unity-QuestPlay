@@ -1113,6 +1113,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 733540348628091174, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 733540348628091174, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 733540348628091174, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2474556956075566071, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_Mass
       value: 1000
@@ -1141,6 +1153,10 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2709462980253138484, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 5415269265149770428, guid: 39f76eabef9a0504997d3259abc2c991, type: 3}
     - target: {fileID: 2709462980253138484, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -1186,9 +1202,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3974258325478789686, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974258325478789686, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+    - target: {fileID: 6860981679313952077, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6860981679313952077, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1201,7 +1225,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PingPongPlayerPaddle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5582390870420998752, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+    - {fileID: 3974258325478789686, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+    - {fileID: 3078372549673566135, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+    - {fileID: 6860981679313952077, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1214,7 +1242,20 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       insertIndex: -1
       addedObject: {fileID: 648110262}
+    - targetCorrespondingSourceObject: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 648110263}
   m_SourcePrefab: {fileID: 100100000, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+--- !u!23 &117646709 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7769798474210029647, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+  m_PrefabInstance: {fileID: 117646708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &117646710 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2811707930869533904, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+  m_PrefabInstance: {fileID: 117646708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &118562076
 GameObject:
   m_ObjectHideFlags: 0
@@ -4883,6 +4924,21 @@ MonoBehaviour:
   target: {fileID: 948860405}
   safeDistance: 0.2
   safeTime: 0.3
+--- !u!114 &648110263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648110255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b3ac0d658faf941b174b21da1e570f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HideOnPause
+  renderers:
+  - {fileID: 117646710}
+  - {fileID: 117646709}
 --- !u!1 &675515961
 GameObject:
   m_ObjectHideFlags: 0
@@ -13653,6 +13709,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 733540348628091174, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 733540348628091174, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 733540348628091174, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.0421
       objectReference: {fileID: 0}
@@ -13668,6 +13732,10 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2709462980253138484, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 5415269265149770428, guid: 39f76eabef9a0504997d3259abc2c991, type: 3}
     - target: {fileID: 2709462980253138484, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_Material
       value: 
@@ -13732,7 +13800,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PingPongOpponentPaddle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3078372549673566135, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+    - {fileID: 6860981679313952077, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+    - {fileID: 5582390870420998752, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+    - {fileID: 3974258325478789686, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -20924,7 +20996,6 @@ MonoBehaviour:
   fxManager: {fileID: 43810933}
   endgamePanel: {fileID: 389652508}
   tooltipH: {fileID: 1622407036}
-  pauseManager: {fileID: 1622407037}
 --- !u!4 &1622407035
 Transform:
   m_ObjectHideFlags: 0

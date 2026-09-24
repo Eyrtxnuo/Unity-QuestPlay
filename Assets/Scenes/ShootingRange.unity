@@ -3612,6 +3612,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5384236177406613771, guid: 4421c91005e6c414bb3c06247120eeae, type: 3}
   m_PrefabInstance: {fileID: 599285756}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &599285758 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6553734278549545572, guid: 4421c91005e6c414bb3c06247120eeae, type: 3}
+  m_PrefabInstance: {fileID: 599285756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &601741268
 GameObject:
   m_ObjectHideFlags: 0
@@ -13169,6 +13174,7 @@ GameObject:
   - component: {fileID: 2002085019}
   - component: {fileID: 2002085020}
   - component: {fileID: 2002085021}
+  - component: {fileID: 2002085022}
   m_Layer: 0
   m_Name: PseudoGun
   m_TagString: Gun
@@ -13238,6 +13244,21 @@ MonoBehaviour:
   rotationSpeed: 1800
   movementDampening: 5
   bounceForce: 0
+--- !u!114 &2002085022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002085018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b3ac0d658faf941b174b21da1e570f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HideOnPause
+  renderers:
+  - {fileID: 708636740}
+  - {fileID: 599285758}
 --- !u!1 &2020968619
 GameObject:
   m_ObjectHideFlags: 0
