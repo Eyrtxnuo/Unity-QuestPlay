@@ -7,8 +7,8 @@ namespace PingPong
     {
         public PausePanelManager _pausePanelManager;
         
-        public Action OnPause;
-        public Action OnResume;
+        public static Action OnPause;
+        public static Action OnResume;
 
         public static bool is_paused = false;
         

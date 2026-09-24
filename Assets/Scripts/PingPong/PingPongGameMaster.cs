@@ -17,7 +17,6 @@ namespace PingPong
         public FXManager fxManager;
         public EndGamePanelManager endgamePanel;
         public TooltipHandler tooltipH;
-        public PauseManager pauseManager;
 
         private Scores _scores = new Scores();
         private Team _serveTurn = Team.Player;
@@ -51,15 +50,15 @@ namespace PingPong
         private void OnEnable()
         {
             ball.OnAnyCollision += HandleBounce;
-            pauseManager.OnPause += HandlePause;
-            pauseManager.OnResume += HandleResume;
+            PauseManager.OnPause += HandlePause;
+            PauseManager.OnResume += HandleResume;
         }
 
         private void OnDisable()
         {
             ball.OnAnyCollision -= HandleBounce;
-            pauseManager.OnPause -= HandlePause;
-            pauseManager.OnResume -= HandleResume;
+            PauseManager.OnPause -= HandlePause;
+            PauseManager.OnResume -= HandleResume;
         }
 
         // Update is called once per frame
