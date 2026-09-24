@@ -36,7 +36,7 @@ namespace Firing.Targets
         protected override int OnShot(Vector3 position)
         {
             _bouncesCount++;
-            Punteggio = _bouncesCount+1;
+            Punteggio = _bouncesCount;
 
             if (_bouncesCount >= maxBounces)
             {

@@ -26,7 +26,7 @@ namespace Firing
             tar.x += Random.Range(-maxDeviation, maxDeviation);
             tar.z += Random.Range(-maxDeviation, maxDeviation);
 
-            CanTarget can = Instantiate(canPrefab, transform.position, Quaternion.identity);
+            CanTarget can = Instantiate(canPrefab, transform);
             can.returnArea = canReturnArea; 
             can.sfxPool = sfxPool;
             Rigidbody rb = can.rb;

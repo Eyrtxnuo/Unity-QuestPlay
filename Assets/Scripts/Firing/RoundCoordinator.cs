@@ -13,7 +13,7 @@ namespace Firing
         public BoundArea playingArea;
         public SfxPool sfxPool;
 
-        private int _phase = 3; //TODO: riporta a 0
+        private int _phase = 0;
         private float _timer = 0;
 
         [Header("Phase 1")] public GameObject[] balloonPrefabs;

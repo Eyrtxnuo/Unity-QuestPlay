@@ -140,7 +140,7 @@ namespace PingPong
                 }
                 else
                 {
-                    //TODO: fallo, ripeti battuta. (ora da il punto)
+                    // fallo, ripeti battuta. (ora da il punto)
                     Debug.Log($"SCORED: punto a {NotTeam(_serveTurn)} — lancio battuta caduto a terra");
                     ScoredRoutine(NotTeam(_serveTurn), collision);
                     return;
@@ -165,7 +165,6 @@ namespace PingPong
                         Debug.Log(
                             $"SCORED: punto a {NotTeam(_serveTurn)} — primo rimbalzo di battuta fuori dal campo di chi ha servito");
                         ScoredRoutine(NotTeam(_serveTurn), collision);
-                        //TODO: reset stato
                     }
 
                    
@@ -184,7 +183,6 @@ namespace PingPong
                             $"SCORED: punto a {NotTeam(_lastTouch)} — la palla è rimbalzata di nuovo nel campo di chi l'ha toccata");
                         ScoredRoutine(NotTeam(_lastTouch), collision);
 
-                        //TODO: reset stato
                     }
                     
                     if (IsPlayerSide(collision.contacts[0].point) == Team.Opponent)
@@ -216,7 +214,6 @@ namespace PingPong
                 // Fallo, punto Opponent (toccata pallina quando doveva toccarla l'altro)
                 Debug.Log("SCORED: punto a Opponent — il player ha fatto un doppio tocco");
                 ScoredRoutine(Team.Opponent, collision);
-                //TODO: reset stato
                 return;
             }
 
@@ -225,7 +222,6 @@ namespace PingPong
                 // Fallo, punto Player (toccata pallina quando doveva toccarla l'altro)
                 Debug.Log("SCORED: punto a Player — l'opponent ha fatto un doppio tocco");
                 ScoredRoutine(Team.Player, collision);
-                //TODO: reset stato
                 return;
             }
 
@@ -235,7 +231,6 @@ namespace PingPong
                 // Fallo, punto Opponent (toccata pallina prima del rimbalzo)
                 Debug.Log("SCORED: punto a Opponent — il player ha toccato la pallina prima del rimbalzo");
                 ScoredRoutine(Team.Opponent, collision);
-                //TODO: reset stato
                 return;
             }
 
@@ -245,14 +240,12 @@ namespace PingPong
                 // Fallo, punto Player (toccata pallina prima del rimbalzo) 
                 Debug.Log("SCORED: punto a Player — l'Opponent ha toccato la pallina prima del rimbalzo");
                 ScoredRoutine(Team.Player, collision);
-                //TODO: reset stato
                 return;
             }
 
             if (collision.gameObject.CompareTag("PingPongPlayerPaddle") ||
                 collision.gameObject.CompareTag("PingPongOpponentPaddle"))
             {
-                //TODO: ritorna palla
                 _lastTouch = collision.gameObject.CompareTag("PingPongPlayerPaddle") ? Team.Player : Team.Opponent;
                 _bouncesLeft = 1;
                 return;
@@ -267,7 +260,6 @@ namespace PingPong
 
                 Debug.Log($"SCORED: punto a {NotTeam(_lastTouch)} — palla fuori dal campo prima del rimbalzo");
                 ScoredRoutine(NotTeam(_lastTouch), collision);
-                //TODO: reset stato
                 return;
             }
             else
@@ -277,7 +269,6 @@ namespace PingPong
                 ScoredRoutine(_lastTouch, collision);
 
 
-                //TODO: reset stato
                 return;
             }
         }
@@ -394,12 +385,10 @@ namespace PingPong
                 if (win == Team.Player)
                 {
                     fxManager.WinMatchFx(Team.Player);
-                    // TODO: blocca tutto e mostra schermo vittoria
                 }
                 else
                 {
                     fxManager.WinMatchFx(Team.Opponent);
-                    //TODO: blocca tutto e mostra schermo sconfitta
                 }
 
                 endgamePanel.ShowPanel(_scores);
@@ -419,7 +408,6 @@ namespace PingPong
                 tooltipH.ShowContinue(false);
                 _playEnded = false;
                 Serve();
-                //TODO: resetta pallina, fantasma pallina e tutto il resto
                 var listOfDespawn = GameObject.FindGameObjectsWithTag("PingPongRemoveOnServe");
                 foreach (var item in listOfDespawn)
                 {

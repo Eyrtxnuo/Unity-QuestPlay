@@ -12217,9 +12217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdb93cd8e6fbe444944391855db053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  phaseChangeTime: 5
+  phaseChangeTime: 3
   durationPhase1: 30
-  durationPhase3: 10
+  durationPhase3: 30
   playingArea: {fileID: 1494510727}
   sfxPool: {fileID: 143192389}
   balloonPrefabs:
