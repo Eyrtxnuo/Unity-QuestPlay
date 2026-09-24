@@ -8,7 +8,7 @@ namespace Firing.Targets
     
         [RequireComponent(typeof(AudioSource))]
         [RequireComponent(typeof(Rigidbody))]
-    public class CanTarget : TargetTarget
+    public class CanTarget : ExplodingTarget
     {
         [field: NonSerialized] public override int Punteggio { get; set; } = 1;
         public BoundArea returnArea;

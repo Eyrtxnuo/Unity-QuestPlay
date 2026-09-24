@@ -4,13 +4,11 @@ using Random = UnityEngine.Random;
 
 namespace Firing.Targets
 {
-    public class TargetTarget : FiringTarget
+    public class TargetTarget : ExplodingTarget
     {
         public delegate void TargetCallback();
 
         [field: NonSerialized] public override int Punteggio { get; set; } = 1;
-        public GameObject targetFacade;
-        public TargetExploder targetExploder;
         
         [Header("Audio")]
         public AudioClip[] breakSounds;
@@ -20,18 +18,9 @@ namespace Firing.Targets
 
         protected override int OnShot(Vector3 position)
         {
-            this.targetFacade.SetActive(false);
-            this.GetComponent<Collider>().enabled =
-                false; // getComponent viene eseguito solo una volta (poi il collider viene disattivato), non serve cache
-            this.tag = "Untagged";
-            targetExploder.Explode(position, OnCallback);
+            base.OnShot(position);
             PlayBreakSound();
             return Punteggio;
-        }
-
-        private void OnCallback()
-        {
-            base.OnShot(transform.position);
         }
 
         public void SetupDestroyCallback(TargetCallback onDestroy)
