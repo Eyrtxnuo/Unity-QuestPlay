@@ -66,6 +66,11 @@ namespace Firing
             slotsSize = new Vector2(
                 planeSize.x / gridSize.x,
                 planeSize.y / gridSize.y);
+
+            // Set occupato ai settori dove c'è lo score counter
+            gridOccupationMatrix[4,4] = true;
+            gridOccupationMatrix[5,4] = true;
+            gridOccupationMatrix[6,4] = true;
         }
 
 
