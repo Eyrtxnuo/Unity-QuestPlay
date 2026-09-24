@@ -12244,10 +12244,10 @@ MonoBehaviour:
   - canNumber: 5
     maxDuration: 40
     canDelay: 3
-  standardTarget: {fileID: 1346740997873957974, guid: 2d01111dc1d55014a90bcf7fc347e2c6, type: 3}
-  negativeTarget: {fileID: 5122931705201666395, guid: cb053c261c775aa43a23d4ddca318ac4, type: 3}
+  standardTarget: {fileID: 7745559226262836959, guid: 9f3332ca5f6f58942b599da04f412bd8, type: 3}
+  negativeTarget: {fileID: 8490646381982396233, guid: 0e35e04a90b92e14c81e6fc4d1e4b8cb, type: 3}
   negativeTargetProbability: 0.08
-  goldTarget: {fileID: 3290991010492192699, guid: d16f87559bc97de4ab4a3745bff78d70, type: 3}
+  goldTarget: {fileID: 6928165535902767080, guid: 1b85d84bbb423cf4181a2f437f4be8f0, type: 3}
   goldTargetProbability: 0.12
   gridSize: {x: 10, y: 6}
   targetSpawnDelay: 1
