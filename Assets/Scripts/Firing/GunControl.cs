@@ -7,6 +7,7 @@ public class GunControl : MonoBehaviour
     public float maxHitDistance = 50f;
     public LayerMask collisionLayers;
     public FiringScoreCounter scoreCounter;
+    public LabelPool pointLabelPool;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
@@ -44,6 +45,7 @@ public class GunControl : MonoBehaviour
                 FiringTarget target = hit.collider.GetComponent<FiringTarget>();
                 var points = target.Hit(hit.point);
                 if (scoreCounter) scoreCounter.Score += points;
+                if (pointLabelPool) pointLabelPool.ShowPointLabel(points,  hit.point);//TODO: sfasare a ?destra
             }
         }
 

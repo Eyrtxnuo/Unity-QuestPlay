@@ -1835,13 +1835,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199641142}
-  m_LocalRotation: {x: -0, y: -0.0023583423, z: -0, w: -0.99999726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 4.725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 360.27, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.2767, y: 3.1242}
@@ -4443,6 +4443,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 287
   scoreCounter: {fileID: 199641149}
+  pointLabelPool: {fileID: 2092770222}
   recoilForce: 5
   fireDelay: 0.2
   automaticFire: 0
@@ -13990,6 +13991,52 @@ Transform:
   - {fileID: 608907582}
   m_Father: {fileID: 2080455034}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2092770220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2092770221}
+  - component: {fileID: 2092770222}
+  m_Layer: 0
+  m_Name: PointLabelsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2092770221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092770220}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.11572, y: 0, z: 8.84433}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2092770222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092770220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9739ab3864cb46bf985f32ff9cfd655e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Firing.LabelPool
+  poolSize: 6
+  labelPrefab: {fileID: 8089435911370858780, guid: 038c8f17aaaad2341975580095460f4a, type: 3}
 --- !u!1 &2126742034
 GameObject:
   m_ObjectHideFlags: 0
@@ -14170,3 +14217,4 @@ SceneRoots:
   - {fileID: 1721967503}
   - {fileID: 988154608}
   - {fileID: 143192390}
+  - {fileID: 2092770221}
