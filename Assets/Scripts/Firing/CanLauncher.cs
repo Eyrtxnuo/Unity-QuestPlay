@@ -10,6 +10,7 @@ namespace Firing
         public float targetHeight;
         public float maxDeviation;
         public BoundArea canReturnArea;
+        public SfxPool sfxPool;
 
         private float _prefabGravity;
 
@@ -27,6 +28,7 @@ namespace Firing
 
             CanTarget can = Instantiate(canPrefab, transform.position, Quaternion.identity);
             can.returnArea = canReturnArea; 
+            can.sfxPool = sfxPool;
             Rigidbody rb = can.rb;
             if (rb)
             {
