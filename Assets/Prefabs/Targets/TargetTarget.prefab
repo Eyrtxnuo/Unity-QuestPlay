@@ -189,6 +189,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.TargetTarget
   targetFacade: {fileID: 3817222591371982846}
   targetExploder: {fileID: 2130751977817173069}
+  breakSounds:
+  - {fileID: 8300000, guid: bc62ce16828ba3d4aa614189d02512f6, type: 3}
+  - {fileID: 8300000, guid: 41da2f50d01242c42a968230d407551b, type: 3}
+  sfxPool: {fileID: 0}
 --- !u!1001 &5719239581964454392
 PrefabInstance:
   m_ObjectHideFlags: 0

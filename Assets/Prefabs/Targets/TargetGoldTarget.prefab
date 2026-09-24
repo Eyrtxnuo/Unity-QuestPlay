@@ -292,6 +292,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.GoldTargetTarget
   targetFacade: {fileID: 7284852896878393189}
   targetExploder: {fileID: 5508028815936007382}
+  breakSounds:
+  - {fileID: 8300000, guid: bc62ce16828ba3d4aa614189d02512f6, type: 3}
+  - {fileID: 8300000, guid: 41da2f50d01242c42a968230d407551b, type: 3}
+  sfxPool: {fileID: 0}
 --- !u!114 &5508028815936007382 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2130751977817173069, guid: 240923fb247264a47ae2f2e7f25bad97, type: 3}

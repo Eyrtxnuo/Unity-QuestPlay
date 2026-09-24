@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Firing.Targets
 {
@@ -11,6 +11,10 @@ namespace Firing.Targets
         [field: NonSerialized] public override int Punteggio { get; set; } = 1;
         public GameObject targetFacade;
         public TargetExploder targetExploder;
+        
+        [Header("Audio")]
+        public AudioClip[] breakSounds;
+        public SfxPool sfxPool;
 
         private TargetCallback _onDestroyCallback;
 
@@ -21,6 +25,7 @@ namespace Firing.Targets
                 false; // getComponent viene eseguito solo una volta (poi il collider viene disattivato), non serve cache
             this.tag = "Untagged";
             targetExploder.Explode(position, OnCallback);
+            PlayBreakSound();
             return Punteggio;
         }
 
@@ -38,5 +43,14 @@ namespace Firing.Targets
         {
             _onDestroyCallback?.Invoke();
         }
+        
+        private void PlayBreakSound()
+        {
+            if (breakSounds != null && breakSounds.Length > 0 && sfxPool is not null)
+            {
+                sfxPool.PlayClipAtPosition(breakSounds[Random.Range(0, breakSounds.Length)], transform.position);
+            }
+        }
+        
     }
 }

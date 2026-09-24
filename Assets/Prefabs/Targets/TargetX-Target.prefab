@@ -300,3 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Firing.Targets.NegativeTargetTarget
   targetFacade: {fileID: 3487210929878960967}
   targetExploder: {fileID: 1805243919611056372}
+  breakSounds:
+  - {fileID: 8300000, guid: bc62ce16828ba3d4aa614189d02512f6, type: 3}
+  - {fileID: 8300000, guid: 41da2f50d01242c42a968230d407551b, type: 3}
+  sfxPool: {fileID: 0}

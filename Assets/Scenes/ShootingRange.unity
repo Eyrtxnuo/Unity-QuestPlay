@@ -12220,6 +12220,7 @@ MonoBehaviour:
   durationPhase1: 30
   durationPhase3: 10
   playingArea: {fileID: 1494510727}
+  sfxPool: {fileID: 143192389}
   balloonPrefabs:
   - {fileID: 7093755618597765058, guid: 2f79433082067d54e85206086ed3bc57, type: 3}
   - {fileID: 7093755618597765058, guid: 136824caa98c1cc4f9d7f2133540f3b8, type: 3}

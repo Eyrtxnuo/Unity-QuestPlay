@@ -9,10 +9,9 @@ namespace Firing
     {
         [Header("Gameplay configuration")] public float phaseChangeTime = 5f;
         public float durationPhase1 = 30f;
-        
         public float durationPhase3 = 30f;
-
         public BoundArea playingArea;
+        public SfxPool sfxPool;
 
         private int _phase = 3; //TODO: riporta a 0
         private float _timer = 0;
@@ -263,8 +262,10 @@ namespace Firing
             }
 
             TargetTarget target = Instantiate(prefab, center, _targetSpawnRotation);
+            target.sfxPool = sfxPool;
             target.transform.SetParent(this.transform, true);
             target.SetupDestroyCallback(() => { gridOccupationMatrix[x, y] = false; });
+            
         }
 
 
