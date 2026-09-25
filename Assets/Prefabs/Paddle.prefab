@@ -226,7 +226,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 5415269265149770428, guid: 39f76eabef9a0504997d3259abc2c991, type: 3}
 --- !u!1 &7021887677631431287
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +288,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 2
 --- !u!1001 &8655145359405430249
 PrefabInstance:
   m_ObjectHideFlags: 0

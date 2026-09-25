@@ -103,7 +103,7 @@ MonoBehaviour:
     - line: '|   allowedAutorotateToLandscapeRight: 1'
     - line: '|   allowedAutorotateToLandscapeLeft: 1'
     - line: '|   useOSAutorotation: 1'
-    - line: '|   use32BitDisplayBuffer: 0'
+    - line: '|   use32BitDisplayBuffer: 1'
     - line: '|   preserveFramebufferAlpha: 0'
     - line: '|   disableDepthAndStencilBuffers: 0'
     - line: '|   androidStartInFullscreen: 1'
@@ -223,7 +223,7 @@ MonoBehaviour:
     - line: '|   AndroidPreferredInstallLocation: 0'
     - line: '|   AndroidPreferredDataLocation: 1'
     - line: '|   aotOptions: '
-    - line: '|   stripEngineCode: 1'
+    - line: '|   stripEngineCode: 0'
     - line: '|   iPhoneStrippingLevel: 0'
     - line: '|   iPhoneScriptCallOptimization: 0'
     - line: '|   ForceInternetPermission: 0'
@@ -1022,7 +1022,7 @@ MonoBehaviour:
         m_DebugSymbolFormat: 5
         m_CurrentDeploymentTargetId: 1WMHH86GF31257
         m_BuildType: 1
-        m_LinkTimeOptimization: 0
+        m_LinkTimeOptimization: 1
         m_BuildAppBundle: 0
         m_IPAddressToConnect: 
         m_SymlinkSources: 0
