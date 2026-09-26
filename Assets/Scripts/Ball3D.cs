@@ -43,11 +43,10 @@ public class Ball3D : MonoBehaviour
     {
         this.enabled = true;
         RigidbodyInterpolation pre_interpolation = _rb.interpolation;
-        _rb.position = _originalPosition;
         _rb.interpolation = RigidbodyInterpolation.None; // disattiva interpolazione per evitare di far impazzire unity
+        _rb.position = _originalPosition;
         _rb.rotation = Quaternion.identity;
-        _rb.linearVelocity = Vector3.zero;
-        _rb.angularVelocity = Vector3.zero;
+        StopMovement();
         _rb.interpolation = pre_interpolation; // riattiva l'interpolazione al valore precedente
         Launch();
     }
@@ -246,5 +245,11 @@ public class Ball3D : MonoBehaviour
     public bool CanCancelToss()
     {
         return _bindToServeHand.GetCurrentDistance() < RECATCH_DISTANCE;
+    }
+
+    public void StopMovement()
+    {
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
     }
 }

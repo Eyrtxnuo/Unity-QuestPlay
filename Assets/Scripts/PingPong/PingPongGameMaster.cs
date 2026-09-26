@@ -312,6 +312,7 @@ namespace PingPong
                 _playerServing = true;
                 _ballTossed = false;
                 ball.ServeBind = true;
+                ball.StopMovement();
                 _waitingInputFrom = Time.time;
             }
         }
@@ -448,6 +449,7 @@ namespace PingPong
             while (Time.time - startTime < endDelay)
             {
                 if (!_ballTossed) yield break;
+                if (!_playerServing) yield break;
 
                 if (ball.CanCancelToss())
                 {
