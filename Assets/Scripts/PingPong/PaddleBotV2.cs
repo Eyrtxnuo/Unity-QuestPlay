@@ -133,7 +133,7 @@ namespace PingPong
                 {
                     //ball won't reach middle, handle by adding speed?
                     fligthETA = horizontalTravel /  equivalentHorizontalSpeed * 2f; 
-                    Debug.LogWarning("Cant Reach other side!");
+                    //Debug.Log("Cant Reach other side!");
                 }
                 else
                 {
@@ -147,12 +147,17 @@ namespace PingPong
             float gravityHeigthLoss = 0.5f * gravity * (Mathf.Pow(fligthETA, 2));
             Vector3 compensatedTarget = bounceDirTarget.transform.position + new Vector3(0, gravityHeigthLoss, 0);
         
-            Vector3 inverseTravelDirection = -bounceState.velocity.normalized;
+            
         
             Vector3 targetBouncePos = new Vector3(bounceState.position.x, bounceState.position.y, this.transform.position.z);
             Vector3 targetBounceDir = (compensatedTarget - targetBouncePos).normalized;
-        
-            Vector3 targetBounceSurfaceNormal = (targetBounceDir + inverseTravelDirection).normalized;
+            
+           
+            float dot = Vector3.Dot(bounceState.velocity, targetBounceDir); 
+            
+            Vector3 newTravelDirection = (dot<0)?-bounceState.velocity.normalized:bounceState.velocity.normalized;// travel direction invert only if facing away of target
+                
+            Vector3 targetBounceSurfaceNormal = (targetBounceDir + newTravelDirection).normalized;
         
         
             Debug.DrawLine(targetBouncePos, targetBouncePos + targetBounceSurfaceNormal, Color.cyan);
