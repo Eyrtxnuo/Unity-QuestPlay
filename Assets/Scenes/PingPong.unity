@@ -23104,7 +23104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3faa8b70eaa953c4ca016285ea8897cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Performance.FoveatedRendering
-  foveationLevel: 0.5
+  foveationLevel: 1
 --- !u!4 &1964602099
 Transform:
   m_ObjectHideFlags: 0

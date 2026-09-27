@@ -1024,7 +1024,7 @@ MonoBehaviour:
         m_ExportAsGoogleAndroidProject: 0
         m_DebugSymbolLevel: 1
         m_DebugSymbolFormat: 5
-        m_CurrentDeploymentTargetId: 192.168.178.61:5555
+        m_CurrentDeploymentTargetId: 1WMHH86GF31257
         m_BuildType: 1
         m_LinkTimeOptimization: 1
         m_BuildAppBundle: 0
