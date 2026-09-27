@@ -11431,9 +11431,9 @@ MonoBehaviour:
   grassMesh: {fileID: -446417837548073170, guid: 6362615006bdc194b9eb8782562cd8f3, type: 3}
   grassMaterial: {fileID: 2100000, guid: e91467d37993ed545b2308125afc98d4, type: 2}
   meshScale: 94.79222
-  instanceCount: 70
+  instanceCount: 60
   spawnRadius: 6
-  jitterLevel: 0.403
+  jitterLevel: 0
   seed: 4
 --- !u!1 &1597451410
 GameObject:
@@ -12639,7 +12639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc59d2bad7b2b148bed077618c330d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HertzSet
-  screenHertz: 72
+  screenHertz: 90
 --- !u!4 &1763965868
 Transform:
   m_ObjectHideFlags: 0
