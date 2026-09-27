@@ -1218,6 +1218,10 @@ PrefabInstance:
       value: PaddleVr
       objectReference: {fileID: 0}
     - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_TagString
       value: PingPongPlayerPaddle
       objectReference: {fileID: 0}
@@ -13813,6 +13817,10 @@ PrefabInstance:
       value: PaddleBot
       objectReference: {fileID: 0}
     - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021887677631431287, guid: 7929638e14c361f4ea143db49c18a440, type: 3}
       propertyPath: m_TagString
       value: PingPongOpponentPaddle
       objectReference: {fileID: 0}
@@ -13891,7 +13899,7 @@ MonoBehaviour:
   _monoscopic: 0
   _sharpenType: 0
   _disableRecording: 0
-  _enableDynamicResolution: 0
+  _enableDynamicResolution: 1
   minDynamicResolutionScale: 1
   maxDynamicResolutionScale: 1
   quest2MinDynamicResolutionScale: 0.7
@@ -19416,9 +19424,9 @@ Transform:
   m_GameObject: {fileID: 1366098254}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.475, z: 0}
-  m_LocalScale: {x: 1.001, y: 0.05005, z: 1.001}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1.002, y: 0.0505, z: 1.01}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1072742081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24076,12 +24084,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3377551665644242937, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377551665644242937, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_TagString
       value: PingPongField
       objectReference: {fileID: 0}
     - target: {fileID: 3377551665644242937, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024862797156124480, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332367482955868105, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4505688897399702264, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_Icon
@@ -24093,7 +24113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4505688897399702264, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4505688897399702264, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -24180,8 +24200,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5226146800311933236, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226146800311933236, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374760873329339493, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6374760873329339493, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -24189,7 +24217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_CastShadows
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6878643096067947731, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticShadowCaster
@@ -24200,10 +24228,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 7047570946369017158, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7047570946369017158, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4024862797156124480, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
+    - {fileID: 4332367482955868105, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5008227462551475741, guid: 99ca45c6e5c21524e897086383aadc40, type: 3}
