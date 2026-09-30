@@ -9,7 +9,7 @@ namespace PingPong
         public GameObject netObject;
         public Ball3D ball;
         public float paddleDebounceTime = 0.1f;
-        public float tableDebounceTime = 0.1f;
+        public float tableDebounceTime = 0.3f;
         public GameObject ghostBallPrefab;
         public GameObject haloPrefab;
         public int haloRipples = 3;
