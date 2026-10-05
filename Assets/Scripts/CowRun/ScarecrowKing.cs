@@ -11,7 +11,7 @@ namespace CowRun
     {
         private Animator _animator;
         private Vector3 _jumpDistance = new Vector3(0.3f, 0, 0);
-        private bool dirRight = true;
+        private bool _dirRight = true;
 
         public SplineLocomotionCollision roadSpline;
         public GameObject container;
@@ -53,18 +53,18 @@ namespace CowRun
             //Reverse?
             if ((roadSpline.roadWidth/2) - directionReverseBorder < distance)
             {
-                dirRight = !dirRight;
+                _dirRight = !_dirRight;
             }
             
             //angle the container
-            var actualOffset = dirRight ? -angleOffset : angleOffset;
+            var actualOffset = _dirRight ? -angleOffset : angleOffset;
             Vector3 rotatedTangent = Quaternion.Euler(0, actualOffset, 0) * splineTangent;
             container.transform.rotation = Quaternion.LookRotation(rotatedTangent, Vector3.up);
             
 
 
             //animation instance
-            if (dirRight)
+            if (_dirRight)
             {
                 StartCoroutine(JumpSequenceRoutine("LateralJumpRight", _jumpDistance));
             }
@@ -87,7 +87,7 @@ namespace CowRun
                 container.transform.position += container.transform.TransformDirection(positionOffset);
             }
             
-            Debug.Log("Balzo fatto");
+            //Debug.Log("Balzo fatto");
 
             EseguiBalzoLaterale();
         }
