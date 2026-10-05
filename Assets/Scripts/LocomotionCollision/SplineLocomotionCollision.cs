@@ -3,6 +3,10 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace LocomotionCollision
 {
     
@@ -114,5 +118,34 @@ namespace LocomotionCollision
             Vector3 splineTangent = _roadSpline.transform.TransformDirection(tangentLocal).normalized;
             return (nearestPointWorld, distance, t, splineTangent);
         }
+        
+#if UNITY_EDITOR        
+        public int gizmosBorderResolution = 250;
+        private void OnDrawGizmosSelected()
+        {
+            
+            var drawBorderLines = new Action<float, Color>((float width, Color color) =>
+            {
+                Vector3[] leftPoints = new Vector3[gizmosBorderResolution + 1];
+                Vector3[] rightPoints = new Vector3[gizmosBorderResolution + 1];
+                for (int i = 0; i <= gizmosBorderResolution; i++)
+                {
+                    float t = (float)i / gizmosBorderResolution;
+                    _roadSpline.Evaluate(t, out float3 worldPos, out float3 worldTangent, out float3 worldUp);
+                    Vector3 right = Vector3.Cross(((Vector3)worldUp).normalized, ((Vector3)worldTangent).normalized).normalized;
+                    leftPoints[i] = (Vector3)worldPos - (right * width / 2f);
+                    rightPoints[i] = (Vector3)worldPos + (right * width / 2f);
+                }
+                Handles.color = color;
+                Handles.DrawAAPolyLine(3f, leftPoints);
+                Handles.DrawAAPolyLine(3f, rightPoints);
+            });
+
+            drawBorderLines(roadWidth, Color.cyan);
+            drawBorderLines(offroadWidth, Color.chocolate);
+            
+
+        }
+        #endif
     }
 }
