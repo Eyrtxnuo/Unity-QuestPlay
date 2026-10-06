@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
@@ -21,49 +22,98 @@ namespace CowRun
         public Vector3 fenceScale = Vector3.one;
         public Vector3 fenceRotation = Vector3.zero;
 
-        private Matrix4x4[] matrices;
+        private List<Matrix4x4[]> matrixInstances = new List<Matrix4x4[]>();
        
         void Start()
-        {
-            _roadSpline = GetComponent<SplineContainer>();
-            Spline spline = _roadSpline.Spline;
-            Vector3 bounds = Vector3.Scale(fenceMesh.bounds.size, fenceScale);
-            float fenceLength = bounds.x;
-            float splineLength = spline.GetLength();
-            int resolution = Mathf.Max(2, Mathf.CeilToInt(splineLength / fenceLength));
-            int numFences = (resolution - 1) * 2;
-            this.matrices = new Matrix4x4[numFences];
-            
-            Quaternion offsetRotation = Quaternion.Euler(fenceRotation);
-    
-            Debug.Log("[FenceSpawner] splineLength " + splineLength + "; fenceLength " + fenceLength + "; resolution " + resolution);
-            
-            for (int i = 0; i <= resolution-1; i++)
-            {
-                // Sample based on percentage of distance
-                float t = (float)i / resolution + (0.5f/resolution);
-                _roadSpline.Evaluate(t, out float3 worldPos, out float3 worldTangent, out float3 worldUp);
-                Vector3 forward = ((Vector3)worldTangent).normalized;
-                Vector3 up = ((Vector3)worldUp).normalized;
-                Vector3 right = Vector3.Cross(up, forward).normalized;
-                
-                Quaternion splineRotation = Quaternion.LookRotation(forward, up);
-                
-                //GameObject leftFence = Instantiate(fencePrefab, (Vector3)worldPos - (right * fenceWidth /2), splineRotation, this.transform);
-                //GameObject rightFence = Instantiate(fencePrefab, (Vector3)worldPos + (right * fenceWidth /2), splineRotation, this.transform);
-                matrices[i * 2] = Matrix4x4.TRS((Vector3)worldPos - (right * fenceWidth /2), splineRotation*offsetRotation, fenceScale);
-                matrices[i * 2 + 1] = Matrix4x4.TRS((Vector3)worldPos + (right * fenceWidth /2), splineRotation*offsetRotation, fenceScale);
+    {
+        _roadSpline = GetComponent<SplineContainer>();
+        Vector3 bounds = Vector3.Scale(fenceMesh.bounds.size, fenceScale);
+        float fenceLength = bounds.x;
 
+        List<Matrix4x4> allFences = new List<Matrix4x4>();
+
+        CalculateFencesForSide(-fenceWidth / 2f, fenceLength, allFences);
+        CalculateFencesForSide(fenceWidth / 2f, fenceLength, allFences);
+
+        List<Matrix4x4> instanceChunk = new List<Matrix4x4>();
+        foreach (var matrix in allFences)
+        {
+            instanceChunk.Add(matrix);
+            if (instanceChunk.Count == 1023)
+            {
+                matrixInstances.Add(instanceChunk.ToArray());
+                instanceChunk.Clear();
             }
         }
+        if (instanceChunk.Count > 0)
+        {
+            matrixInstances.Add(instanceChunk.ToArray());
+        }
+
+        Debug.Log($"[FenceSpawner] Generati {allFences.Count} recinti distribuiti in {matrixInstances.Count} draw calls.");
+    }
+
+    private void CalculateFencesForSide(float offset, float spacing, List<Matrix4x4> outputList)
+    {
+        float splineLength = _roadSpline.Spline.GetLength();
+        
+        int resolution = Mathf.Max(2, Mathf.CeilToInt(splineLength * 2f));
+        
+        List<Vector3> points = new List<Vector3>();
+        List<Vector3> forwards = new List<Vector3>();
+        List<Vector3> ups = new List<Vector3>();
+
+        for (int i = 0; i <= resolution - 1; i++)
+        {
+            float t = (float)i / resolution + (0.5f/resolution);
+            _roadSpline.Evaluate(t, out float3 pos, out float3 tangent, out float3 up);
+            Vector3 fwd = ((Vector3)tangent).normalized;
+            Vector3 upVec = ((Vector3)up).normalized;
+            Vector3 right = Vector3.Cross(upVec, fwd).normalized;
+            
+            points.Add((Vector3)pos + (right * offset));
+            forwards.Add(fwd);
+            ups.Add(upVec);
+        }
+
+        Quaternion offsetRot = Quaternion.Euler(fenceRotation);
+        outputList.Add(Matrix4x4.TRS(points[0], Quaternion.LookRotation(forwards[0], ups[0]) * offsetRot, fenceScale));
+        float distanceAccumulator = 0f;
+        Vector3 currentPos = points[0];
+
+        for (int i = 1; i < points.Count; i++)
+        {
+            Vector3 nextPos = points[i];
+            float segLength = Vector3.Distance(currentPos, nextPos);
+
+            while (distanceAccumulator + segLength >= spacing)
+            {
+                float t = (spacing - distanceAccumulator) / segLength;
+                Vector3 exactPos = Vector3.Lerp(currentPos, nextPos, t);
+                Vector3 exactFwd = Vector3.Lerp(forwards[i-1], forwards[i], t).normalized;
+                Vector3 exactUp = Vector3.Lerp(ups[i-1], ups[i], t).normalized;
+
+                Quaternion exactRot = Quaternion.LookRotation(exactFwd, exactUp) * offsetRot;
+                outputList.Add(Matrix4x4.TRS(exactPos, exactRot, fenceScale));
+
+                currentPos = exactPos;
+                segLength = Vector3.Distance(currentPos, nextPos);
+                distanceAccumulator = 0f;
+            }
+            
+            distanceAccumulator += segLength;
+            currentPos = nextPos;
+        }
+    }
 
         void Update()
+    {
+        
+        foreach (var lotto in matrixInstances)
         {
-            if (matrices != null && matrices.Length > 0)
-            {
-                Graphics.DrawMeshInstanced(fenceMesh, 0, fenceMaterial, matrices);
-            }
+            Graphics.DrawMeshInstanced(fenceMesh, 0, fenceMaterial, lotto);
         }
+    }
 
 
 #if UNITY_EDITOR
@@ -71,40 +121,24 @@ namespace CowRun
         {
             SplineContainer splineContainer = GetComponent<SplineContainer>();
             if (splineContainer == null || splineContainer.Spline == null) return;
+            _roadSpline = splineContainer;
 
-
-            // Reset of the Gizmos matrix to absolute world space
-            Gizmos.matrix = Matrix4x4.identity;
-
-            Spline mainSpline = splineContainer.Spline;
-            
             Vector3 bounds = Vector3.Scale(fenceMesh.bounds.size, fenceScale);
             float fenceLength = bounds.x;
 
-            // 1. Adaptive sampling based on length
-            float splineLength = mainSpline.GetLength();
-            // At least 2 samples, otherwise one every 'targetDistance' meters
-            int resolution = Mathf.Max(2, Mathf.CeilToInt(splineLength / fenceLength));
+            List<Matrix4x4> gizmoFences = new List<Matrix4x4>();
 
-            
+            CalculateFencesForSide( -fenceWidth / 2f, fenceLength, gizmoFences);
+            CalculateFencesForSide( fenceWidth / 2f, fenceLength, gizmoFences);
 
-            // 2. Uniform sample over length (not 't')
-            for (int i = 0; i <= resolution -1; i++)
+            Gizmos.color = Color.burlywood;
+
+            foreach (var matrix in gizmoFences)
             {
-                // Sample based on percentage of distance
-                float t = (float)i / resolution  + (0.5f/resolution);
-                splineContainer.Evaluate(t, out float3 worldPos, out float3 worldTangent, out float3 worldUp);
-                Vector3 forward = ((Vector3)worldTangent).normalized;
-                Vector3 up = ((Vector3)worldUp).normalized;
-                Vector3 right = Vector3.Cross(up, forward).normalized;
-
-                Quaternion splineRotation = Quaternion.LookRotation(forward, up);
-                
-                // GameObject leftFence = Instantiate(fencePrefab, (Vector3)worldPos - (right * fenceWidth), splineRotation);
-                // GameObject rightFence = Instantiate(fencePrefab, (Vector3)worldPos + (right * fenceWidth), splineRotation);
-                Gizmos.DrawSphere((Vector3)worldPos - (right * fenceWidth / 2), 0.1f);
-                Gizmos.DrawSphere((Vector3)worldPos + (right * fenceWidth / 2), 0.1f);
+                Gizmos.matrix = matrix;
+                Gizmos.DrawWireMesh(fenceMesh);
             }
+            Gizmos.matrix = Matrix4x4.identity;
 
 
         }
