@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HandPoses.unity
     guid: cc8ec17f1eb2f31489d16b8bfbe4ff4b
+  - enabled: 1
+    path: Assets/Scenes/CowRunner.unity
+    guid: 3e9bbffd0d4739a43aa3c36340966bc9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f557eebee5ac24f4ab5d5923889a87d0, type: 2}
