@@ -29,10 +29,11 @@ namespace CowRun
         {
             if (Vector3.Distance(this.transform.position, target.transform.position) <= spawnDistance)
             {
-                var sc = Instantiate(prefab, this.transform.position, Quaternion.identity,  this.transform);
+                var sc = Instantiate(prefab, this.transform.position, Quaternion.identity, this.transform.parent);
                 this.enabled = false;
                 sc.TryGetComponent(out ScarecrowKing sck);
                 if(sck)sck.roadSpline = this.roadSpline;
+                Destroy(this.gameObject);
             }
         }
 
@@ -49,8 +50,11 @@ namespace CowRun
             MeshFilter[] meshFilters = prefab.GetComponentsInChildren<MeshFilter>();
             foreach (var meshFilter in meshFilters)
             {
-                Mesh mesh = meshFilter.sharedMesh;
-                Gizmos.DrawWireMesh(mesh, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up));
+                Gizmos.DrawWireMesh(
+                    meshFilter.sharedMesh,
+                    this.transform.position,
+                    Quaternion.FromToRotation(Vector3.forward, Vector3.up),
+                    meshFilter.transform.lossyScale);
             }
         }
 #endif
