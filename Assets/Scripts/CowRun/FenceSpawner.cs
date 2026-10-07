@@ -136,7 +136,7 @@ namespace CowRun
             foreach (var matrix in gizmoFences)
             {
                 Gizmos.matrix = matrix;
-                Gizmos.DrawWireMesh(fenceMesh);
+                Gizmos.DrawMesh(fenceMesh);
             }
             Gizmos.matrix = Matrix4x4.identity;
 
