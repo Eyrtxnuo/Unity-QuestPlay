@@ -48,12 +48,13 @@ namespace CowRun
         {
             Gizmos.color = Color.yellow;
             MeshFilter[] meshFilters = prefab.GetComponentsInChildren<MeshFilter>();
+            var stPos = prefab.transform.position;
             foreach (var meshFilter in meshFilters)
             {
                 Gizmos.DrawWireMesh(
                     meshFilter.sharedMesh,
-                    this.transform.position,
-                    Quaternion.FromToRotation(Vector3.forward, Vector3.up),
+                    this.transform.position + (meshFilter.transform.position - stPos),
+                    meshFilter.transform.rotation,
                     meshFilter.transform.lossyScale);
             }
         }
