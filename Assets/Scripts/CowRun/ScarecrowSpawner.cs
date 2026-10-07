@@ -13,7 +13,7 @@ namespace CowRun
         public GameObject target;
     
         public GameObject prefab;
-        public float spawnDistance;
+        public float spawnDistance = 10;
 
         public SplineLocomotionCollision roadSpline;
 
@@ -42,6 +42,18 @@ namespace CowRun
         {
             Handles.DrawWireDisc(transform.position, Vector3.up, spawnDistance);
         }
-    }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            MeshFilter[] meshFilters = prefab.GetComponentsInChildren<MeshFilter>();
+            foreach (var meshFilter in meshFilters)
+            {
+                Mesh mesh = meshFilter.sharedMesh;
+                Gizmos.DrawWireMesh(mesh, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up));
+            }
+        }
 #endif
+    }
+
 }
