@@ -1,9 +1,9 @@
 using LocomotionCollision;
-using UnityEditor;
+using UnityEngine;
 
 
 #if UNITY_EDITOR
-using UnityEngine;
+using UnityEditor;
 #endif
 
 namespace CowRun
@@ -46,7 +46,7 @@ namespace CowRun
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.yellowNice;
             MeshFilter[] meshFilters = prefab.GetComponentsInChildren<MeshFilter>();
             var stPos = prefab.transform.position;
             foreach (var meshFilter in meshFilters)
