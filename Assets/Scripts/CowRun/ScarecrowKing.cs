@@ -67,6 +67,12 @@ namespace CowRun
 
         private IEnumerator JumpSequenceRoutine(string animationName = null, Vector3 positionOffset = new Vector3())
         {
+            AnimatorStateInfo preStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            if (!preStateInfo.IsName("Idle"))
+            {
+                yield return WaitsCache.GetWaitForSeconds(preStateInfo.length * (1f - preStateInfo.normalizedTime));
+            }
+
             _animator.Play(animationName, 0, 0);
             yield return null;
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
