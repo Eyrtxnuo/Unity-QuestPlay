@@ -7,33 +7,24 @@ using UnityEngine;
 namespace CowRun
 {
     [RequireComponent(typeof(Animator))]
-    public class ScarecrowKing : CollidingElement
+    public class ScarecrowKing : Scarecrow
     {
-        private Animator _animator;
         private Vector3 _jumpDistance = new Vector3(0.3f, 0, 0);
         private bool _dirRight = true;
 
         public SplineLocomotionCollision roadSpline;
-        public GameObject container;
         public float directionReverseBorder = 0.5f;
         public float angleOffset = 20;
     
-        public override int PointsValue { get; protected set; } = 10;
+        //public override int PointsValue { get; protected set; } = 10;
 
         protected override void Start()
         {
+            PointsValue = 10;
             base.Start();
-            this._animator = GetComponent<Animator>();
             StartCoroutine(StartAnimationRoutine());
         }
         
-
-        public override CollisionEffect Hit()
-        {
-            base.Hit();
-            _animator.Play("fallAnimation");
-            return new SpeedMultiplierEffect(0.96f);
-        }
 
 
         private IEnumerator StartAnimationRoutine()
