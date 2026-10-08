@@ -1,5 +1,7 @@
 using LocomotionCollision;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Splines;
 
 
 #if UNITY_EDITOR
@@ -29,7 +31,10 @@ namespace CowRun
         {
             if (Vector3.Distance(this.transform.position, target.transform.position) <= spawnDistance)
             {
-                var sc = Instantiate(prefab, this.transform.position, Quaternion.identity, this.transform.parent);
+                var (_, _, _, splineTangent) = this.roadSpline.GetClosestPointAndTangent(this.transform.position);
+                Quaternion stRot = Quaternion.LookRotation(splineTangent);
+                
+                var sc = Instantiate(prefab, this.transform.position, stRot, this.transform.parent);
                 this.enabled = false;
                 sc.TryGetComponent(out ScarecrowKing sck);
                 if(sck)sck.roadSpline = this.roadSpline;
@@ -46,6 +51,9 @@ namespace CowRun
 
         private void OnDrawGizmos()
         {
+            (Vector3 closestPoint, float distance, float t, Vector3 splineTangent) = this.roadSpline.GetClosestPointAndTangent(this.transform.position);
+            Quaternion stRot = Quaternion.LookRotation(splineTangent);
+            
             Gizmos.color = Color.yellowNice;
             MeshFilter[] meshFilters = prefab.GetComponentsInChildren<MeshFilter>();
             var stPos = prefab.transform.position;
@@ -54,7 +62,7 @@ namespace CowRun
                 Gizmos.DrawWireMesh(
                     meshFilter.sharedMesh,
                     this.transform.position + (meshFilter.transform.position - stPos),
-                    meshFilter.transform.rotation,
+                    stRot * meshFilter.transform.rotation,
                     meshFilter.transform.lossyScale);
             }
         }

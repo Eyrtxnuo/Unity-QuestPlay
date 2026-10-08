@@ -107,9 +107,6 @@ namespace LocomotionCollision
 
         public (Vector3 closestPoint, float distance, float t, Vector3 splineTangent) GetClosestPointAndTangent(Vector3 position)
         {
-            Debug.Log("spline");
-            Debug.Log(_roadSpline);
-            Debug.Log(_roadSpline.transform);
             float3 positionLocal = _roadSpline.transform.InverseTransformPoint(position); // spline needs local coordinates.
             SplineUtility.GetNearestPoint(_roadSpline.Spline, positionLocal, out float3 nearestPointLocal, out float t);
             Vector3 nearestPointWorld = _roadSpline.transform.TransformPoint(nearestPointLocal); // returning to world coords.
@@ -123,7 +120,6 @@ namespace LocomotionCollision
         public int gizmosBorderResolution = 250;
         private void OnDrawGizmosSelected()
         {
-            SplineContainer splineC = GetComponent<SplineContainer>();
             
             var drawBorderLines = new Action<float, Color>((float width, Color color) =>
             {
@@ -132,7 +128,7 @@ namespace LocomotionCollision
                 for (int i = 0; i <= gizmosBorderResolution; i++)
                 {
                     float t = (float)i / gizmosBorderResolution;
-                    splineC.Evaluate(t, out float3 worldPos, out float3 worldTangent, out float3 worldUp);
+                    _roadSpline.Evaluate(t, out float3 worldPos, out float3 worldTangent, out float3 worldUp);
                     Vector3 right = Vector3.Cross(((Vector3)worldUp).normalized, ((Vector3)worldTangent).normalized).normalized;
                     leftPoints[i] = (Vector3)worldPos - (right * width / 2f);
                     rightPoints[i] = (Vector3)worldPos + (right * width / 2f);
@@ -147,6 +143,12 @@ namespace LocomotionCollision
             
 
         }
-        #endif
+        
+        void OnValidate()
+        {
+            // Ottiene il componente appena lo script carica o viene modificato
+            _roadSpline = GetComponent<SplineContainer>();
+        }
+#endif
     }
 }
