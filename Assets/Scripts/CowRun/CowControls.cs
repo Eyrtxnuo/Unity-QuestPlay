@@ -31,8 +31,6 @@ public class CowControls : MonoBehaviour
         _currentTurnSpeed = Mathf.MoveTowards(_currentTurnSpeed, targetTurnSpeed, turnAcceleration * Time.fixedDeltaTime);
 
         // movement handling
-        Vector3 projectedPosition = transform.position + (transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime));
-
         float currentMaxSpeed = GetCurrentMaxForwardSpeed();
 
         float targetForwardSpeed = input.y * currentMaxSpeed;
