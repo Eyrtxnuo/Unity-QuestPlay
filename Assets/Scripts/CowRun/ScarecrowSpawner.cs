@@ -59,7 +59,7 @@ namespace CowRun
             var stPos = prefab.transform.position;
             foreach (var meshFilter in meshFilters)
             {
-                Gizmos.DrawWireMesh(
+                Gizmos.DrawMesh(
                     meshFilter.sharedMesh,
                     this.transform.position + (meshFilter.transform.position - stPos),
                     stRot * meshFilter.transform.rotation,
