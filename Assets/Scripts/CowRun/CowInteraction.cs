@@ -7,6 +7,7 @@ public class CowInteraction : MonoBehaviour
 {
     public CowControls cowControls;
     public LabelPool labelPool;
+    public ScoreCounter scoreCounter;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +29,7 @@ public class CowInteraction : MonoBehaviour
             {
                 cowControls.ApplyEffect(effect);
             }
-            
+            scoreCounter.Score += points;
         }
     }
 }
