@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   target: {fileID: 0}
   prefab: {fileID: 3262169409894461589, guid: 98e0403e9279c824ebb3607e35740118, type: 3}
-  spawnDistance: 10
+  spawnDistance: 20
   roadSpline: {fileID: 0}
