@@ -6,7 +6,7 @@ public class GunControl : MonoBehaviour
 {
     public float maxHitDistance = 50f;
     public LayerMask collisionLayers;
-    public FiringScoreCounter scoreCounter;
+    public ScoreCounter scoreCounter;
     public LabelPool pointLabelPool;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

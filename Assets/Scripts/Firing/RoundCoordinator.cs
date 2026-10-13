@@ -47,7 +47,7 @@ namespace Firing
         
         
         [Header("End Game")] public ShootingScorePanelManager endGamePanelManager;
-        public FiringScoreCounter scoreCounter;
+        public ScoreCounter scoreCounter;
         public GameObject gun;
         
         void Start()
