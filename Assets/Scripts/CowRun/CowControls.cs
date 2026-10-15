@@ -106,25 +106,35 @@ public class CowControls : MonoBehaviour
     private IEnumerator StepsSfxCoroutine()
     { 
         const float jFactor = 1.8f;
+        float timer = 0f;
+        
+        float minSpeedThreshold = maxForwardSpeed * 0.25f;
         while (maxForwardSpeed > 0f)// fino a quando non viene fermato per l'endgame
         {
-            float minSpeedThreshold = maxForwardSpeed * 0.25f;
             if (_currentForwardSpeed > minSpeedThreshold)
             {
-                sfxPool.PlayClipAtPosition(
-                    stepClips[Random.Range(0, stepClips.Length)],
-                    transform.position,
-                    0.1f,
-                    Random.Range(0.9f, 1f),
-                    priority:2
+                timer += Time.deltaTime;
+                
+                float targetWait = 0.08f * math.pow(maxForwardSpeed / _currentForwardSpeed, jFactor);
+                //wait dinamica calcolata in base alla velocità, tra 0.08s e ~1s
+
+                if (timer >= targetWait)
+                {
+                    sfxPool.PlayClipAtPosition(
+                        stepClips[Random.Range(0, stepClips.Length)],
+                        transform.position,
+                        0.1f,
+                        Random.Range(0.9f, 1f),
+                        priority:2
                     );
-            
-                float wait = 0.02f * math.pow(maxForwardSpeed/_currentForwardSpeed, jFactor);
-                float quantizedWait = FloatQuantizer.QuantizeFloat(wait); // riduce mantissa a 3 bit (azzerando 20bit meno significativi)
-                yield return WaitsCache.GetWaitForSeconds(quantizedWait);
-                //quantizedWait avrà solo 30 possibili step tra 0.02 e 0.242s. Rende probabile un cache hit ed evita una crescita infinita della cache.
+                    
+                    timer -= targetWait;
+                    
+                    //evita di fare play due frame di fila, sicuramente lag.
+                    if (timer > targetWait) timer = 0f;
+                }
             }
-            yield return WaitsCache.WAIT_100ms;
+            yield return null;
         }
     }
     
