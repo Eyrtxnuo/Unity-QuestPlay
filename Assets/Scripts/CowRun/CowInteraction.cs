@@ -8,6 +8,7 @@ public class CowInteraction : MonoBehaviour
     public CowControls cowControls;
     public LabelPool labelPool;
     public ScoreCounter scoreCounter;
+    public SfxPool sfxPool;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +31,7 @@ public class CowInteraction : MonoBehaviour
                 cowControls.ApplyEffect(effect);
             }
             scoreCounter.Score += points;
+            sfxPool.PlayClipAtPosition(collided.GetHitSound(), collided.transform.position, 0.2f, Random.Range(0.9f,1.1f), 1);
         }
     }
 }

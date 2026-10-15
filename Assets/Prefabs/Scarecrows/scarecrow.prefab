@@ -162,3 +162,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a4f1d8c0544d9a8f105fd8289ce4bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scarecrow
+  hitSound: {fileID: 8300000, guid: 91e050e29bb38044998e9d5c1f1176f0, type: 3}
+  container: {fileID: 0}

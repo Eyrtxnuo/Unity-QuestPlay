@@ -9,6 +9,7 @@ public abstract class CollidingElement : MonoBehaviour
     public abstract int PointsValue { get; protected set; } 
     protected Collider _collider;
     public bool IsHit { get; protected set; } = false;
+    public AudioClip hitSound;
     
     
     protected virtual void Start()
@@ -25,5 +26,10 @@ public abstract class CollidingElement : MonoBehaviour
         _collider.enabled = false;
         //Destroy(this.gameObject);
         return null;
+    }
+
+    public AudioClip GetHitSound()
+    {
+        return hitSound;
     }
 }

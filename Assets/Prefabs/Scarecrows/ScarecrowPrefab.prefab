@@ -108,6 +108,10 @@ PrefabInstance:
       value: scarecrow
       objectReference: {fileID: 0}
     - target: {fileID: 6860256561679862274, guid: 8393aa9a5b3ba7a44bb3fe34a9ddcb01, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b6b917f6e657e5445807b281052331ee, type: 3}
+    - target: {fileID: 6860256561679862274, guid: 8393aa9a5b3ba7a44bb3fe34a9ddcb01, type: 3}
       propertyPath: container
       value: 
       objectReference: {fileID: 3262169409894461589}

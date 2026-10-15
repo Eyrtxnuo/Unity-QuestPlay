@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64e4e99d51433744b0a9087dddbe385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Barrier
+  hitSound: {fileID: 8300000, guid: 4614e9f7b74ca5b479312b4f743cd278, type: 3}
 --- !u!1001 &7369857117669527224
 PrefabInstance:
   m_ObjectHideFlags: 0

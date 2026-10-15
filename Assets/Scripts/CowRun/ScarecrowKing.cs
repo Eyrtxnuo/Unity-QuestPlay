@@ -19,7 +19,7 @@ namespace CowRun
         public float directionReverseBorder = 0.5f;
         public float angleOffset = 20;
         
-        public AudioClip audioClip;
+        public AudioClip jumpClip;
     
         //public override int PointsValue { get; protected set; } = 10;
 
@@ -58,7 +58,7 @@ namespace CowRun
             Vector3 rotatedTangent = Quaternion.Euler(0, actualOffset, 0) * splineTangent;
             container.transform.rotation = Quaternion.LookRotation(rotatedTangent, Vector3.up);
             
-            _audioSource.clip = audioClip;
+            _audioSource.clip = jumpClip;
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
             _audioSource.Play();
 

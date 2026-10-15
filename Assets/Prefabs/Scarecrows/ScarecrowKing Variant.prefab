@@ -112,11 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86811a243ac044658c0413ca3004c3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CowRun.ScarecrowKing
+  hitSound: {fileID: 8300000, guid: 7f7ccf09f7d2a9a4c9e4352b9a8eb505, type: 3}
   container: {fileID: 2615655827555713861}
   roadSpline: {fileID: 0}
   directionReverseBorder: 0.7
   angleOffset: 20
-  audioClip: {fileID: 8300000, guid: c26a679f00ffa054495d14eef38a661b, type: 3}
+  jumpClip: {fileID: 8300000, guid: c26a679f00ffa054495d14eef38a661b, type: 3}
 --- !u!82 &8214548260579792504
 AudioSource:
   m_ObjectHideFlags: 0
