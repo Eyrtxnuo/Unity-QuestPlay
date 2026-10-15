@@ -15,7 +15,6 @@ namespace PingPong
                 waitObj = new WaitForSeconds(time);
                 WaitCache.Add(time, waitObj);
             }
-
             return waitObj;
         }
 
