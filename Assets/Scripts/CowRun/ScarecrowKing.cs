@@ -3,18 +3,23 @@ using System.Runtime.CompilerServices;
 using LocomotionCollision;
 using PingPong;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CowRun
 {
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AudioSource))]
     public class ScarecrowKing : Scarecrow
     {
         private Vector3 _jumpDistance = new Vector3(0.3f, 0, 0);
         private bool _dirRight = true;
+        private AudioSource _audioSource;
 
         public SplineLocomotionCollision roadSpline;
         public float directionReverseBorder = 0.5f;
         public float angleOffset = 20;
+        
+        public AudioClip audioClip;
     
         //public override int PointsValue { get; protected set; } = 10;
 
@@ -22,6 +27,7 @@ namespace CowRun
         {
             PointsValue = 10;
             base.Start();
+            _audioSource = GetComponent<AudioSource>();
             StartCoroutine(StartAnimationRoutine());
         }
         
@@ -52,7 +58,9 @@ namespace CowRun
             Vector3 rotatedTangent = Quaternion.Euler(0, actualOffset, 0) * splineTangent;
             container.transform.rotation = Quaternion.LookRotation(rotatedTangent, Vector3.up);
             
-
+            _audioSource.clip = audioClip;
+            _audioSource.pitch = Random.Range(0.9f, 1.1f);
+            _audioSource.Play();
 
             //animation instance
             if (_dirRight)
