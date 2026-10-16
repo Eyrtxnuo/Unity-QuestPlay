@@ -1,7 +1,10 @@
+using System;
 using CowRun;
 using Firing;
 using Meta.WitAi;
+using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CowInteraction : MonoBehaviour
 {
@@ -10,9 +13,31 @@ public class CowInteraction : MonoBehaviour
     public ScoreCounter scoreCounter;
     public SfxPool sfxPool;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    [Header("Round Configuration")]
+    public float roundTime = 105;
+    public TextMeshPro timeLabel;
+    public PanelManager endGamePanel;
+    private float _timeCounter = 0;
+    private bool _gameEnded = false;
+
+    private int __lastSecondShown = -1;
+    
+    private void Update()
     {
+        if(_gameEnded)return;
+        _timeCounter += Time.deltaTime;
+        if (_timeCounter >= roundTime )
+        {
+            EndGame();
+            return;
+        }
+        int timer = Mathf.FloorToInt(roundTime - _timeCounter);
+        if (__lastSecondShown != timer)
+        {
+            timeLabel.SetText("{0:00}:{1:00}", (int)(timer / 60), timer % 60);
+            __lastSecondShown = timer;
+        }
         
     }
 
@@ -33,15 +58,23 @@ public class CowInteraction : MonoBehaviour
             }
             scoreCounter.Score += points;
             sfxPool.PlayClipAtPosition(collided.GetHitSound(), collided.transform.position, 0.2f, Random.Range(0.9f,1.1f), 1);
+            
+            return;
         }
 
         ////// Trigger della fine della strada, fine partita ////////////
         if (triggerObject.CompareTag("CR_Trigger_EndRoad"))
         {
-            this.cowControls.GameEnded();
+            EndGame();
             
-            // show endpanel
-
+            return;
         }
+    }
+
+    private void EndGame()
+    {
+        _gameEnded = true;
+        this.cowControls.GameEnded();
+        // show endpanel
     }
 }

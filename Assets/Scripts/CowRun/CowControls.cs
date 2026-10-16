@@ -33,6 +33,7 @@ public class CowControls : MonoBehaviour
     public SfxPool sfxPool;
     public AudioClip[] stepClips;
     public AudioClip endBrakeClip;
+    
 
     private void Start()
     {
@@ -144,7 +145,6 @@ public class CowControls : MonoBehaviour
         const float jFactor = 2.5f;
         float volume = 0.4f * math.pow(_currentForwardSpeed / maxForwardSpeed, jFactor);
         
-        Debug.Log("Game Ended");
         this.maxForwardSpeed = 0f;
         this.maxOffroadSpeed = 0f;
         this.maxTurnSpeed = 0f;
