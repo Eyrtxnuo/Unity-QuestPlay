@@ -18,9 +18,10 @@ public class CowInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider triggerObject)
     {
+        ////// Trigger con un Oggetto collider //////////////
         if (triggerObject.CompareTag("CR_Collider"))
         {
-            Debug.Log("Trigger collider .");
+            Debug.Log("Trigger collider.");
             var collided = triggerObject.gameObject.GetComponent<CollidingElement>();
             if (collided == null) return;
             var points = collided.PointsValue;
@@ -32,6 +33,15 @@ public class CowInteraction : MonoBehaviour
             }
             scoreCounter.Score += points;
             sfxPool.PlayClipAtPosition(collided.GetHitSound(), collided.transform.position, 0.2f, Random.Range(0.9f,1.1f), 1);
+        }
+
+        ////// Trigger della fine della strada, fine partita ////////////
+        if (triggerObject.CompareTag("CR_Trigger_EndRoad"))
+        {
+            this.cowControls.GameEnded();
+            
+            // show endpanel
+
         }
     }
 }

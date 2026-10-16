@@ -35,6 +35,7 @@ TagManager:
   - PingPongPlayerPaddle
   - PingPongOpponentPaddle
   - PingPongRemoveOnServe
+  - CR_Trigger_EndRoad
   layers:
   - Default
   - TransparentFX
