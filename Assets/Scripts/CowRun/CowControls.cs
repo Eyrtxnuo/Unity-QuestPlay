@@ -60,7 +60,6 @@ public class CowControls : MonoBehaviour
         var roadDirection = Quaternion.LookRotation(outs.splineTangent);
         var currentFrameRotation = quaternion.Euler(0, newTurnSpeed*Time.fixedDeltaTime, 0);
         var newForwardAngle = Quaternion.Angle(roadDirection, this.transform.rotation*currentFrameRotation);
-        Debug.Log("newForwardAngle: " + newForwardAngle + " currentForwardAngle: " + __lastForwardAngle);
         if (newForwardAngle > maxForwardDeviation && newForwardAngle > __lastForwardAngle)
         {
             _currentTurnSpeed /= 1 + (10*Time.fixedDeltaTime);
@@ -69,9 +68,6 @@ public class CowControls : MonoBehaviour
         {
             _currentTurnSpeed = newTurnSpeed;
         }
-        
-        
-        
 
         // movement handling
         float currentMaxSpeed = GetCurrentMaxForwardSpeed();

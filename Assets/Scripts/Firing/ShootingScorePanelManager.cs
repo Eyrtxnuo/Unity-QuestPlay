@@ -6,7 +6,7 @@ namespace Firing
     {
         public TextMeshProUGUI scoreText;
     
-        public new void ShowPanel(int score)
+        public void ShowPanel(int score)
         {
             scoreText.text = score.ToString();
             base.ShowPanel();

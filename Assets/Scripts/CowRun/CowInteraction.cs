@@ -49,7 +49,7 @@ public class CowInteraction : MonoBehaviour
         ////// Trigger con un Oggetto collider //////////////
         if (triggerObject.CompareTag("CR_Collider"))
         {
-            Debug.Log("Trigger collider.");
+            //Debug.Log("Trigger collider.");
             var collided = triggerObject.gameObject.GetComponent<CollidingElement>();
             if (collided == null) return;
             var points = collided.PointsValue;

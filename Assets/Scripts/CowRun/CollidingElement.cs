@@ -22,7 +22,7 @@ public abstract class CollidingElement : MonoBehaviour
     public virtual CollisionEffect Hit()
     {
         IsHit = true;
-        Debug.Log("Collider Hit.");
+        //Debug.Log("Collider Hit.");
         _collider.enabled = false;
         //Destroy(this.gameObject);
         return null;

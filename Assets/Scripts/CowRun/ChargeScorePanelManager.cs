@@ -9,7 +9,7 @@ namespace Firing
         public TextMeshProUGUI scoreText;
         
     
-        public new void ShowPanel(int partialScore, int timeRemaining)
+        public void ShowPanel(int partialScore, int timeRemaining)
         {
             partialScoreText.text = partialScore.ToString();
             timerText.SetText(timeRemaining.ToString() + "s");

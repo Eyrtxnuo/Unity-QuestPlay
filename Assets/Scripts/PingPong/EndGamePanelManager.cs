@@ -13,7 +13,7 @@ namespace PingPong
     
     
 
-        public new void ShowPanel(Scores scoreContainer)
+        public void ShowPanel(Scores scoreContainer)
         {
             //Debug.Log("Showing winner: " + scoreContainer.GetWinner());
             if(scoreContainer?.GetWinner() == null)return;
