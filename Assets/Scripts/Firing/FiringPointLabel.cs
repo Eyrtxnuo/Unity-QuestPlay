@@ -43,12 +43,13 @@ namespace Firing
             };
         }
 
-        public void ShowLabel(int score, Vector3 position)
+        public void ShowLabel(int score, Vector3 position, Quaternion? rotation = null)
         {
             this._score = score;
             TooltipUpdate();
             _hideTime = Time.time + ShowTimeLen;
             this.transform.position = position;
+            if(rotation != null) this.transform.rotation = rotation.Value;
             this.gameObject.SetActive(true);
             StartCoroutine(HideLabelRoutine());
         }

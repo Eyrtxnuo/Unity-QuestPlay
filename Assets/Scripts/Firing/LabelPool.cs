@@ -31,10 +31,10 @@ namespace Firing
         }
 
 
-        public void ShowPointLabel(int score, Vector3 position)
+        public void ShowPointLabel(int score, Vector3 position, Quaternion? rotation = null)
         {
             FiringPointLabel label = GetLabel();
-            label.ShowLabel(score, position);
+            label.ShowLabel(score, position, rotation);
         }
         
     }

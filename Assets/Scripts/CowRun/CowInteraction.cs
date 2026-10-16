@@ -29,6 +29,7 @@ public class CowInteraction : MonoBehaviour
         _timeCounter += Time.deltaTime;
         if (_timeCounter >= roundTime )
         {
+            _timeCounter = roundTime;
             EndGame();
             return;
         }
@@ -43,6 +44,8 @@ public class CowInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider triggerObject)
     {
+        if(_gameEnded) return;
+        
         ////// Trigger con un Oggetto collider //////////////
         if (triggerObject.CompareTag("CR_Collider"))
         {
@@ -50,7 +53,7 @@ public class CowInteraction : MonoBehaviour
             var collided = triggerObject.gameObject.GetComponent<CollidingElement>();
             if (collided == null) return;
             var points = collided.PointsValue;
-            labelPool.ShowPointLabel(points, this.transform.position + (this.transform.rotation*new Vector3(0,0.8f,1.3f)));
+            labelPool.ShowPointLabel(points, this.transform.position + (this.transform.rotation*new Vector3(0.0f,0.9f,1.5f)), this.transform.rotation);
             CollisionEffect effect = collided.Hit();
             if (cowControls)
             {
@@ -76,6 +79,8 @@ public class CowInteraction : MonoBehaviour
     {
         _gameEnded = true;
         this.cowControls.GameEnded();
+        this.scoreCounter.gameObject.SetActive(false);
+        this.timeLabel.gameObject.SetActive(false);
         
         this.endGamePanel.ShowPanel(scoreCounter.Score, Mathf.FloorToInt(roundTime - _timeCounter));
     }
