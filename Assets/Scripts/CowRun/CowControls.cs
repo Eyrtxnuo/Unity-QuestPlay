@@ -14,6 +14,7 @@ public class CowControls : MonoBehaviour
     public float forwardAcceleration = 1f;
     public float maxForwardSpeed = 4f;
     public float maxOffroadSpeed = 1f;
+    public bool stopReverseMovement = true;
     
     [Header("Rotation Settings")]
     public float turnAcceleration = 10f;
@@ -47,6 +48,8 @@ public class CowControls : MonoBehaviour
     void FixedUpdate()
     {
         var input = gyroController.AnalogInput;
+
+        if (stopReverseMovement && input.y < 0) input.y = 0;
         
         // Rotation handling
         float targetTurnSpeed = input.x * maxTurnSpeed; 
