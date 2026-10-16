@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CameraAligner : MonoBehaviour
+public class CameraRepositioner : MonoBehaviour
 {
     public GameObject baseTarget;
     public Vector3 offsetPosition = Vector3.zero;
@@ -17,7 +17,7 @@ public class CameraAligner : MonoBehaviour
         if(cameraObject == null) this.enabled = false;
         if (!this.enabled)
         {
-            Debug.LogWarning("[CameraAligner]: CameraAligner not enabled since objects are not assigned");
+            Debug.LogWarning("[CameraRepositioner]: CameraRepositioner not enabled since objects are not assigned");
         }
         
     }
