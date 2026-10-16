@@ -9,7 +9,7 @@ Progetto sviluppato in Unity per Meta Quest, che mira a ricreare l'esperienza di
 | Minigioco | Stato | Note |
 | :--- | :--- | :--- |
 | **Menù Principale** | Bozza | Implementata UI interattiva di prova. |
-| **Charge** | Bozza | Sistema di movimento e collisioni con nemici e terreno. |
+| **Charge** | IN CORSO | Stato avanzato, movimento, punteggio e animazioni vanno  |
 | **Ping Pong** | Finalizzazione | Manca da completare l'ambiente e rifinire l'avversario |
 | **Shooting Range** | Finalizzazione | Effetti audio, testing e ambiente. |
 | **Laser Hockey** | Bozza | Movimento 2D e logica di rimbalzo in fase di test. |
