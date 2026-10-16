@@ -17,7 +17,7 @@ public class CowInteraction : MonoBehaviour
     [Header("Round Configuration")]
     public float roundTime = 105;
     public TextMeshPro timeLabel;
-    public PanelManager endGamePanel;
+    public ChargeScorePanelManager endGamePanel;
     private float _timeCounter = 0;
     private bool _gameEnded = false;
 
@@ -70,11 +70,13 @@ public class CowInteraction : MonoBehaviour
             return;
         }
     }
+    
 
     private void EndGame()
     {
         _gameEnded = true;
         this.cowControls.GameEnded();
-        // show endpanel
+        
+        this.endGamePanel.ShowPanel(scoreCounter.Score, Mathf.FloorToInt(roundTime - _timeCounter));
     }
 }
