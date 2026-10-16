@@ -4,6 +4,7 @@ using CowRun;
 using LocomotionCollision;
 using PingPong;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,10 +18,12 @@ public class CowControls : MonoBehaviour
     [Header("Rotation Settings")]
     public float turnAcceleration = 10f;
     public float maxTurnSpeed = 20;
+    [Tooltip("The max angle difference between the road direction and the cow direction.")]
+    public float maxForwardDeviation = 45f;
     
     [Header("Physics Settings")]
     public float brakeIntensity = 2f;
-    public LocomotionCollision.LocomotionCollision collision;
+    public SplineLocomotionCollision collision;
       
     private float _currentForwardSpeed = 0f;
     private float _currentTurnSpeed = 0f;
@@ -40,13 +43,32 @@ public class CowControls : MonoBehaviour
         StartCoroutine(StepsSfxCoroutine());
     }
 
+    private float __lastForwardAngle = 0;
     void FixedUpdate()
     {
         var input = gyroController.AnalogInput;
         
-        // Rotation handlind
+        // Rotation handling
         float targetTurnSpeed = input.x * maxTurnSpeed; 
-        _currentTurnSpeed = Mathf.MoveTowards(_currentTurnSpeed, targetTurnSpeed, turnAcceleration * Time.fixedDeltaTime);
+        float newTurnSpeed = Mathf.MoveTowards(_currentTurnSpeed, targetTurnSpeed, turnAcceleration * Time.fixedDeltaTime);
+                                                                
+        
+        var outs = collision.GetClosestPointAndTangent(transform.position);
+        var roadDirection = Quaternion.LookRotation(outs.splineTangent);
+        var currentFrameRotation = quaternion.Euler(0, newTurnSpeed*Time.fixedDeltaTime, 0);
+        var newForwardAngle = Quaternion.Angle(roadDirection, this.transform.rotation*currentFrameRotation);
+        Debug.Log("newForwardAngle: " + newForwardAngle + " currentForwardAngle: " + __lastForwardAngle);
+        if (newForwardAngle > maxForwardDeviation && newForwardAngle > __lastForwardAngle)
+        {
+            _currentTurnSpeed /= 1 + (10*Time.fixedDeltaTime);
+        }
+        else
+        {
+            _currentTurnSpeed = newTurnSpeed;
+        }
+        
+        
+        
 
         // movement handling
         float currentMaxSpeed = GetCurrentMaxForwardSpeed();
@@ -63,6 +85,7 @@ public class CowControls : MonoBehaviour
 
         // Applying 
         transform.Rotate(0, _currentTurnSpeed * Time.fixedDeltaTime, 0, Space.World);
+        __lastForwardAngle = Quaternion.Angle(roadDirection, this.transform.rotation);
         var newPosition = transform.position + transform.forward * (_currentForwardSpeed * Time.fixedDeltaTime);
         if (collision.IsColliding2D(new Vector2(newPosition.x, newPosition.z)) !=
             LocomotionCollisionType.NoCollision)   // avoid exiting the road
