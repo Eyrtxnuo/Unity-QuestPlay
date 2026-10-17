@@ -3745,7 +3745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8973714528600843897, guid: c68fa62d11e16524891d874bce257c61, type: 3}
       propertyPath: m_Name
-      value: GamePanel (2)
+      value: GamePanelCharge
       objectReference: {fileID: 0}
     - target: {fileID: 8973714528600843897, guid: c68fa62d11e16524891d874bce257c61, type: 3}
       propertyPath: m_IsActive
@@ -12897,8 +12897,8 @@ SceneRoots:
   - {fileID: 956009240}
   - {fileID: 1024630607}
   - {fileID: 224601029}
-  - {fileID: 6954336597888875589}
   - {fileID: 1076115498}
+  - {fileID: 6954336597888875589}
   - {fileID: 827408262}
   - {fileID: 1064148214}
   - {fileID: 585489007}

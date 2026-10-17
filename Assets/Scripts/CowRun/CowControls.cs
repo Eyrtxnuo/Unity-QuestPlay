@@ -38,6 +38,10 @@ public class CowControls : MonoBehaviour
     public AudioClip[] stepClips;
     public AudioClip endBrakeClip;
     
+    [Header("Animation Settings")]
+    public Animator animator;
+    private static readonly int AnimatorHash_RunSpeed = Animator.StringToHash("runSpeed");
+    
 
     private void Start()
     {
@@ -91,6 +95,12 @@ public class CowControls : MonoBehaviour
         {
             transform.position = newPosition;
         }
+        else
+        {
+            _currentForwardSpeed = 0;
+        }
+        animator.SetFloat(AnimatorHash_RunSpeed, _currentForwardSpeed);
+        
     }
 
     /* Gets the max speed based on the road collision
