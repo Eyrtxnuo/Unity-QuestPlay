@@ -1,5 +1,6 @@
 using System;
 using Firing.Targets;
+using MetaPlatformStuff;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -292,6 +293,7 @@ namespace Firing
             if (score > highScore)
             {
                 DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_RANGE, score);
+                MetaLeaderboardManager.Instance.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_RANGE, score);
             }
             endGamePanelManager.ShowPanel(score, highScore);
             scoreCounter.gameObject.SetActive(false);

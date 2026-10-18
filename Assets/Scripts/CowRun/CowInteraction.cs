@@ -1,96 +1,98 @@
-using System;
-using CowRun;
 using Firing;
-using Meta.WitAi;
+using MetaPlatformStuff;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class CowInteraction : MonoBehaviour
+namespace CowRun
 {
-    public CowControls cowControls;
-    public LabelPool labelPool;
-    public ScoreCounter scoreCounter;
-    public SfxPool sfxPool;
-    
-    
-    [Header("Round Configuration")]
-    public float roundTime = 105;
-    public TextMeshPro timeLabel;
-    public ChargeScorePanelManager endGamePanel;
-    private float _timeCounter = 0;
-    private bool _gameEnded = false;
-
-    private int __lastSecondShown = -1;
-    
-    private void Update()
+    public class CowInteraction : MonoBehaviour
     {
-        if(_gameEnded)return;
-        _timeCounter += Time.deltaTime;
-        if (_timeCounter >= roundTime )
-        {
-            _timeCounter = roundTime;
-            EndGame();
-            return;
-        }
-        int timer = Mathf.FloorToInt(roundTime - _timeCounter);
-        if (__lastSecondShown != timer)
-        {
-            timeLabel.SetText("{0:00}:{1:00}", (int)(timer / 60), timer % 60);
-            __lastSecondShown = timer;
-        }
-        
-    }
+        public CowControls cowControls;
+        public LabelPool labelPool;
+        public ScoreCounter scoreCounter;
+        public SfxPool sfxPool;
+    
+    
+        [Header("Round Configuration")]
+        public float roundTime = 105;
+        public TextMeshPro timeLabel;
+        public ChargeScorePanelManager endGamePanel;
+        private float _timeCounter = 0;
+        private bool _gameEnded = false;
 
-    private void OnTriggerEnter(Collider triggerObject)
-    {
-        if(_gameEnded) return;
-        
-        ////// Trigger con un Oggetto collider //////////////
-        if (triggerObject.CompareTag("CR_Collider"))
+        private int __lastSecondShown = -1;
+    
+        private void Update()
         {
-            //Debug.Log("Trigger collider.");
-            var collided = triggerObject.gameObject.GetComponent<CollidingElement>();
-            if (collided == null) return;
-            var points = collided.PointsValue;
-            labelPool.ShowPointLabel(points, this.transform.position + (this.transform.rotation*new Vector3(0.0f,0.9f,1.5f)), this.transform.rotation);
-            CollisionEffect effect = collided.Hit();
-            if (cowControls)
+            if(_gameEnded)return;
+            _timeCounter += Time.deltaTime;
+            if (_timeCounter >= roundTime )
             {
-                cowControls.ApplyEffect(effect);
+                _timeCounter = roundTime;
+                EndGame();
+                return;
             }
-            scoreCounter.Score += points;
-            sfxPool.PlayClipAtPosition(collided.GetHitSound(), collided.transform.position, 0.2f, Random.Range(0.9f,1.1f), 1);
-            
-            return;
+            int timer = Mathf.FloorToInt(roundTime - _timeCounter);
+            if (__lastSecondShown != timer)
+            {
+                timeLabel.SetText("{0:00}:{1:00}", (int)(timer / 60), timer % 60);
+                __lastSecondShown = timer;
+            }
+        
         }
 
-        ////// Trigger della fine della strada, fine partita ////////////
-        if (triggerObject.CompareTag("CR_Trigger_EndRoad"))
+        private void OnTriggerEnter(Collider triggerObject)
         {
-            EndGame();
+            if(_gameEnded) return;
+        
+            ////// Trigger con un Oggetto collider //////////////
+            if (triggerObject.CompareTag("CR_Collider"))
+            {
+                //Debug.Log("Trigger collider.");
+                var collided = triggerObject.gameObject.GetComponent<CollidingElement>();
+                if (collided == null) return;
+                var points = collided.PointsValue;
+                labelPool.ShowPointLabel(points, this.transform.position + (this.transform.rotation*new Vector3(0.0f,0.9f,1.5f)), this.transform.rotation);
+                CollisionEffect effect = collided.Hit();
+                if (cowControls)
+                {
+                    cowControls.ApplyEffect(effect);
+                }
+                scoreCounter.Score += points;
+                sfxPool.PlayClipAtPosition(collided.GetHitSound(), collided.transform.position, 0.2f, Random.Range(0.9f,1.1f), 1);
             
-            return;
+                return;
+            }
+
+            ////// Trigger della fine della strada, fine partita ////////////
+            if (triggerObject.CompareTag("CR_Trigger_EndRoad"))
+            {
+                EndGame();
+            
+                return;
+            }
         }
-    }
     
 
-    private void EndGame()
-    {
-        _gameEnded = true;
-        this.cowControls.GameEnded();
-        this.scoreCounter.gameObject.SetActive(false);
-        this.timeLabel.gameObject.SetActive(false);
-        int timeRemaining = Mathf.Max(Mathf.FloorToInt(roundTime - _timeCounter), 0);
-        int fullscore = scoreCounter.Score + timeRemaining;
-        
-        int highScore = DataSave.GetVal(DataSave.DataKeys.HIGHSCORE_CHARGE);
-        if (fullscore > highScore)
+        private void EndGame()
         {
-            DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+            _gameEnded = true;
+            this.cowControls.GameEnded();
+            this.scoreCounter.gameObject.SetActive(false);
+            this.timeLabel.gameObject.SetActive(false);
+            int timeRemaining = Mathf.Max(Mathf.FloorToInt(roundTime - _timeCounter), 0);
+            int fullscore = scoreCounter.Score + timeRemaining;
+        
+            int highScore = DataSave.GetVal(DataSave.DataKeys.HIGHSCORE_CHARGE);
+            if (fullscore > highScore)
+            {
+                DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+                MetaLeaderboardManager.Instance.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+            }
+        
+        
+            this.endGamePanel.ShowPanel(fullscore, scoreCounter.Score, timeRemaining, highScore) ;
         }
-        
-        
-        this.endGamePanel.ShowPanel(fullscore, scoreCounter.Score, timeRemaining, highScore) ;
     }
 }
