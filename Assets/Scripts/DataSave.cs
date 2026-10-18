@@ -5,6 +5,7 @@ public static class DataSave
     public static void SetVal(DataKeys key,int val)
     {
         PlayerPrefs.SetInt(KeyDecoder(key), val);
+        PlayerPrefs.Save();
     }
     
     public static int GetVal(DataKeys key)
