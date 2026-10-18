@@ -34,7 +34,7 @@ public static class DataSave
 
     public static string GetScoreboardKey(DataKeys key) => key switch
     {
-        DataKeys.HIGHSCORE_RANGE => "",
+        DataKeys.HIGHSCORE_RANGE => "LEADERBOARD_RANGE",
         DataKeys.HIGHSCORE_CHARGE => "LEADERBOARD_CHARGE",
         _ => ""
     };

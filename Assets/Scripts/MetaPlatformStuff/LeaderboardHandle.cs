@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MetaPlatformStuff
 {
@@ -11,7 +12,8 @@ namespace MetaPlatformStuff
         public ScoreEntryWriter scoreEntryPrefab;
         public ScoreEntryWriter userScoreEntry;
         public Color selfHighlightColor;
-
+        
+        public Sprite errorSprite;
         
         public void LoadScores(DataSave.DataKeys leaderboardApiKey, string leaderboardName)
         {
@@ -38,7 +40,12 @@ namespace MetaPlatformStuff
                 }
             }, error =>
             {
-                // close? error? boh decido
+                Animator get;
+                Image img;
+                loadingSpinner.TryGetComponent<Animator>(out get);
+                loadingSpinner.TryGetComponent<Image>(out img);
+                get.enabled = false;
+                img.sprite = errorSprite;
                 Debug.LogError(error);
             });
         }
