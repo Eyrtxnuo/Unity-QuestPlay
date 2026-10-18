@@ -81,7 +81,16 @@ public class CowInteraction : MonoBehaviour
         this.cowControls.GameEnded();
         this.scoreCounter.gameObject.SetActive(false);
         this.timeLabel.gameObject.SetActive(false);
+        int timeRemaining = Mathf.Max(Mathf.FloorToInt(roundTime - _timeCounter), 0);
+        int fullscore = scoreCounter.Score + timeRemaining;
         
-        this.endGamePanel.ShowPanel(scoreCounter.Score, Mathf.FloorToInt(roundTime - _timeCounter));
+        int highScore = DataSave.GetVal(DataSave.DataKeys.HIGHSCORE_CHARGE);
+        if (fullscore > highScore)
+        {
+            DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+        }
+        
+        
+        this.endGamePanel.ShowPanel(fullscore, scoreCounter.Score, timeRemaining, highScore) ;
     }
 }
