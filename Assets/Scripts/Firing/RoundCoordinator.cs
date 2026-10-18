@@ -286,7 +286,14 @@ namespace Firing
         private void EndGame()
         {
             PassToPhase(-2);
-            endGamePanelManager.ShowPanel(scoreCounter.Score);
+
+            int score = scoreCounter.Score;
+            int highScore = DataSave.GetVal(DataSave.DataKeys.HIGHSCORE_RANGE);
+            if (score > highScore)
+            {
+                DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_RANGE, score);
+            }
+            endGamePanelManager.ShowPanel(score, highScore);
             scoreCounter.gameObject.SetActive(false);
             gun?.gameObject.SetActive(false);
             // open end game panel
