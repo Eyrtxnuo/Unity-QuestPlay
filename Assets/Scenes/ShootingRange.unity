@@ -13651,7 +13651,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5938973da3127e4897f44ee04f69387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StopHandTracking
-  paddle: {fileID: 2002085018}
+  disableObjects:
+  - {fileID: 2002085018}
   alertPanel: {fileID: 1044155012}
   pauseManager: {fileID: 563409537}
   framesBetweenChecks: 60

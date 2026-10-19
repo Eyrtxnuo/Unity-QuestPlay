@@ -1,9 +1,11 @@
+using System;
+using System.Collections.Generic;
 using PingPong;
 using UnityEngine;
 
 public class StopHandTracking : MonoBehaviour
 {
-    public GameObject paddle;
+    public GameObject[] disableObjects;
     public PanelManager alertPanel;
     public PauseManager pauseManager;
     [Range(1, 120)]
@@ -11,9 +13,14 @@ public class StopHandTracking : MonoBehaviour
     private int _counter;
     private bool _lostTracking = false;
     
-    private bool _originalPaddleStatus;
+    private List<GameObject> _toReenableObjects;
     private float _originalTimeScale;
-    
+
+    private void Start()
+    {
+        _toReenableObjects = new List<GameObject>();
+    }
+
     void Update()
     {
         _counter++;
@@ -29,8 +36,15 @@ public class StopHandTracking : MonoBehaviour
                 pauseManager.PauseLock(true);
                 _originalTimeScale = Time.timeScale;
                 Time.timeScale = 0;
-                _originalPaddleStatus = paddle.activeSelf;
-                paddle.SetActive(false);
+                // saves the active objects in a list, to re-enable only the one that were enabled before the tracking loss
+                foreach (var obj in disableObjects)
+                {
+                    if (obj.activeSelf)
+                    {
+                        obj.SetActive(false);
+                        _toReenableObjects.Add(obj);
+                    }
+                }
             }
 
             if (_lostTracking && activeController == OVRInput.Controller.RTouch)
@@ -39,7 +53,13 @@ public class StopHandTracking : MonoBehaviour
                 alertPanel.HidePanel();
                 pauseManager.PauseLock(false);
                 Time.timeScale = _originalTimeScale;
-                paddle.SetActive(_originalPaddleStatus);
+                //re-enables only the disabled objects
+                foreach (var obj in _toReenableObjects)
+                {
+                    obj.SetActive(true);
+                }
+                _toReenableObjects.Clear();
+                
             }
             
             
