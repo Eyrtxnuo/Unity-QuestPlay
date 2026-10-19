@@ -88,8 +88,8 @@ namespace CowRun
             if (fullscore > highScore)
             {
                 DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
-                MetaLeaderboardManager.Instance.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
-            }
+                MetaLeaderboardManager.Instance?.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+            }            
         
         
             this.endGamePanel.ShowPanel(fullscore, scoreCounter.Score, timeRemaining, highScore) ;
