@@ -6,7 +6,7 @@ public class SyncScores : MonoBehaviour
     // syncs highscores. se le highscore sono state fatte offline le carica all'apertura del gioco.
     public void OnMetaReady()
     {
-        if(MetaLeaderboardManager.Instance.IsOnlineReady)
+        if(!MetaLeaderboardManager.Instance.IsOnlineReady)
         {
             Debug.LogError("Function called before the meta platform is ready!");
             return;
