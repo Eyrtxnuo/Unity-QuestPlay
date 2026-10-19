@@ -12,6 +12,7 @@ public class StopHandTracking : MonoBehaviour
     private bool _lostTracking = false;
     
     private bool _originalPaddleStatus;
+    private float _originalTimeScale;
     
     void Update()
     {
@@ -26,6 +27,7 @@ public class StopHandTracking : MonoBehaviour
                 _lostTracking = true;
                 alertPanel.ShowPanel();
                 pauseManager.PauseLock(true);
+                _originalTimeScale = Time.timeScale;
                 Time.timeScale = 0;
                 _originalPaddleStatus = paddle.activeSelf;
                 paddle.SetActive(false);
@@ -36,7 +38,7 @@ public class StopHandTracking : MonoBehaviour
                 _lostTracking = false;
                 alertPanel.HidePanel();
                 pauseManager.PauseLock(false);
-                Time.timeScale = 1;
+                Time.timeScale = _originalTimeScale;
                 paddle.SetActive(_originalPaddleStatus);
             }
             
