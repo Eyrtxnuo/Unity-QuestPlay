@@ -1,3 +1,4 @@
+using System;
 using Firing;
 using MetaPlatformStuff;
 using TMPro;
@@ -87,8 +88,15 @@ namespace CowRun
             int highScore = DataSave.GetVal(DataSave.DataKeys.HIGHSCORE_CHARGE);
             if (fullscore > highScore)
             {
-                DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
-                MetaLeaderboardManager.Instance?.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+                try
+                {
+                    DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+                    MetaLeaderboardManager.Instance?.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_CHARGE, fullscore);
+                }
+                catch(Exception e)
+                {
+                    Debug.LogError("Failed to submit score: " + e, this);
+                }
             }            
         
         

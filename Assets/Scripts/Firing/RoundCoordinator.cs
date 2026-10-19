@@ -292,8 +292,14 @@ namespace Firing
             int highScore = DataSave.GetVal(DataSave.DataKeys.HIGHSCORE_RANGE);
             if (score > highScore)
             {
-                DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_RANGE, score);
-                MetaLeaderboardManager.Instance?.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_RANGE, score);
+                try{
+                    DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_RANGE, score);
+                    MetaLeaderboardManager.Instance?.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_RANGE, score);
+                }
+                catch(Exception e)
+                {
+                    Debug.LogError("Failed to submit score: " + e, this);
+                }
             }
             endGamePanelManager.ShowPanel(score, highScore);
             scoreCounter.gameObject.SetActive(false);
