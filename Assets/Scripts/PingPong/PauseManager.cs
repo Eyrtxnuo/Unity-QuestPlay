@@ -12,6 +12,8 @@ namespace PingPong
 
         public static bool is_paused = false;
         
+        public bool lockedPause { get; private set; } = false ;
+        
         public void PauseInput()
         {
             if (is_paused)
@@ -26,6 +28,7 @@ namespace PingPong
 
         public void Pause()
         {
+            if(lockedPause)return;
             is_paused = true;
             Time.timeScale = 0;
             OnPause?.Invoke();
@@ -34,6 +37,7 @@ namespace PingPong
 
         public void Resume()
         {
+            if(lockedPause)return;
             is_paused = false;
             Time.timeScale = 1;
             OnResume?.Invoke();
@@ -43,6 +47,11 @@ namespace PingPong
         public bool IsPaused()
         {
             return is_paused;   
+        }
+        
+        public void PauseLock(bool value) // disables pause and resume
+        {
+            lockedPause = value;
         }
         
     }
