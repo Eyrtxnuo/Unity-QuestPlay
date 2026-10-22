@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.Serialization;
+using UnityEngine;
 
 namespace MetaPlatformStuff
 {
@@ -6,13 +7,15 @@ namespace MetaPlatformStuff
     {
         private static GameObject _openLeaderboard;
         public LeaderboardHandle leaderboardPrefab;
+        [OptionalField]
+        public Transform parent;
 
 
         public void Show(DataSave.DataKeys scoreboardKey, string leaderboardName)
         {
             if(_openLeaderboard != null) Destroy(_openLeaderboard);
             
-            var handle = Instantiate(leaderboardPrefab);
+            var handle = Instantiate(leaderboardPrefab, parent);
             handle.LoadScores(scoreboardKey, leaderboardName);
             _openLeaderboard = handle.gameObject;
         }

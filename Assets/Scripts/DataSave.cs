@@ -15,18 +15,12 @@ public static class DataSave
 
     public enum DataKeys
     {
-        SHOWNCOMMANDS_PINGPONG,
-        SHOWNCOMMANDS_RANGE,
-        SHOWNCOMMANDS_CHARGE,
         HIGHSCORE_RANGE,
         HIGHSCORE_CHARGE
     }
 
     public static string KeyDecoder(DataKeys key) => key switch
     {
-        DataKeys.SHOWNCOMMANDS_PINGPONG => "ShownCommands_PingPong",
-        DataKeys.SHOWNCOMMANDS_RANGE => "ShownCommands_Range",
-        DataKeys.SHOWNCOMMANDS_CHARGE => "ShownCommands_Charge",
         DataKeys.HIGHSCORE_RANGE => "HighScore_Range",
         DataKeys.HIGHSCORE_CHARGE => "HighScore_Charge",
         _ => ""
