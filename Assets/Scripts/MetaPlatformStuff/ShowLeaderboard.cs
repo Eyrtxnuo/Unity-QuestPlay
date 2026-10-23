@@ -29,5 +29,10 @@ namespace MetaPlatformStuff
         {
             this.Show(DataSave.DataKeys.HIGHSCORE_RANGE, "Shooting Range");
         }
+        
+        public void ShowPingPong_Survival()
+        {
+            this.Show(DataSave.DataKeys.HIGHSCORE_PINGPONG_SURVIVAL, "Ping Pong");
+        }
     }
 }

@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CowRunner.unity
     guid: 3e9bbffd0d4739a43aa3c36340966bc9
+  - enabled: 1
+    path: Assets/Scenes/PingPongBounces.unity
+    guid: b2c29f62b109fcc48b0401dcf1c07750
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f557eebee5ac24f4ab5d5923889a87d0, type: 2}
