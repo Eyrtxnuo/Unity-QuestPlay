@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Firing
+namespace CowRun
 {
     public class ChargeScorePanelManager : PanelManager
     {

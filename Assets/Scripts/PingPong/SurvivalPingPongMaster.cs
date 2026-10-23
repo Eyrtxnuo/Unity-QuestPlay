@@ -1,4 +1,6 @@
 using System;
+using Firing;
+using MetaPlatformStuff;
 using UnityEngine;
 
 namespace PingPong
@@ -13,7 +15,8 @@ namespace PingPong
     
     
         public FXManager fxManager;
-        public EndGamePanelManager endgamePanel;
+        public ScoreCounter scoreCounter;
+        public ShootingScorePanelManager endgamePanel;
         public TooltipHandler tooltipH;
         public GameObject netObject;
     
@@ -122,6 +125,7 @@ namespace PingPong
             {
                 score++;
                 SpawnBall();
+                scoreCounter.Score = score;
                 return;
             }
             
@@ -132,10 +136,32 @@ namespace PingPong
               
               Significa FALLO: partita finita.
              */
-            _ended = true;
-            throw new Exception("TODO: finire la partita");
+            EndGame();
+            
+            //throw new Exception("TODO: finire la partita");
         }
-        
+
+        private void EndGame()
+        {
+            _ended = true;
+            
+            int highScore = DataSave.GetVal(DataSave.DataKeys.HIGHSCORE_PINGPONG_SURVIVAL);
+            if (score > highScore)
+            {
+                try{
+                    DataSave.SetVal(DataSave.DataKeys.HIGHSCORE_PINGPONG_SURVIVAL, score);
+                    MetaLeaderboardManager.Instance?.SubmitScoreToMeta(DataSave.DataKeys.HIGHSCORE_PINGPONG_SURVIVAL, score);
+                }
+                catch(Exception e)
+                {
+                    Debug.LogError("Failed to submit score: " + e, this);
+                }
+            }
+            endgamePanel.ShowPanel(score, highScore);
+            scoreCounter.gameObject.SetActive(false);
+            _playerPaddle.gameObject.SetActive(false);
+        }
+
 
         private void HandlePause()
         {

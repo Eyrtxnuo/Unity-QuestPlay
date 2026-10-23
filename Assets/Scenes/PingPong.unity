@@ -5128,6 +5128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PaddleBind
   hand: {fileID: 2010625973}
   movementSpeed: 30
+  lockMovX: 0
+  lockMovY: 0
+  lockMovZ: 0
+  offsetMovementX: 0.01
+  offsetMovementY: -0.05
+  offsetMovementZ: -0.05
+  minDistanceToUpdateTarget: 0
   rotationSpeed: 3600
   lockRotX: 0
   lockRotY: 0
@@ -5135,9 +5142,7 @@ MonoBehaviour:
   offsetRotationX: 40
   offsetRotationY: 0
   offsetRotationZ: 0
-  verticalOffset: 0.05
   movementDampening: 2
-  bounceForce: 15
 --- !u!114 &648110262
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,13 +16,15 @@ public static class DataSave
     public enum DataKeys
     {
         HIGHSCORE_RANGE,
-        HIGHSCORE_CHARGE
+        HIGHSCORE_CHARGE,
+        HIGHSCORE_PINGPONG_SURVIVAL
     }
 
     public static string KeyDecoder(DataKeys key) => key switch
     {
         DataKeys.HIGHSCORE_RANGE => "HighScore_Range",
         DataKeys.HIGHSCORE_CHARGE => "HighScore_Charge",
+        DataKeys.HIGHSCORE_PINGPONG_SURVIVAL => "HighScore_PingPong-Survival",
         _ => ""
     };
 
@@ -30,6 +32,7 @@ public static class DataSave
     {
         DataKeys.HIGHSCORE_RANGE => "LEADERBOARD_RANGE",
         DataKeys.HIGHSCORE_CHARGE => "LEADERBOARD_CHARGE",
+        DataKeys.HIGHSCORE_PINGPONG_SURVIVAL => "LEADERBOARD_PINGPONG_SURVIVAL",
         _ => ""
     };
 }
