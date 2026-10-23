@@ -158,7 +158,7 @@ namespace PingPong
                 _bouncesLeft--;
                 if (_bouncesLeft > 0)
                 {
-                    if (IsPlayerSide(collision.contacts[0].point) != _lastTouch)
+                    if (GetTeamSide(collision.contacts[0].point) != _lastTouch)
                     {
                         // primo rimbalzo battuta non nel campo del player che ha battuto
                         // punto a chi non è _lastTouch
@@ -173,7 +173,7 @@ namespace PingPong
                 }
                 else if (_bouncesLeft == 0)
                 {
-                    var side = IsPlayerSide(collision.contacts[0].point);
+                    var side = GetTeamSide(collision.contacts[0].point);
                     Debug.Log(side);
                     if (side == _lastTouch)
                     {
@@ -185,7 +185,7 @@ namespace PingPong
 
                     }
                     
-                    if (IsPlayerSide(collision.contacts[0].point) == Team.Opponent)
+                    if (GetTeamSide(collision.contacts[0].point) == Team.Opponent)
                     {
                         _opponentBot.bouncedInBotField = true;
                         Debug.Log("BounceInBotField");
@@ -273,7 +273,7 @@ namespace PingPong
             }
         }
 
-        Team IsPlayerSide(Vector3 position)
+        Team GetTeamSide(Vector3 position)
         {
             Vector3 localPosition = netObject.transform.InverseTransformPoint(position);
             if (localPosition.z > 0)

@@ -48,17 +48,19 @@ public class PaddleBind : MonoBehaviour
     public float movementDampening = 2f;
     void FixedUpdate()
     {
-        Vector3 offsetPosition = new Vector3(
+        Vector3 localOffset = new Vector3(
             (!lockMovX) ? offsetMovementX : 0, //offset 0 if axis is locked
             (!lockMovY) ? offsetMovementY : 0, //offset 0 if axis is locked
             (!lockMovZ) ? offsetMovementZ : 0  //offset 0 if axis is locked
         );
         
-        //Vector3 targetPos = hand.transform.position + offsetPosition;
+        // Ruota l'offset come la mano. (riferimento fisso alla mano)
+        Vector3 rotatedOffset = hand.transform.rotation * localOffset;
+        
         Vector3 targetPos = new Vector3(
-            lockMovX ? this.transform.position.x : hand.transform.position.x + offsetPosition.x,
-            lockMovY ? this.transform.position.y : hand.transform.position.y + offsetPosition.y,
-            lockMovZ ? this.transform.position.z : hand.transform.position.z + offsetPosition.z
+            lockMovX ? this.transform.position.x : hand.transform.position.x + rotatedOffset.x,
+            lockMovY ? this.transform.position.y : hand.transform.position.y + rotatedOffset.y,
+            lockMovZ ? this.transform.position.z : hand.transform.position.z + rotatedOffset.z
         );
         if (Vector3.Distance(targetPos, _targetPos) > minDistanceToUpdateTarget)
         {
@@ -97,6 +99,5 @@ public class PaddleBind : MonoBehaviour
         }
     }
     
-    public float bounceForce = 15f;
  
 }

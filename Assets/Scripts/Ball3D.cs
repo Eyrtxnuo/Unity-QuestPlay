@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using PingPong;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -251,5 +252,21 @@ public class Ball3D : MonoBehaviour
     {
         _rb.linearVelocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
+    }
+
+
+    public void DespawnAfter(float time = 3)
+    {
+        StartCoroutine(DespawnStateCoroutine(time));
+    }
+    private  IEnumerator DespawnStateCoroutine(float despawnAfter = 3)
+    {
+        TryGetComponent<SphereCollider>(out var tmp);
+        if (tmp is not null)
+        {
+            tmp.enabled = false;
+        }
+        yield return WaitsCache.GetWaitForSeconds(despawnAfter);
+        Destroy(this.gameObject);
     }
 }
