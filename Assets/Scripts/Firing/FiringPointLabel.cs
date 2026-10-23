@@ -51,6 +51,7 @@ namespace Firing
             this.transform.position = position;
             if(rotation != null) this.transform.rotation = rotation.Value;
             this.gameObject.SetActive(true);
+            _tooltipText.ForceMeshUpdate();
             StartCoroutine(HideLabelRoutine());
         }
 
@@ -61,6 +62,7 @@ namespace Firing
 
         public void HideLabel()
         {
+            _tooltipText.ClearMesh();
             this.gameObject.SetActive(false);
         }
 
