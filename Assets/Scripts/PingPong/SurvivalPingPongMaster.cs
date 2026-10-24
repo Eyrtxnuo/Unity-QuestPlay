@@ -78,7 +78,7 @@ namespace PingPong
             _currBall = Instantiate(ballPrefab); // scambio pallina seguita
             _currBall.OnAnyCollision += HandleBounce;
             _lastTouch = Team.Opponent;
-            _currBall.Relaunch();
+            _currBall.Relaunch(0.8f);
         }
 
         private void HandleBounce(Collision collision)

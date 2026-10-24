@@ -40,7 +40,7 @@ public class Ball3D : MonoBehaviour
         this.enabled = false;
     }
 
-    public void Relaunch()
+    public void Relaunch(float randomness = 0)
     {
         this.enabled = true;
         RigidbodyInterpolation pre_interpolation = _rb.interpolation;
@@ -49,16 +49,22 @@ public class Ball3D : MonoBehaviour
         _rb.rotation = Quaternion.identity;
         StopMovement();
         _rb.interpolation = pre_interpolation; // riattiva l'interpolazione al valore precedente
-        Launch();
+        Launch(randomness);
     }
 
-    public void Launch()
+    public void Launch(float randomness = 0)
     {
-        float directionZ = 1; //Random.value < 0.5f ? -1f : 1f;
-
+        
+        float directionXRandom = Random.Range(-(randomness*0.2f), (randomness*0.2f)); 
+        float directionYRandom = Random.Range(-(randomness*0.1f), (randomness*0.1f)); 
+        float directionZRandom = Random.Range(-(randomness*0.5f), (randomness*0.5f)); //Random.value < 0.5f ? -1f : 1f;
+        
         // Add a slight randomization to the X (left/right) and Y (upward bounce)
-        Vector3 launchDirection = new Vector3(0, -0.6f, directionZ).normalized;
-        Random.Range(-0.3f, 0.3f);
+        Vector3 launchDirection = new Vector3(
+            0 + directionXRandom,           // x
+            -0.6f + directionYRandom,       // y
+            1 + directionZRandom            // z
+            ).normalized;
         // Apply an impulse force to shoot the ball
         _rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
     }
