@@ -36,7 +36,7 @@ namespace CowRun
                 
                 var sc = Instantiate(prefab, this.transform.position, stRot, this.transform.parent);
                 this.enabled = false;
-                sc.TryGetComponent(out ScarecrowKing sck);
+                var sck = sc.GetComponentInChildren<ScarecrowKing>();
                 if(sck)sck.roadSpline = this.roadSpline;
                 Destroy(this.gameObject);
             }
