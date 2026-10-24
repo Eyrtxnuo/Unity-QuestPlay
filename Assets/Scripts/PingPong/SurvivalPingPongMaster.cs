@@ -85,6 +85,12 @@ namespace PingPong
         {
             if(!_started || _ended)return;
             
+            // tocco rete, ok
+            if (collision.gameObject == netObject)
+            {
+                return;
+            }
+            
             //Table Debounce (collisioni sono buggate e ogni tanto vengono emessi due eventi)
             if (collision.gameObject.CompareTag("PingPongField"))
             {
@@ -105,19 +111,20 @@ namespace PingPong
 
             if (_lastTouch == Team.Opponent)
             {
+                if (collision.gameObject.CompareTag("PingPongField"))
+                {
+                    return;
+                }
                 if (collision.gameObject.CompareTag("PingPongPlayerPaddle"))
                 {
                     _lastTouch = Team.Player;
                     return;
                 }
+                EndGame();
                 return;
             }
             
-            // tocco rete, ok
-            if (collision.gameObject == netObject)
-            {
-                return;
-            }
+            
             
             if (_lastTouch == Team.Player 
                 && collision.gameObject.CompareTag("PingPongField") 
