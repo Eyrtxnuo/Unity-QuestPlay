@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -20,6 +19,7 @@ public class PaddleBind : MonoBehaviour
     public float offsetMovementZ;
     
     public float minDistanceToUpdateTarget = 0;
+    public float minAngleToUpdateTarget = 0;
     
     [Header("Rotation")]
     public float rotationSpeed = 3600;
@@ -36,7 +36,10 @@ public class PaddleBind : MonoBehaviour
     
     private Rigidbody _prb;
     private Vector3 _targetPos;
+    private Quaternion _targetRot;
     
+    
+    private const float ROT_earlyStopThreshold = 5f;
     
     
     void Start()
@@ -82,13 +85,29 @@ public class PaddleBind : MonoBehaviour
         Vector3 currentEuler = this.transform.rotation.eulerAngles;
         
         Vector3 lockedRotation = new Vector3(
-            lockRotX ? currentEuler.x : eulerPreLock.x,
+            lockRotX ? currentEuler.x : eulerPreLock.x, // assegno eulerPreLock per non ruotare gli assi bloccati.
             lockRotY ? currentEuler.y : eulerPreLock.y,
             lockRotZ ? currentEuler.z : eulerPreLock.z
         );
         
         Quaternion targetRotation = Quaternion.Euler(lockedRotation);
-        Quaternion deltaRotation = targetRotation * Quaternion.Inverse(_prb.rotation);
+        
+        Quaternion handLockedRotation = Quaternion.Euler(new Vector3(
+                lockRotX ?  lockedRotation.x : hand.transform.rotation.eulerAngles.x ,  // assegno lockedRotation invece che 0 per mantenere Quaternion.Angle a distanza 0 per gli assi non mossi.
+                lockRotY ?  lockedRotation.y : hand.transform.rotation.eulerAngles.y ,
+                lockRotZ ?  lockedRotation.z : hand.transform.rotation.eulerAngles.z 
+            ));
+        
+        
+        if (Quaternion.Angle(targetRotation, this.transform.rotation) > minAngleToUpdateTarget)
+        {
+            _targetRot = targetRotation;
+        }
+        else if(Quaternion.Angle(this.transform.rotation, handLockedRotation) < ROT_earlyStopThreshold)// se la rotazione ora è estremamente vicina a quella voluta fermo la rotazione.
+        {
+            _targetRot = this.transform.rotation;
+        }
+        Quaternion deltaRotation = _targetRot * Quaternion.Inverse(_prb.rotation);
         deltaRotation.ToAngleAxis(out float angle, out Vector3 axis);
         if (angle > 180f) angle -= 360f; // controlla se serve
         if (!float.IsNaN(axis.x) && !float.IsInfinity(axis.x))
