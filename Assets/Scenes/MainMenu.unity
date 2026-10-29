@@ -3281,7 +3281,7 @@ MonoBehaviour:
   requestBodyTrackingPermissionOnStartup: 0
   requestFaceTrackingPermissionOnStartup: 0
   requestEyeTrackingPermissionOnStartup: 0
-  requestScenePermissionOnStartup: 1
+  requestScenePermissionOnStartup: 0
   requestRecordAudioPermissionOnStartup: 0
   requestPassthroughCameraAccessPermissionOnStartup: 0
   _localDimming: 1
@@ -6550,6 +6550,7 @@ GameObject:
   - component: {fileID: 1036390441}
   - component: {fileID: 1036390440}
   - component: {fileID: 1036390442}
+  - component: {fileID: 1036390443}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -6675,6 +6676,19 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1036390443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036390438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef8f60d023c3904b8f9943cf87e1f68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::posLogger
+  name: CenterEyeAnchor
 --- !u!1001 &1048317088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11387,9 +11401,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PaddleBind
   hand: {fileID: 1036390438}
   movementSpeed: 0.3
-  lockMovX: 1
+  lockMovX: 0
   lockMovY: 0
-  lockMovZ: 1
+  lockMovZ: 0
   offsetMovementX: 0
   offsetMovementY: 0
   offsetMovementZ: 0
@@ -11443,8 +11457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   components:
-  - {fileID: 1743440416}
   - {fileID: 1743440419}
+  - {fileID: 1743440416}
   waitMovement: {fileID: 1036390438}
 --- !u!114 &1743440419
 MonoBehaviour:
@@ -11459,6 +11473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   teleport: {fileID: 1036390438}
+  rotateAlso: 0
 --- !u!1 &1744783572
 GameObject:
   m_ObjectHideFlags: 0
