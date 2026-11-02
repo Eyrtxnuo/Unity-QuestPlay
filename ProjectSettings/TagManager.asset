@@ -36,6 +36,11 @@ TagManager:
   - PingPongOpponentPaddle
   - PingPongRemoveOnServe
   - CR_Trigger_EndRoad
+  - QDSUIToggleThumbnail
+  - LocoButton
+  - LocoText
+  - PassThroughButton
+  - PassThrough
   layers:
   - Default
   - TransparentFX

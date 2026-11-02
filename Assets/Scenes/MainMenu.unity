@@ -3179,6 +3179,8 @@ GameObject:
   - component: {fileID: 553447969}
   - component: {fileID: 553447968}
   - component: {fileID: 553447967}
+  - component: {fileID: 553447973}
+  - component: {fileID: 553447972}
   m_Layer: 0
   m_Name: '[BuildingBlock] Camera Rig'
   m_TagString: Untagged
@@ -3350,6 +3352,34 @@ Transform:
   - {fileID: 1048317089}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &553447972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553447966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5866b572cad15604f8c8d19e68083095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnableOnMovement
+  components:
+  - {fileID: 553447973}
+  waitMovement: {fileID: 1036390438}
+--- !u!114 &553447973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553447966}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea6e74d431697d44a88feb986b1df5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  cameraObject: {fileID: 1036390438}
 --- !u!1 &557725158
 GameObject:
   m_ObjectHideFlags: 0
@@ -6551,6 +6581,8 @@ GameObject:
   - component: {fileID: 1036390440}
   - component: {fileID: 1036390442}
   - component: {fileID: 1036390443}
+  - component: {fileID: 1036390445}
+  - component: {fileID: 1036390444}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -6689,6 +6721,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::posLogger
   name: CenterEyeAnchor
+--- !u!114 &1036390444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036390438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef8f60d023c3904b8f9943cf87e1f68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::posLogger
+  name: OnMovement
+--- !u!114 &1036390445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036390438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5866b572cad15604f8c8d19e68083095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnableOnMovement
+  components:
+  - {fileID: 1036390444}
+  waitMovement: {fileID: 1036390438}
 --- !u!1001 &1048317088
 PrefabInstance:
   m_ObjectHideFlags: 0

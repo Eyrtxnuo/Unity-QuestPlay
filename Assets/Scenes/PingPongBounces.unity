@@ -2514,6 +2514,8 @@ MonoBehaviour:
   curveRadius: 1
   overlapMask: 0
   compositionMode: 2
+  enable3D: 0
+  depthRange: 0.5
   _overlayEnabled: 1
 --- !u!114 &208667359
 MonoBehaviour:
@@ -14006,6 +14008,10 @@ GameObject:
   - component: {fileID: 1309491046}
   - component: {fileID: 1309491045}
   - component: {fileID: 1309491044}
+  - component: {fileID: 1309491050}
+  - component: {fileID: 1309491049}
+  - component: {fileID: 1309491051}
+  - component: {fileID: 1309491052}
   m_Layer: 0
   m_Name: '[BuildingBlock] Camera Rig'
   m_TagString: MainCamera
@@ -14177,6 +14183,58 @@ Transform:
   - {fileID: 1048317089}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1309491049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309491043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5866b572cad15604f8c8d19e68083095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnableOnMovement
+  components:
+  - {fileID: 1309491050}
+  waitMovement: {fileID: 1083138870}
+--- !u!114 &1309491050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309491043}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea6e74d431697d44a88feb986b1df5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  cameraObject: {fileID: 1083138870}
+--- !u!114 &1309491051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309491043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9193f82fd2c5e47b832f7aace9dfc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &1309491052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309491043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04a4a704a8f68448a0b68b29ac2baf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1320929894
 GameObject:
   m_ObjectHideFlags: 0
@@ -21548,7 +21606,7 @@ GameObject:
   - component: {fileID: 1687029244}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Locomotion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
