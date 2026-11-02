@@ -14010,7 +14010,6 @@ GameObject:
   - component: {fileID: 1309491044}
   - component: {fileID: 1309491049}
   - component: {fileID: 1309491052}
-  - component: {fileID: 1309491051}
   m_Layer: 0
   m_Name: '[BuildingBlock] Camera Rig'
   m_TagString: MainCamera
@@ -14197,18 +14196,6 @@ MonoBehaviour:
   components:
   - {fileID: 1309491052}
   waitMovement: {fileID: 1083138870}
---- !u!114 &1309491051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309491043}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f9193f82fd2c5e47b832f7aace9dfc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!114 &1309491052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14222,6 +14209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   centerEyeAnchor: {fileID: 1083138871}
+  preserveEyeHeight: 1
 --- !u!1 &1320929894
 GameObject:
   m_ObjectHideFlags: 0
