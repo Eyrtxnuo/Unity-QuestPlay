@@ -63,7 +63,7 @@ public class Ball3D : MonoBehaviour
         Vector3 launchDirection = new Vector3(
             0 + directionXRandom,           // x
             -0.6f + directionYRandom,       // y
-            1 + directionZRandom            // z
+            -1 + directionZRandom            // z
             ).normalized;
         // Apply an impulse force to shoot the ball
         _rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
