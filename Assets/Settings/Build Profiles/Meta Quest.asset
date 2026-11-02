@@ -190,6 +190,10 @@ MonoBehaviour:
         2}'
     - line: '|   - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b,
         type: 3}'
+    - line: '|   - {fileID: 4045019326524178487, guid: fa6017d1af151274f812ea2610934c17,
+        type: 2}'
+    - line: '|   - {fileID: -8626815254929709313, guid: f557eebee5ac24f4ab5d5923889a87d0,
+        type: 2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
     - line: '|   xboxOneDisableKinectGpuReservation: 1'

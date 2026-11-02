@@ -14008,10 +14008,9 @@ GameObject:
   - component: {fileID: 1309491046}
   - component: {fileID: 1309491045}
   - component: {fileID: 1309491044}
-  - component: {fileID: 1309491050}
   - component: {fileID: 1309491049}
-  - component: {fileID: 1309491051}
   - component: {fileID: 1309491052}
+  - component: {fileID: 1309491051}
   m_Layer: 0
   m_Name: '[BuildingBlock] Camera Rig'
   m_TagString: MainCamera
@@ -14174,14 +14173,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309491043}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: -1}
-  m_LocalPosition: {x: 0, y: 0.2, z: -2}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1086839974}
   - {fileID: 1048317089}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1855589781}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1309491049
 MonoBehaviour:
@@ -14196,21 +14195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnableOnMovement
   components:
-  - {fileID: 1309491050}
+  - {fileID: 1309491052}
   waitMovement: {fileID: 1083138870}
---- !u!114 &1309491050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309491043}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea6e74d431697d44a88feb986b1df5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  cameraObject: {fileID: 1083138870}
 --- !u!114 &1309491051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14218,7 +14204,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309491043}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f9193f82fd2c5e47b832f7aace9dfc2, type: 3}
   m_Name: 
@@ -14230,11 +14216,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309491043}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c04a4a704a8f68448a0b68b29ac2baf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  centerEyeAnchor: {fileID: 1083138871}
 --- !u!1 &1320929894
 GameObject:
   m_ObjectHideFlags: 0
@@ -22483,6 +22470,38 @@ Transform:
   - {fileID: 1776644835}
   m_Father: {fileID: 1718758038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1855589780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1855589781}
+  m_Layer: 0
+  m_Name: cameraOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1855589781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855589780}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: -1}
+  m_LocalPosition: {x: 0, y: 1.7, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1309491048}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1856784735
 GameObject:
   m_ObjectHideFlags: 0
@@ -24386,7 +24405,7 @@ SceneRoots:
   - {fileID: 117646708}
   - {fileID: 4526004524421541226}
   - {fileID: 1270426895}
-  - {fileID: 1309491048}
+  - {fileID: 1855589781}
   - {fileID: 208667362}
   - {fileID: 1622407035}
   - {fileID: 43810934}
