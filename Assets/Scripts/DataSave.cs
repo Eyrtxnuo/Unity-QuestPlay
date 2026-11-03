@@ -17,7 +17,8 @@ public static class DataSave
     {
         HIGHSCORE_RANGE,
         HIGHSCORE_CHARGE,
-        HIGHSCORE_PINGPONG_SURVIVAL
+        HIGHSCORE_PINGPONG_SURVIVAL,
+        SHOWNCOMMANDS_CHARGE
     }
 
     public static string KeyDecoder(DataKeys key) => key switch
@@ -25,6 +26,7 @@ public static class DataSave
         DataKeys.HIGHSCORE_RANGE => "HighScore_Range",
         DataKeys.HIGHSCORE_CHARGE => "HighScore_Charge",
         DataKeys.HIGHSCORE_PINGPONG_SURVIVAL => "HighScore_PingPong-Survival",
+        DataKeys.SHOWNCOMMANDS_CHARGE => "ShownCommands_Charge",
         _ => ""
     };
 
