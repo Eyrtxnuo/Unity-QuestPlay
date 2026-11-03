@@ -9,7 +9,7 @@ public class CommandsPanelHandler : MonoBehaviour
     
     public void CommandsOrPlay()
     {
-        if(true)//if (DataSave.GetVal(dataKey)==0)
+        if (DataSave.GetVal(dataKey)==0)
         {
             DataSave.SetVal(dataKey, 1);
             ShowChargeCommands();
