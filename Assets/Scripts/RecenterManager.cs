@@ -50,6 +50,10 @@ public class RecenterManager : MonoBehaviour
         {
             targetPos.y = centerEyeAnchor.position.y;
         }
+        else
+        {
+            
+        }
 
         transform.position += (targetPos - centerEyeAnchor.position);
     }
