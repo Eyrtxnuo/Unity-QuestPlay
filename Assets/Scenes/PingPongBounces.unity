@@ -21094,7 +21094,7 @@ GameObject:
   - component: {fileID: 1622407041}
   - component: {fileID: 1622407042}
   m_Layer: 0
-  m_Name: PingPongGameMaster
+  m_Name: SurvivalPingPongGameMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21186,6 +21186,7 @@ MonoBehaviour:
   haloRipples: 3
   rippleDelay: 0.4
   fxManager: {fileID: 43810933}
+  bouncesSfxManager: {fileID: 364799491}
   scoreCounter: {fileID: 208667360}
   endgamePanel: {fileID: 154467178}
   tooltipH: {fileID: 1622407036}

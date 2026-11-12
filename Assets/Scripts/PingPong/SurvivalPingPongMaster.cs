@@ -15,6 +15,7 @@ namespace PingPong
     
     
         public FXManager fxManager;
+        public BouncesSfxManager bouncesSfxManager;
         public ScoreCounter scoreCounter;
         public ShootingScorePanelManager endgamePanel;
         public TooltipHandler tooltipH;
@@ -79,6 +80,7 @@ namespace PingPong
             _currBall.OnAnyCollision += HandleBounce;
             _lastTouch = Team.Opponent;
             _currBall.Relaunch(0.8f);
+            bouncesSfxManager.ChangeBall(_currBall);
         }
 
         private void HandleBounce(Collision collision)
