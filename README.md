@@ -3,14 +3,12 @@ Progetto sviluppato in Unity per Meta Quest, che mira a ricreare l'esperienza di
 
 ### Specifiche Tecniche
 - Engine: Unity
-- Target Device: Meta Quest (XR Interaction Toolkit), principalmente Quest 2
+- Target Device: Meta Quest platform (XR Interaction Toolkit), principalmente Quest 2, testato e funzionante anche su Quest 3.
 
 ## Stato del progetto
 | Minigioco | Stato | Note |
 | :--- | :--- | :--- |
-| **Menù Principale** | Bozza | Implementata UI interattiva di prova. |
-| **Charge** | IN CORSO | Stato avanzato, movimento, punteggio e animazioni vanno  |
-| **Ping Pong** | Finalizzazione | Manca da completare l'ambiente e rifinire l'avversario |
-| **Shooting Range** | Finalizzazione | Effetti audio, testing e ambiente. |
-| **Laser Hockey** | Bozza | Movimento 2D e logica di rimbalzo in fase di test. |
-| **Pose Mii** | Bozza | Riconoscimento gestuale (Pollice su, Mano aperta, Pace). |
+| **Menù Principale** | Finito | Menu dei giochi, con leaderboard, follow dello sguardo e altezza dinamica. |
+| **Charge** | Finito | Gioco completo, guida al primo avvio, mappa finalizzata |
+| **Ping Pong** | Finito | Ping Pong funzionante (rispondere all'infinito a battute) |
+| **Shooting Range** | Finalizzazione | Funziona tutto, piccola imperfezione rara dell'animazione dei target. |
