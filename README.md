@@ -9,6 +9,6 @@ Progetto sviluppato in Unity per Meta Quest, che mira a ricreare l'esperienza di
 | Minigioco | Stato | Note |
 | :--- | :--- | :--- |
 | **Menù Principale** | Finito | Menu dei giochi, con leaderboard, follow dello sguardo e altezza dinamica. |
-| **Charge** | Finito | Gioco completo, guida al primo avvio, mappa finalizzata |
-| **Ping Pong** | Finito | Ping Pong funzionante (rispondere all'infinito a battute) |
-| **Shooting Range** | Finalizzazione | Funziona tutto, piccola imperfezione rara dell'animazione dei target. |
+| **Charge** | Finito | Guida una mucca, abbatti gli spaventapasseri, vai veloce. |
+| **Ping Pong** | Finito | Ping Pong, rispondere all'infinito a battute |
+| **Shooting Range** | Finito | Sparare a palloncini, lattine e bersagli |
