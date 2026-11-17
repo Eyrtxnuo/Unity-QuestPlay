@@ -78,6 +78,7 @@ public class GrassInstancer : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
+        if(!this.enabled)return;
         Handles.color = new Color(1f, 0.4f, 0.4f, 0.5f);
         Handles.DrawWireDisc(transform.position, Vector3.up, spawnRadius);
 

@@ -10674,6 +10674,7 @@ GameObject:
   - component: {fileID: 1597432392}
   - component: {fileID: 1597432391}
   - component: {fileID: 1597432395}
+  - component: {fileID: 1597432398}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -10794,6 +10795,33 @@ MonoBehaviour:
   spawnRadius: 6
   jitterLevel: 0
   seed: 4
+--- !u!114 &1597432398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597432390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77a1fbd6c6b4c9d9dc33a2753cb8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeInstancer
+  meshes:
+  - {fileID: -8664605766633230333, guid: 611ecba18b734b74b94d6cb9ea894587, type: 3}
+  - {fileID: 7513782459998787165, guid: a55fbf8471203d74aadb7950979d45fd, type: 3}
+  - {fileID: -5117783629146668117, guid: 611ecba18b734b74b94d6cb9ea894587, type: 3}
+  - {fileID: 107885305379521132, guid: 611ecba18b734b74b94d6cb9ea894587, type: 3}
+  - {fileID: 9202370217656290146, guid: 611ecba18b734b74b94d6cb9ea894587, type: 3}
+  - {fileID: -4638446413559608141, guid: 029fb3d2fd92c3544b4b96466373e210, type: 3}
+  - {fileID: -4653808380906073056, guid: 611ecba18b734b74b94d6cb9ea894587, type: 3}
+  material: {fileID: 2100000, guid: 003570a65ef8a814a8ad41fc7fbb9c9b, type: 2}
+  meshScale: 1
+  instanceCount: 300
+  endRadius: 60
+  startRadius: 8
+  jitterLevel: 0.485
+  seed: 35
 --- !u!1 &1597451410
 GameObject:
   m_ObjectHideFlags: 0
