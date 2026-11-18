@@ -64,9 +64,6 @@ public class StopHandTracking : MonoBehaviour
             
             
         }
-        
-       
-
         // if (activeController == OVRInput.Controller.RHand)
         // {
         //     Debug.Log("L'utente sta usando la MANO destra.");
@@ -80,4 +77,13 @@ public class StopHandTracking : MonoBehaviour
         //     Debug.Log("Nessun input attivo o rilevato.");
         // }
     }
+    
+    
+    public void ChangeGameButton()
+    {
+        pauseManager.PauseLock(false);
+        Time.timeScale = _originalTimeScale;
+        alertPanel.ChangeGameButtonHandler();
+    }
+    
 }

@@ -4412,6 +4412,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 964182885955300030, guid: 67de812722d795c4aa9a1bddda18eb5e, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1946438467}
+    - target: {fileID: 964182885955300030, guid: 67de812722d795c4aa9a1bddda18eb5e, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeGameButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 964182885955300030, guid: 67de812722d795c4aa9a1bddda18eb5e, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StopHandTracking, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2572440250383633994, guid: 67de812722d795c4aa9a1bddda18eb5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
