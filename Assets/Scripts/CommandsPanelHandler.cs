@@ -6,10 +6,12 @@ public class CommandsPanelHandler : MonoBehaviour
     public string worldName = "CowRunner";
     public DataSave.DataKeys dataKey;
     public GameObject[] enable, disable;
+
+    private const bool DISABLE_DATAKEY_CHECK = true;
     
     public void CommandsOrPlay()
     {
-        if (DataSave.GetVal(dataKey)==0)
+        if (DataSave.GetVal(dataKey)==0 || DISABLE_DATAKEY_CHECK)
         {
             DataSave.SetVal(dataKey, 1);
             ShowChargeCommands();
